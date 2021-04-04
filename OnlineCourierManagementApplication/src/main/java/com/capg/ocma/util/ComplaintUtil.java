@@ -20,7 +20,7 @@ public class ComplaintUtil {
 			
 		}
 			
-			private static ComplaintDTO convertToComplaintDTO(Complaint complaint) {
+			public static ComplaintDTO convertToComplaintDTO(Complaint complaint) {
 				ComplaintDTO complaintdto =new ComplaintDTO();
 				
 				complaintdto.setComplaintid(complaint.getComplaintid());

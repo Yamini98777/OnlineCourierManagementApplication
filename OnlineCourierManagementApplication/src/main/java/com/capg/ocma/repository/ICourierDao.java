@@ -7,5 +7,7 @@ import com.capg.ocma.entities.Courier;
 
 @Repository
 public interface ICourierDao extends JpaRepository<Courier, Integer> {
+
+	
 	
 }
