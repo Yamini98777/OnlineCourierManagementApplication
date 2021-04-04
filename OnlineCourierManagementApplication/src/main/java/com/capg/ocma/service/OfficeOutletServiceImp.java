@@ -17,48 +17,43 @@ import com.capg.ocma.util.CourierOfficeOutletUtils;
 public class OfficeOutletServiceImp implements IOfficeOutletService {
 	@Autowired
 	IOfficeOutletDao repo;
-	
-	
 
 	@Override
 	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeoutlet) {
 		CourierOfficeOutlet officeoutletEntity;
-		if(officeoutlet == null) {
+		if (officeoutlet == null) {
 			officeoutletEntity = null;
-		}
-		else {
+		} else {
 			officeoutletEntity = repo.save(officeoutlet);
 		}
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutletEntity);
 	}
 
 	@Override
-	public CourierOfficeOutletDTO removeNewOffice(CourierOfficeOutlet officeoutlet)  {
+	public CourierOfficeOutletDTO removeNewOffice(CourierOfficeOutlet officeoutlet) {
 		CourierOfficeOutlet existOffice = repo.findById(officeoutlet.getOfficeid()).orElse(null);
-		if(existOffice == null) 
-               System.out.println("Office not Found");
-		
-               else 
-            	   repo.delete(existOffice);
-            	   return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutlet);
-		
-	
+		if (existOffice == null)
+			System.out.println("Office not Found");
+
+		else
+			repo.delete(existOffice);
+		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutlet);
+
 	}
 
 	@Override
 	public CourierOfficeOutlet getOfficeInfo(int officeid) throws OutletNotFoundException {
-		if(repo.existsById(officeid) == false) {
+		if (repo.existsById(officeid) == false) {
 			throw new OutletNotFoundException("Office doesn't exist");
+		} else {
+			return repo.findById(officeid).orElse(null);
 		}
-			else {
-				return repo.findById(officeid).orElse(null);
-			}
-		
+
 	}
 
 	@Override
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException {
-		if(repo.count()==0) {
+		if (repo.count() == 0) {
 			throw new OutletNotFoundException("No Offices Exist");
 		}
 		List<CourierOfficeOutlet> list = repo.findAll();
@@ -70,16 +65,14 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	public boolean isOfficeOpen(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
 		if (repo.existsById(officeoutlet.getOfficeid()) == false) {
 			throw new OutletClosedException("The Office is closed");
-}
-		else {
+		} else {
 			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeid()).orElse(null);
 			LocalTime open = LocalTime.from(officedto.getOpeningTime());
 			LocalTime close = LocalTime.from(officedto.getClosingTime());
-			if((open.equals(LocalTime.now()) || open.isBefore(LocalTime.now())) && close.isAfter(LocalTime.now())){
-				
+			if ((open.equals(LocalTime.now()) || open.isBefore(LocalTime.now())) && close.isAfter(LocalTime.now())) {
+
 				return true;
-			}
-			else {
+			} else {
 				return false;
 			}
 		}
@@ -87,22 +80,20 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 
 	@Override
 	public boolean isOfficeClosed(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
-		if(repo.findById(officeoutlet.getOfficeid())==null) {
+		if (repo.findById(officeoutlet.getOfficeid()) == null) {
 			throw new OutletClosedException("The Office is unavailable");
-		}
-		else {
+		} else {
 			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeid()).orElse(officeoutlet);
 			LocalTime open = LocalTime.from(officedto.getOpeningTime());
 			LocalTime close = LocalTime.from(officedto.getClosingTime());
-		
-			if((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
-				
+
+			if ((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
+
 				return true;
-			}
-			else {
-				
+			} else {
+
 				return false;
-				
+
 			}
 		}
 	}
