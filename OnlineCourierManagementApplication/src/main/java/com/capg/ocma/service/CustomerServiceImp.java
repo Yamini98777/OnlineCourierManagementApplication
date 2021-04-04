@@ -21,12 +21,7 @@ public class CustomerServiceImp implements ICustomerService{
 	@Autowired
 	ICourierDao courierdao;
 	
-	public CustomerServiceImp(ICourierDao courierdao, IComplaintDao complaintdao) {
-		super();
-		this.courierdao = courierdao;
-		this.complaintdao = complaintdao;
 	
-	}
 	public void initiateProcess() {
 		
 	}
