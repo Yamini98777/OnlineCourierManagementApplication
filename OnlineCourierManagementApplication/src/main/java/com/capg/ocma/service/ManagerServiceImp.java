@@ -94,7 +94,7 @@ public class ManagerServiceImp implements IManagerService {
 		Complaint complaint = complaintRepo.findById(complaintId).orElse(null);
 		
 		if(complaint == null)
-			throw new StaffMemberNotFoundException("No Complaint found with given ID");
+			throw new ComplaintNotFoundException("No Complaint found with given ID");
 		
 		return ComplaintUtil.convertToComplaintDTO(complaint);
 	}
