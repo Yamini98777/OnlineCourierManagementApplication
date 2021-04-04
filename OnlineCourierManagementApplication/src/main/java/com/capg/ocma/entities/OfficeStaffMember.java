@@ -19,17 +19,17 @@ public class OfficeStaffMember
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="emp_id")
-	protected int empid;
-	protected String name;
-	protected String role;
+	private int empid;
+	private String name;
+	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@Column(name="zip")
-	protected Address address;
+	private Address address;
 	
 	@ManyToOne
 	@JoinColumn(name="office_id")
-	protected CourierOfficeOutlet office;
+	private CourierOfficeOutlet office;
 	
 	public OfficeStaffMember() {
 		super();
