@@ -1,5 +1,8 @@
 package com.capg.ocma.model;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BankAccountDTO {
 
 	private int accountno;
