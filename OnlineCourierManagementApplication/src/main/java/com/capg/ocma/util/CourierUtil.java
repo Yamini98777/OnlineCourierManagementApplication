@@ -22,11 +22,11 @@ public class CourierUtil {
 		
 		CourierDTO courierDto = new CourierDTO();
 		
-		courierDto.setCourierid(courier.getCourierid());
+		courierDto.setCourierid(courier.getCourierId());
 		courierDto.setStatus(courierDto.getStatus());
 		courierDto.setSender(courierDto.getSender());
 		courierDto.setReceiver(courierDto.getReceiver());
-		courierDto.setConsignmentno(courier.getConsignmentno());
+		courierDto.setConsignmentno(courier.getConsignmentNo());
 		courierDto.setInitiatedDate(courier.getInitiatedDate());
 		courierDto.setDeliveredDate(courier.getDeliveredDate());
 				
