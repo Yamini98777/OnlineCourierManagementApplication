@@ -1,8 +1,42 @@
 package com.capg.ocma.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service
-public class PaymentServiceImp {
+import com.capg.ocma.repository.ICustomerDao;
 
+
+@Service
+public class PaymentServiceImp implements IPaymentService{
+
+	@Autowired
+	ICustomerDao customerDao;
+	
+	
+	@Override
+	public boolean processPaymentByCash() {
+		return true;	
+	}
+	
+	
+	@Override
+	public boolean processPaymentByCard(int customerid) {
+		boolean flag = false;
+		
+		if(customerDao.existsById(customerid)) {
+			
+			if(customerDao.findById(customerid).orElse(null).getAcct() != null) {
+				flag = true;
+				
+			}
+			else {
+				flag = false;
+			}
+			
+		}
+		return flag;
+		
+	}
+	
 }
+	

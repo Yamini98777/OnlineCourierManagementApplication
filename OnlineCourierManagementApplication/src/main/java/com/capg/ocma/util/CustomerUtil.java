@@ -35,11 +35,11 @@ public class CustomerUtil {
 	private static CustomerDTO convertToCustomerDTO(Customer customer) {
 		CustomerDTO dto =new CustomerDTO();
 		
-		dto.setCustomerid(customer.getCustomerid());
-		dto.setAadharno(customer.getAadharno());
-		dto.setFirstname(customer.getFirstname());
-		dto.setLastname(customer.getLastname());
-		dto.setMobileno(customer.getMobileno());
+		dto.setCustomerid(customer.getCustomerId());
+		dto.setAadharno(customer.getAadharNo());
+		dto.setFirstname(customer.getFirstName());
+		dto.setLastname(customer.getLastName());
+		dto.setMobileno(customer.getMobileNo());
 		
 		return dto;
 	}

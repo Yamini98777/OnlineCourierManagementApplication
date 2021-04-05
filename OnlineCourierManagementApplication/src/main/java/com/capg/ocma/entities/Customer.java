@@ -17,11 +17,11 @@ public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="customer_id")
-	private int customerid;
-	private int aadharno;
-	private String firstname;
-	private String lastname;
-	private int mobileno;
+	private int customerId;
+	private int aadharNo;
+	private String firstName;
+	private String lastName;
+	private int mobileNo;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="zip")
@@ -36,48 +36,49 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerid, int aadharno, String firstname, String lastname, Address addr, int mobileno,
+	public Customer(int customerId, int aadharNo, String firstName, String lastName, Address addr, int mobileNo,
 			BankAccount acct) {
 		super();
-		this.customerid = customerid;
-		this.aadharno = aadharno;
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.customerId = customerId;
+		this.aadharNo = aadharNo;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.addr = addr;
-		this.mobileno = mobileno;
+		this.mobileNo = mobileNo;
 		this.acct = acct;
 	}
 
-	public int getCustomerid() {
-		return customerid;
+	public int getCustomerId() {
+		return customerId;
 	}
 
-	public void setCustomerid(int customerid) {
-		this.customerid = customerid;
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
 	}
 
-	public int getAadharno() {
-		return aadharno;
+	public int getAadharNo() {
+		return aadharNo;
 	}
 
-	public void setAadharno(int aadharno) {
-		this.aadharno = aadharno;
+
+	public void setAadharnNo(int aadharNo) {
+		this.aadharNo = aadharNo;
 	}
 
-	public String getFirstname() {
-		return firstname;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setFirstname(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getLastname() {
-		return lastname;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
 	public Address getAddr() {
@@ -88,12 +89,12 @@ public class Customer {
 		this.addr = addr;
 	}
 
-	public int getMobileno() {
-		return mobileno;
+	public int getMobileNo() {
+		return mobileNo;
 	}
 
-	public void setMobileno(int mobileno) {
-		this.mobileno = mobileno;
+	public void setMobileno(int mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 
 	public BankAccount getAcct() {
@@ -106,8 +107,9 @@ public class Customer {
 
 	@Override
 	public String toString() {
-		return "Customer [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct + "]";
+		return "Customer [customerId=" + customerId + ", aadharNo=" + aadharNo + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", addr=" + addr + ", mobileNo=" + mobileNo + ", acct=" + acct + "]";
 	}
 
+	
 }

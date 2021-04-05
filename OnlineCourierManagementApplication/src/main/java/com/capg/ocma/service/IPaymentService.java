@@ -1,8 +1,9 @@
 package com.capg.ocma.service;
 
+
+
 public interface IPaymentService {
 
-	public void processPaymentByCash();
-	public void processPaymentByCard();
-	
+	public boolean processPaymentByCash();
+	public boolean processPaymentByCard(int customerid);
 }

@@ -19,8 +19,8 @@ public class Courier {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
-	private int courierid;
-	private int consignmentno;
+	private int courierId;
+	private int consignmentNo;
 	private LocalDate initiatedDate;
 	private LocalDate deliveredDate;
 
@@ -39,11 +39,11 @@ public class Courier {
 		super();
 	}
 
-	public Courier(int courierid, int consignmentno, LocalDate initiatedDate, LocalDate deliveredDate,
+	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
 			CourierStatus status, Customer sender, Customer receiver) {
 		super();
-		this.courierid = courierid;
-		this.consignmentno = consignmentno;
+		this.courierId = courierId;
+		this.consignmentNo = consignmentNo;
 		this.initiatedDate = initiatedDate;
 		this.deliveredDate = deliveredDate;
 		this.status = status;
@@ -51,20 +51,20 @@ public class Courier {
 		this.receiver = receiver;
 	}
 
-	public int getCourierid() {
-		return courierid;
+	public int getCourierId() {
+		return courierId;
 	}
 
-	public void setCourierid(int courierid) {
-		this.courierid = courierid;
+	public void setCourierId(int courierId) {
+		this.courierId = courierId;
 	}
 
-	public int getConsignmentno() {
-		return consignmentno;
+	public int getConsignmentNo() {
+		return consignmentNo;
 	}
 
-	public void setConsignmentno(int consignmentno) {
-		this.consignmentno = consignmentno;
+	public void setConsignmentNo(int consignmentNo) {
+		this.consignmentNo = consignmentNo;
 	}
 
 	public LocalDate getInitiatedDate() {
@@ -109,7 +109,7 @@ public class Courier {
 
 	@Override
 	public String toString() {
-		return "Courier [courierid=" + courierid + ", consignmentno=" + consignmentno + ", initiatedDate="
+		return "Courier [courierId=" + courierId + ", consignmentNo=" + consignmentNo + ", initiatedDate="
 				+ initiatedDate + ", deliveredDate=" + deliveredDate + ", status=" + status + ", sender=" + sender
 				+ ", receiver=" + receiver + "]";
 	}

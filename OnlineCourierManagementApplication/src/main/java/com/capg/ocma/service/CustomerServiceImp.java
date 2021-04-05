@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.entities.CourierStatus;
+import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.repository.IComplaintDao;
 import com.capg.ocma.repository.ICourierDao;
@@ -21,7 +22,7 @@ public class CustomerServiceImp implements ICustomerService{
 	@Autowired
 	ICourierDao courierdao;
 	
-	
+
 	public void initiateProcess() {
 		
 	}
@@ -52,7 +53,48 @@ public class CustomerServiceImp implements ICustomerService{
 					complaintEntity = complaintdao.save(complaint);
 				return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 			}
+	//validation customerid
+
+		public boolean validateCustomerid(int customerid) throws CustomerNotFoundException
+		{
+			boolean flag = complaintdao.existsById(customerid);
+			if(flag == false)
+				throw new CustomerNotFoundException("customerid not found");
+			return flag;
+		}
+
+	//validate name
+			public static boolean validateNumber(int mobileNo) throws CustomerNotFoundException
+			{
+			boolean flag = false;
+			String str=Integer.toString(mobileNo);
+			int size=str.length();
+			if(size == 0)
+				throw new CustomerNotFoundException("Mobileno cannot be empty");
+			else if(size<10 ||size>15)
+				throw new CustomerNotFoundException("Mobileno not valid");
+			else 
+				flag = true;
+			return flag;
+		}
 		
+		//validate aadharno
+		public static boolean validatesetAadharno(int aadharNo) throws CustomerNotFoundException
+		{
+			boolean flag = false;
+			String str=Integer.toString(aadharNo);
+			int size=str.length();
+			if(size ==0)
+				throw new CustomerNotFoundException("AAdhaarno cannot be empty");
+			
+			else if(size>12|| size<12)
+				throw new CustomerNotFoundException("Enter valid aadhar number");
+			
+			else if(size==12)
+				flag = true;
+			
+			return flag;
+		}
 	}
-	
+
 

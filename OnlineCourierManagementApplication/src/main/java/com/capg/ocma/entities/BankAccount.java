@@ -14,8 +14,12 @@ public class BankAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
-	private int accountno;
+	private int accountNo;
+	
+	@Column(name="account_Holder_Type")
 	private String accountHolderName;
+	
+	@Column(name="account_Type")
 	private String accountType;
 
 	public BankAccount() {
@@ -23,19 +27,19 @@ public class BankAccount {
 	
 	}
 
-	public BankAccount(int accountno, String accountHolderName, String accountType) {
+	public BankAccount(int accountNo, String accountHolderName, String accountType) {
 		super();
-		this.accountno = accountno;
+		this.accountNo = accountNo;
 		this.accountHolderName = accountHolderName;
 		this.accountType = accountType;
 	}
 
-	public int getAccountno() {
-		return accountno;
+	public int getAccountNo() {
+		return accountNo;
 	}
 
-	public void setAccountno(int accountno) {
-		this.accountno = accountno;
+	public void setAccountNo(int accountNo) {
+		this.accountNo = accountNo;
 	}
 
 	public String getAccountHolderName() {
@@ -56,7 +60,7 @@ public class BankAccount {
 
 	@Override
 	public String toString() {
-		return "BankAccount [accountno=" + accountno + ", accountHolderName=" + accountHolderName + ", accountType="
+		return "BankAccount [accountno=" + accountNo + ", accountHolderName=" + accountHolderName + ", accountType="
 				+ accountType + "]";
 	}
 
