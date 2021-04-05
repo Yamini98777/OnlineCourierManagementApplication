@@ -18,6 +18,7 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="customer_id")
 	private int customerId;
+	@Column(name="aadhar_no")
 	private int aadharNo;
 	private String firstName;
 	private String lastName;

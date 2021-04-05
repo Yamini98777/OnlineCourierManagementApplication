@@ -2,9 +2,8 @@ package com.capg.ocma.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
-
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name="address")
@@ -13,6 +12,7 @@ public class Address {
 	@Id
 	@Column(name="zip")
 	private int zip;
+	
 	private String street;
 	private String city;
 	private String state;
