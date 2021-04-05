@@ -23,7 +23,7 @@ public class ShipmentServiceImp implements IShipmentService{
 			
 		} else{
 
-			(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.intransit);
+			(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INTRANSIT);
 			
 		}
 		
@@ -51,7 +51,7 @@ public class ShipmentServiceImp implements IShipmentService{
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 				
 			} else{
-				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.delivered);
+				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
 			}
 	}
@@ -64,7 +64,7 @@ public class ShipmentServiceImp implements IShipmentService{
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 				
 			} else{
-				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.delivered);
+				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
 	}
 
