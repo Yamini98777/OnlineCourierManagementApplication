@@ -39,42 +39,33 @@ public class ManagerServiceImp implements IManagerService {
 	@Override
 	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffMember) {
 		OfficeStaffMember staffMemberEntity;
-		if(staffMember == null)
-			staffMemberEntity = null;
-		else
-			staffMemberEntity = repo.save(staffMember);
+		staffMemberEntity = repo.save(staffMember);
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffMemberEntity);
 	}
 
 	
 	@Override
-	public OfficeStaffMemberDTO removeStaffMember(OfficeStaffMember staffMember) throws StaffMemberNotFoundException {
-		OfficeStaffMember existStaffMember = repo.findById(staffMember.getEmpid()).orElse(null);
-		
-		if(existStaffMember == null)
-			throw new StaffMemberNotFoundException(staffMemberNotFound);
-		else
-			repo.delete(existStaffMember);
+	public OfficeStaffMemberDTO removeStaffMember(int empId) {
+		OfficeStaffMember staffMember = repo.findById(empId).orElse(null);
+		repo.delete(staffMember);
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffMember);
 	}
 
+	
 	@Override
-	public OfficeStaffMemberDTO getStaffMember(int empId) throws StaffMemberNotFoundException {
-		
+	public OfficeStaffMemberDTO getStaffMember(int empId) {
 		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
-		
-		if(existStaffMember == null)
-			throw new StaffMemberNotFoundException(staffMemberNotFound);
-		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
 
+	
 	@Override
 	public List<OfficeStaffMemberDTO> getAllStaffMembers() {
 		List<OfficeStaffMember> list = repo.findAll();
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDtoList(list);
 	}
 
+	
 	@Override
 	public CourierStatus getCourierStatus(Courier courier) throws CourierNotFoundException {
 		
@@ -88,6 +79,7 @@ public class ManagerServiceImp implements IManagerService {
 		return  status;
 	}
 
+	
 	@Override
 	public ComplaintDTO getRegistedComplaint(int complaintId) throws ComplaintNotFoundException {
 		
@@ -99,14 +91,15 @@ public class ManagerServiceImp implements IManagerService {
 		return ComplaintUtil.convertToComplaintDTO(complaint);
 	}
 
+	
 	@Override
 	public List<ComplaintDTO> getAllComplaints() {
 		List<Complaint> list = complaintRepo.findAll();
 		return ComplaintUtil.convertToComplaintDtoList(list);
 	}
 
-	//VALIDATIONS 
 	
+	//VALIDATIONS 
 	public static boolean validateOfficeStaffMember(OfficeStaffMember officeStaffMember) throws StaffMemberNotFoundException
 	{
 		boolean flag = false;
