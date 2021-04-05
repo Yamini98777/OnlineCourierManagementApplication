@@ -72,8 +72,9 @@ public class OfficeOutletController {
 	}
 	@GetMapping("/getAllOffice")
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException {
+		
 		if (officeService.getAllOfficesData() == null) {
-			throw new OutletNotFoundException("No Offices found in the database");
+			throw new OutletNotFoundException("No Office Data found in the database");
 		}
 		return officeService.getAllOfficesData();
 	}
