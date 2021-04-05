@@ -15,7 +15,11 @@ public class BankAccount {
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
 	private int accountno;
+	
+	@Column(name="account_Holder_Type")
 	private String accountHolderName;
+	
+	@Column(name="account_Type")
 	private String accountType;
 
 	public BankAccount() {
