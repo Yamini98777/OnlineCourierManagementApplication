@@ -7,44 +7,47 @@ import com.capg.ocma.entities.Courier;
 import com.capg.ocma.model.CourierDTO;
 
 
-
 public class CourierUtil {
 	public static List<CourierDTO> convertToCourierDtoList(List<Courier> list){
+		
 		List<CourierDTO> dtolist = new ArrayList<CourierDTO>();
+		
 		for(Courier courier : list) 
 			dtolist.add(convertToCourierDto(courier));
+		
 		return dtolist;
    }
 	
-	
-	public static Courier convertToCourier(CourierDTO cordto) {
-		Courier cor = new Courier();
-	
-			cor.setCourierid(cordto.getCourierid());
-			cor.setStatus(cor.getStatus());
-			cor.setSender(cor.getSender());
-			cor.setReceiver(cor.getReceiver());
-			cor.setConsignmentno(cordto.getConsignmentno());
-			cor.setInitiatedDate(cordto.getInitiatedDate());
-			cor.setDeliveredDate(cordto.getDeliveredDate());
-			
-			return cor;
+	public static CourierDTO convertToCourierDto(Courier courier) {
 		
-	}
-	
-	public static CourierDTO convertToCourierDto(Courier cor) {
-		CourierDTO cordto = new CourierDTO();
+		CourierDTO courierDto = new CourierDTO();
 		
-				cordto.setCourierid(cor.getCourierid());
-				cordto.setStatus(cordto.getStatus());
-				cordto.setSender(cordto.getSender());
-				cordto.setReceiver(cordto.getReceiver());
-				cordto.setConsignmentno(cor.getConsignmentno());
-				cordto.setInitiatedDate(cor.getInitiatedDate());
-				cordto.setDeliveredDate(cor.getDeliveredDate());
+		courierDto.setCourierid(courier.getCourierid());
+		courierDto.setStatus(courierDto.getStatus());
+		courierDto.setSender(courierDto.getSender());
+		courierDto.setReceiver(courierDto.getReceiver());
+		courierDto.setConsignmentno(courier.getConsignmentno());
+		courierDto.setInitiatedDate(courier.getInitiatedDate());
+		courierDto.setDeliveredDate(courier.getDeliveredDate());
 				
-		return cordto;
+		return courierDto;
 	}
 	
+	/*
+	 * public static Courier convertToCourier(CourierDTO courierDto) { 
+	 * Courier courier = new Courier();
+	 * 
+	 * courier.setCourierid(courierDto.getCourierid()); 
+	 * courier.setStatus(courier.getStatus());
+	 * courier.setSender(courier.getSender()); 
+	 * courier.setReceiver(courier.getReceiver());
+	 * courier.setConsignmentno(courierDto.getConsignmentno());
+	 * courier.setInitiatedDate(courierDto.getInitiatedDate());
+	 * courier.setDeliveredDate(courierDto.getDeliveredDate());
+	 * 
+	 * return courier;
+	 * 
+	 * }
+	 */
 }
 	
