@@ -23,7 +23,7 @@ public class Manager extends OfficeStaffMember {
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "manager_id")
-	private List<OfficeStaffMember> reportingstaffmembers;
+	private List<OfficeStaffMember> reportingStaffMembers;
 
 	public Manager() {
 		super();
@@ -31,7 +31,7 @@ public class Manager extends OfficeStaffMember {
 	public Manager(int managerId, List<OfficeStaffMember> reportingstaffmembers) {
 		super();
 		this.managerId = managerId;
-		this.reportingstaffmembers = reportingstaffmembers;
+		this.reportingStaffMembers = reportingStaffMembers;
 	}
 
 	public int getManagerId() {
@@ -42,17 +42,17 @@ public class Manager extends OfficeStaffMember {
 		this.managerId = managerId;
 	}
 
-	public List<OfficeStaffMember> getReportingstaffmembers() {
-		return reportingstaffmembers;
+	public List<OfficeStaffMember> getReportingStaffMembers() {
+		return reportingStaffMembers;
 	}
 
-	public void setReportingstaffmembers(List<OfficeStaffMember> reportingstaffmembers) {
-		this.reportingstaffmembers = reportingstaffmembers;
+	public void setReportingStaffMembers(List<OfficeStaffMember> reportingStaffMembers) {
+		this.reportingStaffMembers = reportingStaffMembers;
 	}
 
 	@Override
 	public String toString() {
-		return "Manager [managerId=" + managerId + ", reportingstaffmembers=" + reportingstaffmembers + "]";
+		return "Manager [managerId=" + managerId + ", reportingStaffMembers=" + reportingStaffMembers + "]";
 	}
 
 }
