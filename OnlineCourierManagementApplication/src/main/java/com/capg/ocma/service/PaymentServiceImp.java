@@ -12,20 +12,12 @@ public class PaymentServiceImp implements IPaymentService{
 	@Autowired
 	ICustomerDao customerDao;
 	
-	public PaymentServiceImp() {
-		// TODO Auto-generated constructor stub
-	}
 	
-	public PaymentServiceImp(ICustomerDao customerDao) {
-		super();
-		this.customerDao = customerDao;
-	}
 	@Override
 	public boolean processPaymentByCash() {
-		return true;
-		
-		
+		return true;	
 	}
+	
 	
 	@Override
 	public boolean processPaymentByCard(int customerid) {
@@ -36,10 +28,9 @@ public class PaymentServiceImp implements IPaymentService{
 			if(customerDao.findById(customerid).orElse(null).getAcct() != null) {
 				flag = true;
 				
-			}else {
+			}
+			else {
 				flag = false;
-				
-				
 			}
 			
 		}
