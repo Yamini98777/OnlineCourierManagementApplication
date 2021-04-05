@@ -160,3 +160,4 @@ public class ManagerServiceImp implements IManagerService {
 		return flag;
 	}
 }
+
