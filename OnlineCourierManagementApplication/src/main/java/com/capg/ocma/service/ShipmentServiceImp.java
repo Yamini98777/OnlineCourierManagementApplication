@@ -68,7 +68,13 @@ public class ShipmentServiceImp implements IShipmentService{
 				
 	}
 
-	
+	public boolean validateCourierId(int courierId) throws CourierNotFoundException
+	{
+		boolean flag = courierDao.existsById(courierId);
+		if(flag == false)
+			throw new CourierNotFoundException("Courier with id " + courier.getCourierid() + " does not exist");
+		return flag;
+	}
 
 }
 }
