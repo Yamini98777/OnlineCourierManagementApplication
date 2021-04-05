@@ -15,7 +15,7 @@ public class Complaint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
-	private int complaintid;
+	private int complaintId;
 	private int consignmentno;
 	private String shortdescription;
 	private String detaildescription;
@@ -29,22 +29,22 @@ public class Complaint {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Complaint(int complaintid, int consignmentno, String shortdescription, String detaildescription,
+	public Complaint(int complaintId, int consignmentno, String shortdescription, String detaildescription,
 			Customer customer) {
 		super();
-		this.complaintid = complaintid;
+		this.complaintId = complaintId;
 		this.consignmentno = consignmentno;
 		this.shortdescription = shortdescription;
 		this.detaildescription = detaildescription;
 		this.customer = customer;
 	}
 
-	public int getComplaintid() {
-		return complaintid;
+	public int getComplaintId() {
+		return complaintId;
 	}
 
-	public void setComplaintid(int complaintid) {
-		this.complaintid = complaintid;
+	public void setComplaintId(int complaintId) {
+		this.complaintId = complaintId;
 	}
 
 	public int getConsignmentno() {
@@ -81,7 +81,7 @@ public class Complaint {
 
 	@Override
 	public String toString() {
-		return "Complaint [complaintid=" + complaintid + ", consignmentno=" + consignmentno + ", shortdescription="
+		return "Complaint [complaintId=" + complaintId + ", consignmentno=" + consignmentno + ", shortdescription="
 				+ shortdescription + ", detaildescription=" + detaildescription + ", customer=" + customer + "]";
 	}
 
