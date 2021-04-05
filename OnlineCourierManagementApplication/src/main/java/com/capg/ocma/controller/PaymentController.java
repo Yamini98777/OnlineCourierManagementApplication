@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,14 +17,15 @@ public class PaymentController {
 	@Autowired
 	private IPaymentService paymentService;
 	
-	@GetMapping("byCash")
+	@GetMapping("/byCash")
 	public ResponseEntity<String> processPaymentByCash() {
 		
 		return new ResponseEntity<String> ("You have selected cash on delivery payment method",HttpStatus.OK);
 		
 	}
 	
-	public ResponseEntity<String> processPaymentByCard(@RequestBody int customerid){
+	@GetMapping("/byCard/{customerId}")
+	public ResponseEntity<String> processPaymentByCard(@PathVariable int customerid){
 		  
 		boolean flag = paymentService.processPaymentByCard(customerid);
 		if(flag) {
