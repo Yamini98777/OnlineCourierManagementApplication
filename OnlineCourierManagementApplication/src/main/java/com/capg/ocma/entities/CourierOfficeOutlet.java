@@ -18,7 +18,7 @@ public class CourierOfficeOutlet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int officeid;
+	private int officeId;
 	private LocalTime openingTime;
 	private LocalTime closingTime;
 	
@@ -33,22 +33,22 @@ public class CourierOfficeOutlet {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourierOfficeOutlet(int officeid, Address address, LocalTime openingTime, LocalTime closingTime,
+	public CourierOfficeOutlet(int officeId, Address address, LocalTime openingTime, LocalTime closingTime,
 			List<OfficeStaffMember> staffmembers) {
 		super();
-		this.officeid = officeid;
+		this.officeId = officeId;
 		this.address = address;
 		this.openingTime = openingTime;
 		this.closingTime = closingTime;
 		this.staffmembers = staffmembers;
 	}
 
-	public int getOfficeid() {
-		return officeid;
+	public int getOfficeId() {
+		return officeId;
 	}
 
-	public void setOfficeid(int officeid) {
-		this.officeid = officeid;
+	public void setOfficeid(int officeId) {
+		this.officeId = officeId;
 	}
 
 	public Address getAddress() {
@@ -85,7 +85,7 @@ public class CourierOfficeOutlet {
 
 	@Override
 	public String toString() {
-		return "CourierOfficeOutlet [officeid=" + officeid + ", address=" + address + ", openingTime=" + openingTime
+		return "CourierOfficeOutlet [officeId=" + officeId + ", address=" + address + ", openingTime=" + openingTime
 				+ ", closingTime=" + closingTime + ", staffmembers=" + staffmembers + "]";
 	}
 
