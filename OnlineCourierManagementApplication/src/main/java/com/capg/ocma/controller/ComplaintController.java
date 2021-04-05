@@ -15,22 +15,23 @@ import com.capg.ocma.entities.CourierStatus;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.service.CustomerServiceImp;
+import com.capg.ocma.service.ICustomerService;
 
 
 @RestController
-@RequestMapping("/api/Complaint")
+@RequestMapping("/api/ocma/customer")
 public class ComplaintController {
 
 
 		@Autowired
-		CustomerServiceImp customerService;
+		ICustomerService customerService;
 		
 		
-		@GetMapping("/{customerid}/checkStatus/{consignmentno}")
-		public ResponseEntity <CourierStatus> checkCourierStatusAction(@PathVariable("consignmentno") int consignmentno)  {
+		@GetMapping("/checkStatus/{consignmentNo}")
+		public ResponseEntity <CourierStatus> checkCourierStatusAction(@PathVariable int consignmentNo)  {
 
-				CourierStatus status = customerService.checkOnlineTrackingStatus(consignmentno);
-				ResponseEntity <CourierStatus> response = new ResponseEntity <> ( status, HttpStatus.OK);
+				CourierStatus status = customerService.checkOnlineTrackingStatus(consignmentNo);
+				ResponseEntity <CourierStatus> response = new ResponseEntity <CourierStatus> ( status, HttpStatus.OK);
 				return response;
 		}
 		@PostMapping("/add-complaint")
