@@ -12,18 +12,18 @@ import com.capg.ocma.repository.ICourierDao;
 public class ShipmentServiceImp implements IShipmentService{
 	
 	@Autowired
-	private ICourierDao icourierdao;
+	ICourierDao courierDao;
 
 	@Override
 	public void initiateShipmentTransaction(Courier courier) throws CourierNotFoundException{
 		 
-          if(icourierdao.existsById(courier.getCourierid()) == false) {
+          if(courierDao.existsById(courier.getCourierid()) == false) {
 			
-			throw new CourierNotFoundException("Courier with id " + courier + " does not exist");
+			throw new CourierNotFoundException("Courier with id " + courier.getCourierid() + " does not exist");
 			
 		} else{
 
-			(icourierdao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.intransit);
+			(courierDao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.intransit);
 			
 		}
 		
@@ -33,12 +33,12 @@ public class ShipmentServiceImp implements IShipmentService{
 	public void checkShipmentStatus(Courier courier) throws CourierNotFoundException
 	{
 		
-		 if(icourierdao.existsById(courier.getCourierid()) == false) {
+		 if(courierDao.existsById(courier.getCourierid()) == false) {
 				
-				throw new CourierNotFoundException("Courier with id " + courier + " does not exist");
+				throw new CourierNotFoundException("Courier with id " + courier.getCourierid() + " does not exist");
 				
 			} else{
-				 (icourierdao.findById(courier.getCourierid()).orElse(null)).getStatus().toString();
+				 (courierDao.findById(courier.getCourierid()).orElse(null)).getStatus().toString();
 				}
 	
 	}
@@ -46,12 +46,12 @@ public class ShipmentServiceImp implements IShipmentService{
 	@Override
 	public void closeShipmentTransaction(Courier courier)throws CourierNotFoundException 
 	{
-		 if(icourierdao.existsById(courier.getCourierid()) == false) {
+		 if(courierDao.existsById(courier.getCourierid()) == false) {
 				
-				throw new CourierNotFoundException("Courier with id " + courier + " does not exist");
+				throw new CourierNotFoundException("Courier with id " + courier.getCourierid() + " does not exist");
 				
 			} else{
-				(icourierdao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.delivered);
+				(courierDao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.delivered);
 				
 			}
 	}
@@ -59,12 +59,12 @@ public class ShipmentServiceImp implements IShipmentService{
 	@Override
 	public void rejectShipmentTransaction(Courier courier)throws CourierNotFoundException  {
 		 
-		if(icourierdao.existsById(courier.getCourierid()) == false) {
+		if(courierDao.existsById(courier.getCourierid()) == false) {
 				
-				throw new CourierNotFoundException("Courier with id " + courier + " does not exist");
+				throw new CourierNotFoundException("Courier with id " + courier.getCourierid() + " does not exist");
 				
 			} else{
-				(icourierdao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.delivered);
+				(courierDao.findById(courier.getCourierid()).orElse(null)).setStatus(CourierStatus.delivered);
 				
 	}
 
