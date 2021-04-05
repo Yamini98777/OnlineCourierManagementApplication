@@ -16,9 +16,9 @@ public class Complaint {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	private int complaintId;
-	private int consignmentno;
-	private String shortdescription;
-	private String detaildescription;
+	private int consignmentNo;
+	private String shortDescription;
+	private String detailDescription;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="customer_id")
@@ -29,13 +29,13 @@ public class Complaint {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Complaint(int complaintId, int consignmentno, String shortdescription, String detaildescription,
+	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription,
 			Customer customer) {
 		super();
 		this.complaintId = complaintId;
-		this.consignmentno = consignmentno;
-		this.shortdescription = shortdescription;
-		this.detaildescription = detaildescription;
+		this.consignmentNo = consignmentNo;
+		this.shortDescription = shortDescription;
+		this.detailDescription = detailDescription;
 		this.customer = customer;
 	}
 
@@ -47,28 +47,28 @@ public class Complaint {
 		this.complaintId = complaintId;
 	}
 
-	public int getConsignmentno() {
-		return consignmentno;
+	public int getConsignmentNo() {
+		return consignmentNo;
 	}
 
-	public void setConsignmentno(int consignmentno) {
-		this.consignmentno = consignmentno;
+	public void setConsignmentNo(int consignmentNo) {
+		this.consignmentNo = consignmentNo;
 	}
 
-	public String getShortdescription() {
-		return shortdescription;
+	public String getShortDescription() {
+		return shortDescription;
 	}
 
-	public void setShortdescription(String shortdescription) {
-		this.shortdescription = shortdescription;
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
 	}
 
-	public String getDetaildescription() {
-		return detaildescription;
+	public String getDetailDescription() {
+		return detailDescription;
 	}
 
-	public void setDetaildescription(String detaildescription) {
-		this.detaildescription = detaildescription;
+	public void setDetailDescription(String detailDescription) {
+		this.detailDescription = detailDescription;
 	}
 
 	public Customer getCustomer() {
@@ -81,8 +81,8 @@ public class Complaint {
 
 	@Override
 	public String toString() {
-		return "Complaint [complaintId=" + complaintId + ", consignmentno=" + consignmentno + ", shortdescription="
-				+ shortdescription + ", detaildescription=" + detaildescription + ", customer=" + customer + "]";
+		return "Complaint [complaintId=" + complaintId + ", consignmentNo=" + consignmentNo + ", shortDescription="
+				+ shortDescription + ", detailDescription=" + detailDescription + ", customer=" + customer + "]";
 	}
 
 }
