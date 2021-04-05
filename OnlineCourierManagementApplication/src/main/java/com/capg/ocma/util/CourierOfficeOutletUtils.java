@@ -17,7 +17,7 @@ public class CourierOfficeOutletUtils {
 
 	public static CourierOfficeOutletDTO converttoCourierOfficeOutletDTO(CourierOfficeOutlet office) {
 		CourierOfficeOutletDTO officedto = new CourierOfficeOutletDTO();
-		officedto.setOfficeid(office.getOfficeid());
+		officedto.setOfficeid(office.getOfficeId());
 		officedto.setAddress(officedto.getAddress());
 		officedto.setOpeningTime(office.getOpeningTime());
 		officedto.setClosingTime(office.getClosingTime());

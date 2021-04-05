@@ -17,7 +17,7 @@ public class BankAccountUtil {
 	    private static BankAccountDTO convertToBankAccountDto(BankAccount bank) {
 		BankAccountDTO dto = new BankAccountDTO();
 		
-		dto.setAccountno(bank.getAccountno());
+		dto.setAccountno(bank.getAccountNo());
 		dto.setAccountHolderName(bank.getAccountHolderName());
 		dto.setAccountType(bank.getAccountType());
 		

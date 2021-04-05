@@ -31,7 +31,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 
 	@Override
 	public CourierOfficeOutletDTO removeNewOffice(CourierOfficeOutlet officeoutlet) {
-		CourierOfficeOutlet existOffice = repo.findById(officeoutlet.getOfficeid()).orElse(null);
+		CourierOfficeOutlet existOffice = repo.findById(officeoutlet.getOfficeId()).orElse(null);
 		if (existOffice == null)
 			System.out.println("Office not Found");
 
@@ -63,10 +63,10 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 
 	@Override
 	public boolean isOfficeOpen(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
-		if (repo.existsById(officeoutlet.getOfficeid()) == false) {
+		if (repo.existsById(officeoutlet.getOfficeId()) == false) {
 			throw new OutletClosedException("The Office is closed");
 		} else {
-			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeid()).orElse(null);
+			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeId()).orElse(null);
 			LocalTime open = LocalTime.from(officedto.getOpeningTime());
 			LocalTime close = LocalTime.from(officedto.getClosingTime());
 			if ((open.equals(LocalTime.now()) || open.isBefore(LocalTime.now())) && close.isAfter(LocalTime.now())) {
@@ -80,10 +80,10 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 
 	@Override
 	public boolean isOfficeClosed(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
-		if (repo.findById(officeoutlet.getOfficeid()) == null) {
+		if (repo.findById(officeoutlet.getOfficeId()) == null) {
 			throw new OutletClosedException("The Office is unavailable");
 		} else {
-			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeid()).orElse(officeoutlet);
+			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeId()).orElse(officeoutlet);
 			LocalTime open = LocalTime.from(officedto.getOpeningTime());
 			LocalTime close = LocalTime.from(officedto.getClosingTime());
 

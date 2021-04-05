@@ -23,10 +23,10 @@ public class ComplaintUtil {
 			public static ComplaintDTO convertToComplaintDTO(Complaint complaint) {
 				ComplaintDTO complaintdto =new ComplaintDTO();
 				
-				complaintdto.setComplaintid(complaint.getComplaintid());
-				complaintdto.setConsignmentno(complaint.getConsignmentno());
-				complaintdto.setShortdescription(complaint.getShortdescription());
-				complaintdto.setDetaildescription(complaint.getDetaildescription());
+				complaintdto.setComplaintid(complaint.getComplaintId());
+				complaintdto.setConsignmentno(complaint.getConsignmentNo());
+				complaintdto.setShortdescription(complaint.getDetailDescription());
+				complaintdto.setDetaildescription(complaint.getDetailDescription());
 				
 				
 				return complaintdto;

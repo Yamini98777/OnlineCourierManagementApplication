@@ -37,9 +37,9 @@ public class CustomerUtil {
 		
 		dto.setCustomerid(customer.getCustomerid());
 		dto.setAadharno(customer.getAadharno());
-		dto.setFirstname(customer.getFirstname());
-		dto.setLastname(customer.getLastname());
-		dto.setMobileno(customer.getMobileno());
+		dto.setFirstname(customer.getFirstName());
+		dto.setLastname(customer.getLastName());
+		dto.setMobileno(customer.getMobileNo());
 		
 		return dto;
 	}

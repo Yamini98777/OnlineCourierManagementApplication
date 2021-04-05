@@ -80,7 +80,7 @@ public class ManagerServiceImp implements IManagerService {
 		
 		CourierStatus status = courier.getStatus();
 		
-		courier= courierRepo.findById(courier.getCourierid()).orElse(null);
+		courier= courierRepo.findById(courier.getCourierId()).orElse(null);
 		
 		if(courier == null)
 			throw new CourierNotFoundException("No Courier found with given ID");

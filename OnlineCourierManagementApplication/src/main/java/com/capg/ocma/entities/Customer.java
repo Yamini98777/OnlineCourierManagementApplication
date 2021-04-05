@@ -30,6 +30,7 @@ public class Customer {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="account_no")
 	private BankAccount acct;
+	private int aadharno;
 
 	public Customer() {
 		super();
