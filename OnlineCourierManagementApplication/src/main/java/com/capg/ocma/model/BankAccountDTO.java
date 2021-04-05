@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BankAccountDTO {
 
-	private int accountno;
+	private int accountNo;
 	private String accountHolderName;
 	private String accountType;
 
@@ -16,17 +16,17 @@ public class BankAccountDTO {
 
 	public BankAccountDTO(int accountno, String accountHolderName, String accountType) {
 		super();
-		this.accountno = accountno;
+		this.accountNo = accountno;
 		this.accountHolderName = accountHolderName;
 		this.accountType = accountType;
 	}
 
 	public int getAccountno() {
-		return accountno;
+		return accountNo;
 	}
 
 	public void setAccountno(int accountno) {
-		this.accountno = accountno;
+		this.accountNo = accountno;
 	}
 
 	public String getAccountHolderName() {
@@ -47,7 +47,7 @@ public class BankAccountDTO {
 
 	@Override
 	public String toString() {
-		return "BankAccountDTO [accountno=" + accountno + ", accountHolderName=" + accountHolderName + ", accountType="
+		return "BankAccountDTO [accountno=" + accountNo + ", accountHolderName=" + accountHolderName + ", accountType="
 				+ accountType + "]";
 	}
 
