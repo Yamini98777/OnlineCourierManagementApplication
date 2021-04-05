@@ -18,6 +18,7 @@ public class CourierOfficeOutlet {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="office_id")
 	private int officeId;
 	private LocalTime openingTime;
 	private LocalTime closingTime;
