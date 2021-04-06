@@ -40,14 +40,12 @@ public class ComplaintController {
 			ComplaintDTO  complaintDTO= null;
 			ResponseEntity<ComplaintDTO> complaintResponse = null;
 			
-			if(CustomerServiceImp.validateComplaintId(complaint.getComplaintId()))
-			{
+		
 				
 				complaintDTO = customerService.registerComplaint(complaint);
 				complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
-			}
-			else
-				throw new ComplaintNotFoundException("Invalid Complaint Details");
+			
 			return complaintResponse;
+			
 		}
 }
