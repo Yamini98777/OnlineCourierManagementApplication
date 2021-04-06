@@ -4,6 +4,7 @@ import java.util.List;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,49 +25,47 @@ import com.capg.ocma.service.OfficeOutletServiceImp;
 @RestController
 @RequestMapping("/api/ocma/Office")
 public class OfficeOutletController {
-	
+	@Autowired
 	IOfficeOutletService officeService;
 
-	OfficeOutletServiceImp service = new OfficeOutletServiceImp();
-
 	@PostMapping("/addOffice")
-	public ResponseEntity<CourierOfficeOutletDTO> addNewOffice(@RequestBody CourierOfficeOutlet officeoutlet)
+	public ResponseEntity<CourierOfficeOutletDTO> addNewOffice(@RequestBody CourierOfficeOutlet officeOutlet)
 			throws OutletNotFoundException {
 		CourierOfficeOutletDTO officeDTO = null;
-		ResponseEntity<CourierOfficeOutletDTO> officeresponse = null;
+		ResponseEntity<CourierOfficeOutletDTO> officeResponse = null;
 
-		if (OfficeOutletServiceImp.ValidateOfficeDetails(officeoutlet)) {
-			officeDTO = officeService.addNewOffice(officeoutlet);
-			officeresponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
+		if (OfficeOutletServiceImp.ValidateOfficeDetails(officeOutlet)) {
+			officeDTO = officeService.addNewOffice(officeOutlet);
+			officeResponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
 		} else
 			throw new OutletNotFoundException("Office outlet not found");
-		return officeresponse;
+		return officeResponse;
 	}
 	@DeleteMapping("/deleteOffice")
-	public ResponseEntity<CourierOfficeOutletDTO> removeNewOffice(@RequestBody CourierOfficeOutlet officeoutlet)
+	public ResponseEntity<CourierOfficeOutletDTO> removeNewOffice(@RequestBody CourierOfficeOutlet officeOutlet)
 			throws OutletNotFoundException {
 		CourierOfficeOutletDTO officeDTO = null;
-		ResponseEntity<CourierOfficeOutletDTO> officeresponse = null;
-		Optional<CourierOfficeOutletDTO> optional = Optional.of(officeService.removeNewOffice(officeoutlet));
+		ResponseEntity<CourierOfficeOutletDTO> officeResponse = null;
+		Optional<CourierOfficeOutletDTO> optional = Optional.of(officeService.removeNewOffice(officeOutlet));
 		if (optional.isPresent()) {
 			officeDTO = optional.get();
-			officeresponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
+			officeResponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
 		} else
 			throw new OutletNotFoundException("Office outlet doesn't exist");
-		return officeresponse;
+		return officeResponse;
 
 	}
-	@GetMapping("/getOffice/officeid={officeid}")
-	public ResponseEntity<CourierOfficeOutletDTO> getOfficeInfo(@PathVariable("officeid") int officeid)
+	@GetMapping("/getOffice/{officeId}")
+	public ResponseEntity<CourierOfficeOutletDTO> getOfficeInfo(@PathVariable("officeId") int officeId)
 			throws OutletNotFoundException {
 		CourierOfficeOutlet officeoutlet = new CourierOfficeOutlet();
 		CourierOfficeOutletDTO officeDTO = null;
 		ResponseEntity<CourierOfficeOutletDTO> officeresponse = null;
 		if (OfficeOutletServiceImp.ValidateOfficeDetails(officeoutlet)) {
-			officeoutlet = officeService.getOfficeInfo(officeid);
+			officeoutlet = officeService.getOfficeInfo(officeId);
 			officeresponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
 		} else
-			throw new OutletNotFoundException("No Offices with the id" + officeid + "are stored");
+			throw new OutletNotFoundException("No Offices with the id" + officeId + "are stored");
 		return officeresponse;
 
 	}
@@ -79,13 +78,13 @@ public class OfficeOutletController {
 		return officeService.getAllOfficesData();
 	}
 	@GetMapping("/checkOfficeOpen")
-	public ResponseEntity<String> isOfficeOpen(@RequestBody CourierOfficeOutlet officeoutlet)
+	public ResponseEntity<String> isOfficeOpen(@RequestBody CourierOfficeOutlet officeOutlet)
 			throws OutletClosedException {
 
-		boolean check = officeService.isOfficeOpen(officeoutlet);
+		boolean check = officeService.isOfficeOpen(officeOutlet);
 		if (check) {
 
-			return new ResponseEntity<>("The office with office id: " + officeoutlet.getOfficeId() + " is open: ",
+			return new ResponseEntity<>("The office with office id: " + officeOutlet.getOfficeId() + " is open: ",
 					HttpStatus.OK);
 
 		} else {
@@ -95,17 +94,17 @@ public class OfficeOutletController {
 		}
 	}
 	@GetMapping("/checkOfficeClosed")
-	public ResponseEntity<String> isOfficeClosed(@RequestBody CourierOfficeOutlet officeoutlet)
+	public ResponseEntity<String> isOfficeClosed(@RequestBody CourierOfficeOutlet officeOutlet)
 			throws OutletClosedException {
 
-		boolean check = officeService.isOfficeClosed(officeoutlet);
+		boolean check = officeService.isOfficeClosed(officeOutlet);
 		if (check) {
 
 			throw new OutletClosedException("The Office is Closed");
 
 		} else {
 
-			return new ResponseEntity<>("The Office is opened", HttpStatus.OK);
+			return new ResponseEntity<String>("The Office is opened", HttpStatus.OK);
 
 		}
 	}
