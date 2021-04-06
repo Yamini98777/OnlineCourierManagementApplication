@@ -59,7 +59,7 @@ public class ShipmentServiceImp implements IShipmentService{
 	@Override
 	public void rejectShipmentTransaction(Courier courier)throws CourierNotFoundException  {
 		 
-		if(courierDao.existsById(courier.getCourierId()) == false) {
+		if(courierDao.existsById(courier.getCourierId()) == false) 
 				
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 	
@@ -67,7 +67,8 @@ public class ShipmentServiceImp implements IShipmentService{
 
 				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
+			}
+		
+		}
 	}
 
-}
-}
