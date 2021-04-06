@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.CourierOfficeOutlet;
+import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.OutletClosedException;
 import com.capg.ocma.exception.OutletNotFoundException;
+import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.model.CourierOfficeOutletDTO;
 import com.capg.ocma.repository.IOfficeOutletDao;
 import com.capg.ocma.util.CourierOfficeOutletUtils;
@@ -97,4 +99,69 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 			}
 		}
 	}
+	//Validations
+	//VALIDATIONS 
+		public static boolean validateOfficeStaffMember(OfficeStaffMember officeStaffMember) throws StaffMemberNotFoundException
+		{
+			boolean flag = false;
+			if(officeStaffMember == null)
+				throw new StaffMemberNotFoundException("Staff member details cannot be blank");
+			
+			else if(!(validateName(officeStaffMember.getName()) && validateRole(officeStaffMember.getRole())))
+				throw new StaffMemberNotFoundException("Invalid Data");
+			
+			else
+				flag = true;
+			
+			return flag;
+		}
+		
+		//validate empId
+		public boolean validateEmpId(int empId) throws StaffMemberNotFoundException
+		{
+			boolean flag = repo.existsById(empId);
+			if(flag == false)
+				throw new StaffMemberNotFoundException("Staff member not found");
+			return flag;
+		}
+		
+		//validate name
+		public static boolean validateName(String name) throws StaffMemberNotFoundException
+		{
+			boolean flag = false;
+			if(name == null)
+				throw new StaffMemberNotFoundException("Name cannot be empty");
+			else if(!name.matches("^[a-zA-Z]+$"))
+				throw new StaffMemberNotFoundException("Name cannot contain Numbers or Special Characters");
+			else
+				flag = true;
+			return flag;
+		}
+		
+		//validate role
+		public static boolean validateRole(String role) throws StaffMemberNotFoundException
+		{
+			boolean flag = false;
+			if(role == null)
+				throw new StaffMemberNotFoundException("Name cannot be empty");
+			
+			else if(!role.matches("^[a-zA-Z]+$"))
+				throw new StaffMemberNotFoundException("Name cannot contain Numbers or Special Characters");
+			
+			else if(role.equals("Analyst") || role.equals("Senior Analyst") || role.equals("Manager"))
+				flag = true;
+			
+			return flag;
+		}
+		public static boolean ValidateOfficeDetails(CourierOfficeOutlet officeoutlet) 
+		{
+		            boolean flag = false;
+		            if(officeoutlet.getOfficeId() == 0||officeoutlet.getOpeningTime()==null||officeoutlet.getClosingTime()==null)
+		            	System.out.println("Office details should not be empty");
+		            else
+		            	flag = true;
+		            return flag;
+		}
+		
+	
 }
