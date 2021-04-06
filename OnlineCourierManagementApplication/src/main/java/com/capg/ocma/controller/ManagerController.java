@@ -1,8 +1,9 @@
 package com.capg.ocma.controller;
 
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +33,7 @@ public class ManagerController {
 	@Autowired
 	IManagerService managerService;
 	
-	ManagerServiceImp service;
+	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class.getName());
 	
 	
 	@PostMapping("/add-staff")
@@ -45,6 +46,7 @@ public class ManagerController {
 			{
 				staffMemberDTO = managerService.addStaffMember(staffMember);
 				staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+				LOGGER.info("New staff member added");
 			}
 			else
 				throw new StaffMemberNotFoundException("Invalid data");
@@ -52,18 +54,17 @@ public class ManagerController {
 	}
 		
 	
-	@DeleteMapping("/delete-staff")
+	@DeleteMapping("/delete-staff/{empId}")
 	public ResponseEntity<OfficeStaffMemberDTO> removeStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
 		
 		OfficeStaffMemberDTO staffMemberDTO = null;
 		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
 		
-		Optional<OfficeStaffMemberDTO> optional;
-		optional = Optional.of(managerService.removeStaffMember(empId));
-		if(optional.isPresent())
+		if(ManagerServiceImp.validateEmpId(empId))
 		{
-			staffMemberDTO = optional.get();
+			staffMemberDTO = managerService.removeStaffMember(empId);
 			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+			LOGGER.info("Staff member deleted");
 		}
 		else
 			throw new StaffMemberNotFoundException("Invalid data");
@@ -78,7 +79,7 @@ public class ManagerController {
 		OfficeStaffMemberDTO staffMemberDTO = null;
 		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
 		
-		if(service.validateEmpId(empId))
+		if(ManagerServiceImp.validateEmpId(empId))
 		{
 			staffMemberDTO = managerService.getStaffMember(empId);
 			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
@@ -117,14 +118,16 @@ public class ManagerController {
 		ComplaintDTO complaintDTO = null;
 		ResponseEntity<ComplaintDTO> complaintResponse = null;
 		
-		Optional<ComplaintDTO> optional = Optional.of(managerService.getRegistedComplaint(complaintId));
-		if(optional.isPresent())
+		if(complaintId<=0)
 		{
-			complaintDTO = optional.get();
-			complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
+			throw new ComplaintNotFoundException("No Complaint available with given ID");
 		}
 		else
-			throw new ComplaintNotFoundException("No Complaint available with given ID");
+		{
+			complaintDTO = managerService.getRegistedComplaint(complaintId);
+			complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
+		}
+			
 		return complaintResponse;
 	}
 	
