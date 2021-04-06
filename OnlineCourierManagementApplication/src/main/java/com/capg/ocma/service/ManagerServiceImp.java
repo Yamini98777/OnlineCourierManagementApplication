@@ -38,23 +38,32 @@ public class ManagerServiceImp implements IManagerService {
 	
 	@Override
 	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffMember) {
-		OfficeStaffMember staffMemberEntity;
-		staffMemberEntity = repo.save(staffMember);
-		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffMemberEntity);
+
+		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(repo.save(staffMember));
 	}
 
 	
 	@Override
-	public OfficeStaffMemberDTO removeStaffMember(int empId) {
-		OfficeStaffMember staffMember = repo.findById(empId).orElse(null);
-		repo.delete(staffMember);
-		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffMember);
-	}
-
-	
-	@Override
-	public OfficeStaffMemberDTO getStaffMember(int empId) {
+	public OfficeStaffMemberDTO removeStaffMember(int empId) throws StaffMemberNotFoundException {
+		
 		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
+				
+		if(existStaffMember == null)
+			throw new StaffMemberNotFoundException(staffMemberNotFound);
+		else
+			repo.delete(existStaffMember);
+		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
+	}
+
+	
+	@Override
+	public OfficeStaffMemberDTO getStaffMember(int empId) throws StaffMemberNotFoundException {
+		
+		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
+		
+		if(existStaffMember == null)
+			throw new StaffMemberNotFoundException(staffMemberNotFound);
+		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
 
@@ -116,11 +125,13 @@ public class ManagerServiceImp implements IManagerService {
 	}
 	
 	//validate empId
-	public boolean validateEmpId(int empId) throws StaffMemberNotFoundException
+	public static boolean validateEmpId(int empId) throws StaffMemberNotFoundException
 	{
-		boolean flag = repo.existsById(empId);
-		if(flag == false)
+		boolean flag = false;
+		if(empId<=0)
 			throw new StaffMemberNotFoundException(staffMemberNotFound);
+		else
+			flag=true;
 		return flag;
 	}
 	
@@ -142,10 +153,10 @@ public class ManagerServiceImp implements IManagerService {
 	{
 		boolean flag = false;
 		if(role == null)
-			throw new StaffMemberNotFoundException("Name cannot be empty");
+			throw new StaffMemberNotFoundException("Role cannot be empty");
 		
 		else if(!role.matches("^[a-zA-Z]+$"))
-			throw new StaffMemberNotFoundException("Name cannot contain Numbers or Special Characters");
+			throw new StaffMemberNotFoundException("Role cannot contain Numbers or Special Characters");
 		
 		else if(role.equals("Analyst") || role.equals("Senior Analyst") || role.equals("Manager"))
 			flag = true;

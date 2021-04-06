@@ -62,8 +62,9 @@ public class ShipmentServiceImp implements IShipmentService{
 		if(courierDao.existsById(courier.getCourierId()) == false) {
 				
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
-				
-			} else{
+	
+		else{
+
 				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
 	}
