@@ -25,12 +25,21 @@ import com.capg.ocma.model.OfficeStaffMemberDTO;
 import com.capg.ocma.service.IManagerService;
 import com.capg.ocma.service.ManagerServiceImp;
 
+
+/*
+ * Author : YAMINI C
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is Manager Controller
+*/
+
+
 @RestController
 @RequestMapping("/api/ocma/manager")
 public class ManagerController {
 
 	@Autowired
-	IManagerService managerService;
+	private IManagerService managerService;
 	
 	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
 	
