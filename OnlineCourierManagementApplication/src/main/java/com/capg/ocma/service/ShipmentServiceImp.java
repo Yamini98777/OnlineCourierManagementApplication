@@ -6,7 +6,12 @@ import org.springframework.stereotype.Service;
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.repository.ICourierDao;
-
+/*
+ * Author : SRINIVAS MADIVAL
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Shipment Service Layer
+*/
 @Service
 public class ShipmentServiceImp implements IShipmentService{
 	
