@@ -51,10 +51,22 @@ public class CustomerServiceImp implements ICustomerService{
 	public ComplaintDTO registerComplaint(Complaint complaint) {
 		 complaintdao.save(complaint);
 			 Complaint complaintEntity;
+			 
 				if(complaint == null)
 					complaintEntity = null;
 				else
 					complaintEntity = complaintdao.save(complaint);
+				try {
+					if(CustomerServiceImp.validateComplaintId(complaint.getComplaintId()))
+					{	
+					 
+					}
+					else
+						throw new ComplaintNotFoundException("Invalid Complaint Details");
+				} catch (ComplaintNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 			}
 	
