@@ -23,9 +23,7 @@ public static List<ManagerDTO> convertToManagerDtoList(List<Manager> list) {
 		ManagerDTO dto = new ManagerDTO();
 		
 		dto.setManagerId(manager.getManagerId());
-		dto.setEmpid(manager.getEmpid());
-		dto.setName(manager.getName());
-		dto.setRole(manager.getRole());
+		dto.setReportingstaffmembers(manager.getReportingStaffMembers());
 		
 		return dto;
 	}

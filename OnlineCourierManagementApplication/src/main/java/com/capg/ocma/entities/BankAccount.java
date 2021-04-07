@@ -1,20 +1,20 @@
 package com.capg.ocma.entities;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Embeddable
+@Entity
 @Table(name="bank_account")
 public class BankAccount {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
-	private static int accountNo;
+	private long accountNo;
 	
 	@Column(name="account_Holder_Type")
 	private String accountHolderName;
@@ -27,18 +27,18 @@ public class BankAccount {
 	
 	}
 
-	public BankAccount(int accountNo, String accountHolderName, String accountType) {
+	public BankAccount(long accountNo, String accountHolderName, String accountType) {
 		super();
 		this.accountNo = accountNo;
 		this.accountHolderName = accountHolderName;
 		this.accountType = accountType;
 	}
 
-	public static int getAccountNo() {
+	public long getAccountNo() {
 		return accountNo;
 	}
 
-	public void setAccountNo(int accountNo) {
+	public void setAccountNo(long accountNo) {
 		this.accountNo = accountNo;
 	}
 

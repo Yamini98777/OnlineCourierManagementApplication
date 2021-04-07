@@ -9,7 +9,5 @@ import com.capg.ocma.entities.UserLogin;
 @Repository
 public interface UserLoginDao extends JpaRepository<UserLogin, Long> {
 	
-	@Query("select u.password from UserLogin u where u.userId = ?")
-	public String getPasswordFromDB(long userId);
 
 }

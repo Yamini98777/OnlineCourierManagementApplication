@@ -1,18 +1,24 @@
 package com.capg.ocma.model;
 
+import org.springframework.stereotype.Component;
+
+import com.capg.ocma.entities.Address;
+import com.capg.ocma.entities.CourierOfficeOutlet;
+
+@Component
 public class OfficeStaffMemberDTO 
 {
 	protected int empid;
 	protected String name;
-	protected AddressDTO address;
+	protected Address address;
 	protected String role;
-	protected CourierOfficeOutletDTO office;
+	protected CourierOfficeOutlet office;
 	
 	public OfficeStaffMemberDTO() {
 		super();
 	}
 	
-	public OfficeStaffMemberDTO(int empid, String name, AddressDTO address, String role, CourierOfficeOutletDTO office) 
+	public OfficeStaffMemberDTO(int empid, String name, Address address, String role, CourierOfficeOutlet office) 
 	{
 		super();
 		this.empid = empid;
@@ -34,10 +40,10 @@ public class OfficeStaffMemberDTO
 	public void setName(String name) {
 		this.name = name;
 	}
-	public AddressDTO getAddress() {
+	public Address getAddress() {
 		return address;
 	}
-	public void setAddress(AddressDTO address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 	public String getRole() {
@@ -46,10 +52,10 @@ public class OfficeStaffMemberDTO
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public CourierOfficeOutletDTO getOffice() {
+	public CourierOfficeOutlet getOffice() {
 		return office;
 	}
-	public void setOffice(CourierOfficeOutletDTO office) {
+	public void setOffice(CourierOfficeOutlet office) {
 		this.office = office;
 	}
 

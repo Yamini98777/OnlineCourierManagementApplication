@@ -26,8 +26,7 @@ public class OfficeStaffMember
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	@ManyToOne
-	@JoinColumn(name="office_id")
+	@OneToOne(cascade = CascadeType.ALL)
 	private CourierOfficeOutlet office;
 	
 	public OfficeStaffMember() {

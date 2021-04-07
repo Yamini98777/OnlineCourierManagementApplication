@@ -33,6 +33,7 @@ public class UserLoginServiceImp implements IUserLoginService {
 	public void userLogin(UserLogin user) throws UserNotFoundException {
 		
 		UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
+		
 		String encryptedPassword, decryptedPassword;
 		
 		if(existUser == null) {
@@ -66,6 +67,7 @@ public class UserLoginServiceImp implements IUserLoginService {
 	
 	public void updateUser(UserLogin user) throws UserNotFoundException {
 		UserLogin user1 = repo.findById(user.getUserId()).orElse(null);
+		
 		if(user1 == null) {
 			throw new UserNotFoundException("User not Found");
 		}
@@ -128,5 +130,7 @@ public class UserLoginServiceImp implements IUserLoginService {
         }
         return password;
 	}
+
+	
 
 }

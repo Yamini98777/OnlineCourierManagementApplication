@@ -3,7 +3,6 @@ package com.capg.ocma.service;
 import java.util.List;
 
 import com.capg.ocma.entities.Courier;
-import com.capg.ocma.entities.CourierStatus;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -20,7 +19,7 @@ public interface IManagerService {
 	public OfficeStaffMemberDTO getStaffMember(int empid) throws StaffMemberNotFoundException;
 	public List<OfficeStaffMemberDTO> getAllStaffMembers();
 	
-	public CourierStatus getCourierStatus(Courier courier) throws CourierNotFoundException;
+	public String getCourierStatus(Courier courier) throws CourierNotFoundException;
 	
 	public ComplaintDTO getRegistedComplaint(int complaintid) throws ComplaintNotFoundException;
 	public List<ComplaintDTO> getAllComplaints();

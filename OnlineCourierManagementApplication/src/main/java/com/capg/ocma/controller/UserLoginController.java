@@ -16,6 +16,7 @@ import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.service.IUserLoginService;
 import com.capg.ocma.service.UserLoginServiceImp;
 
+
 @RestController
 @RequestMapping("api/ocma/login")
 public class UserLoginController {
@@ -61,6 +62,7 @@ public class UserLoginController {
 
 	@PutMapping("/update-user")
 	public void updateUser(@RequestBody UserLogin user) throws UserNotFoundException {
+		
 		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
 			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
 		else
@@ -68,4 +70,5 @@ public class UserLoginController {
 		
 		LOGGER.info("User updated successfully.");
 	}
+
 }

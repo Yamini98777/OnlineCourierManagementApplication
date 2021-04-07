@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Courier;
-import com.capg.ocma.entities.CourierStatus;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.repository.ICourierDao;
 
@@ -24,7 +23,7 @@ public class ShipmentServiceImp implements IShipmentService{
 			
 		} else
          
-			(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INTRANSIT);
+			(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus("INTRANSIT");
 			
 		return true;
 		
@@ -52,7 +51,7 @@ public class ShipmentServiceImp implements IShipmentService{
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 				
 			} else{
-				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
+				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus("DELIVERED");
 				
 			}
 		 return true;
@@ -67,7 +66,7 @@ public class ShipmentServiceImp implements IShipmentService{
 	
 		else{
 
-				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
+				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus("DELIVERED");
 				
 			}
 		return true;

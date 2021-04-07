@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
-import com.capg.ocma.entities.CourierStatus;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -76,9 +75,9 @@ public class ManagerServiceImp implements IManagerService {
 
 	
 	@Override
-	public CourierStatus getCourierStatus(Courier courier) throws CourierNotFoundException {
+	public String getCourierStatus(Courier courier) throws CourierNotFoundException {
 		
-		CourierStatus status = courier.getStatus();
+		String status = courier.getStatus();
 		
 		courier= courierRepo.findById(courier.getCourierId()).orElse(null);
 		

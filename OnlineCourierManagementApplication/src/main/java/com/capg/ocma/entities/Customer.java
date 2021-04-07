@@ -19,26 +19,25 @@ public class Customer {
 	@Column(name="customer_id")
 	private int customerId;
 	@Column(name="aadhar_no")
-	private int aadharNo;
+	private long aadharNo;
 	private String firstName;
 	private String lastName;
 	private int mobileNo;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="zip")
 	private Address addr;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="account_no")
+	@JoinColumn(name="customer_id")
 	private BankAccount acct;
-	private int aadharno;
+	
 
 	public Customer() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, int aadharNo, String firstName, String lastName, Address addr, int mobileNo,
+	public Customer(int customerId, long aadharNo, String firstName, String lastName, Address addr, int mobileNo,
 			BankAccount acct) {
 		super();
 		this.customerId = customerId;
@@ -58,8 +57,8 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
-	public int getAadharno() {
-		return aadharno;
+	public long getAadharno() {
+		return aadharNo;
 	}
 
 	public void setAadharnNo(int aadharNo) {
