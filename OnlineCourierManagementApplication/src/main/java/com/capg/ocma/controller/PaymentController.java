@@ -22,8 +22,6 @@ public class PaymentController {
 	@Autowired
 	IPaymentService paymentService;
 	
-	PaymentServiceImp service;
-	
 	
 	@GetMapping("/byCash")
 	public ResponseEntity<String> processPaymentByCash() {
