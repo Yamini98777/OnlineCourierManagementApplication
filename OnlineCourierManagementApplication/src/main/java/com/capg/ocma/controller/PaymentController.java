@@ -11,6 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.service.IPaymentService;
 
+/*
+ * Author : PRADHIEEP K
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Payment Controller
+*/ 
+
 
 @RestController
 @RequestMapping("/api/ocma/payment")

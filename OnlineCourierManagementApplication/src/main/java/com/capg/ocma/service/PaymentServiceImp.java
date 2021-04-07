@@ -9,6 +9,13 @@ import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.repository.IBankAccountDao;
 import com.capg.ocma.repository.ICustomerDao;
 
+/*
+ * Author : PRADHIEEP K
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Payment Service Layer that provides services to pay either by cash or card 
+*/ 
+
 
 
 @Service
@@ -20,13 +27,22 @@ public class PaymentServiceImp implements IPaymentService{
 	@Autowired
 	IBankAccountDao bankAccountDao;
 	
+	/*
+	 * Description : This method uses payment by cash 
+	 * Return Value : True
+	 */
 	@Override
 	public boolean processPaymentByCash() {
-		return true;
-			
+		
+		return true;		
 	}
 	
- 
+	/*
+	 * Description : This method uses payment by cash
+	 * Input Param : Customer Object
+	 * Return Value : CustomerDTO Object
+	 * Exception : CustomerNotFoundException
+	 */
 	@Override
 	public boolean processPaymentByCard(int customerId) throws CustomerNotFoundException{
 		
