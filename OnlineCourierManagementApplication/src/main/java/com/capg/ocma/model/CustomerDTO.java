@@ -21,7 +21,7 @@ public class CustomerDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CustomerDTO(int customerid, long aadharno, String firstname, String lastname, Address addr, int mobileno, BankAccount acct) {
+	public CustomerDTO(int customerid, long aadharno, String firstname, String lastname, Address addr, long mobileno, BankAccount acct) {
 		super();
 		this.customerid = customerid;
 		this.aadharno = aadharno;
@@ -76,7 +76,7 @@ public class CustomerDTO {
 		return mobileno;
 	}
 
-	public void setMobileno(int mobileno) {
+	public void setMobileno(long mobileno) {
 		this.mobileno = mobileno;
 	}
 
@@ -91,7 +91,10 @@ public class CustomerDTO {
 	@Override
 	public String toString() {
 		return "CustomerDTO [customerid=" + customerid + ", aadharno=" + aadharno + ", firstname=" + firstname
-				+ ", lastname=" + lastname + ", mobileno=" + mobileno + "]";
+				+ ", lastname=" + lastname + ", addr=" + addr + ", mobileno=" + mobileno + ", acct=" + acct + "]";
 	}
 
+
+	
+	
 }

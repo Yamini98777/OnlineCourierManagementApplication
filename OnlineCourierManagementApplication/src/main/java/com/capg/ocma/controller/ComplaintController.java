@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
-import com.capg.ocma.service.CustomerServiceImp;
 import com.capg.ocma.service.ICustomerService;
 
 
