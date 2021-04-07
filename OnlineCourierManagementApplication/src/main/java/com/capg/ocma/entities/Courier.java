@@ -28,11 +28,11 @@ public class Courier {
 	private String status;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sender courier Id")
+	@JoinColumn(name = "sendercourierId")
 	private Customer sender;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "receiver courier Id")
+	@JoinColumn(name = "receivercourierId")
 	private Customer receiver;
 
 	public Courier() {
