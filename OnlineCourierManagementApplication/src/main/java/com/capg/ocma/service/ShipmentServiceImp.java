@@ -70,13 +70,13 @@ public class ShipmentServiceImp implements IShipmentService{
 				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
 			}
-		
+		return true;
 		}
-	}
+	
 
-         return true;
+         
 	
 
 }
-}
+
 

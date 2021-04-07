@@ -33,7 +33,7 @@ public class ManagerController {
 	@Autowired
 	IManagerService managerService;
 	
-	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class.getName());
+	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
 	
 	
 	@PostMapping("/add-staff")

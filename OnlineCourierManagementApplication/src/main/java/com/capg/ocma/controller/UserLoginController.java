@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.service.IUserLoginService;
+import com.capg.ocma.service.UserLoginServiceImp;
 
 @RestController
 @RequestMapping("api/ocma/login")
@@ -28,27 +29,43 @@ public class UserLoginController {
 	@PostMapping("/add-user")
 	public void addUser(@RequestBody UserLogin user) throws UserNotFoundException {
 		
+		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
+			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		else
+			service.addUser(user);
 		
-		
-		
-		LOGGER.info("User logged in successfully.");
+		LOGGER.info("User logged-in successfully.");
 	}
 
-	@DeleteMapping("/delete-user")
-	public void removeUser(@PathVariable long userid) throws UserNotFoundException {
+	
+	@PostMapping("/user-login")
+	public void userLogin(@RequestBody UserLogin user) throws UserNotFoundException {
 		
+		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
+			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		else
+			service.userLogin(user);
 		
-		
+		LOGGER.info("User logged-in successfully.");
+	}
+	
+	
+	@DeleteMapping("/delete-user/{userId}")
+	public void removeUser(@PathVariable long userId) throws UserNotFoundException 
+	{
+		service.removeUser(userId);
 		
 		LOGGER.info("User deleted in successfully.");
 	}
 
+
 	@PutMapping("/update-user")
 	public void updateUser(@RequestBody UserLogin user) throws UserNotFoundException {
+		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
+			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		else
+			service.updateUser(user);
 		
-		
-		
-		LOGGER.info("User updated in successfully.");
+		LOGGER.info("User updated successfully.");
 	}
-
 }

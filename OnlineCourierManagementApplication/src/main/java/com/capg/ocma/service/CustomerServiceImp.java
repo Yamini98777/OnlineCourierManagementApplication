@@ -27,13 +27,6 @@ public class CustomerServiceImp implements ICustomerService{
 	@Autowired
 	ICourierDao courierdao;
 	
-	public void initiateProcess() {
-		
-	}
-	public void makePayment() {
-		
-	}
-	
 
 	public CourierStatus checkOnlineTrackingStatus(int consignmentno) {
 		Courier courier = courierdao.findById(consignmentno).orElse(null);

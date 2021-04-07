@@ -24,7 +24,6 @@ public class OfficeStaffMember
 	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@Column(name="zip")
 	private Address address;
 	
 	@ManyToOne
