@@ -1,26 +1,36 @@
 package com.capg.ocma.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class UserLogin {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long userId;
 	private String username;
 	private String password;
-	private String confirmPassword;
 
 	public UserLogin() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public UserLogin(String username, String password, String confirmPassword) {
+	public UserLogin(long userId, String username, String password) {
 		super();
+		this.userId = userId;
 		this.username = username;
 		this.password = password;
-		this.confirmPassword = confirmPassword;
+	}
+
+	public long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(long userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
@@ -39,18 +49,9 @@ public class UserLogin {
 		this.password = password;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
 	@Override
 	public String toString() {
-		return "UserLogin [username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ "]";
+		return "UserLogin [userId=" + userId + ", username=" + username + ", password=" + password + "]";
 	}
 
 }

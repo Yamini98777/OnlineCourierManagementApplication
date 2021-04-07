@@ -14,7 +14,7 @@ public class BankAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
-	private int accountNo;
+	private static int accountNo;
 	
 	@Column(name="account_Holder_Type")
 	private String accountHolderName;
@@ -34,7 +34,7 @@ public class BankAccount {
 		this.accountType = accountType;
 	}
 
-	public int getAccountNo() {
+	public static int getAccountNo() {
 		return accountNo;
 	}
 

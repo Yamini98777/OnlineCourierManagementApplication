@@ -4,11 +4,11 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class CourierOfficeOutletDTO {
-	private int officeid;
+	private int officeId;
 	private AddressDTO address;
 	private LocalTime openingTime;
 	private LocalTime closingTime;
-	private List<OfficeStaffMemberDTO> staffmembers;
+	private List<OfficeStaffMemberDTO> staffMembers;
 
 	public CourierOfficeOutletDTO() {
 		super();
@@ -17,19 +17,19 @@ public class CourierOfficeOutletDTO {
 
 	public CourierOfficeOutletDTO(int officeid, AddressDTO address, LocalTime openingTime, LocalTime closingTime, List<OfficeStaffMemberDTO> staffmembers) {
 		super();
-		this.officeid = officeid;
+		this.officeId = officeid;
 		this.address = address;
 		this.openingTime = openingTime;
 		this.closingTime = closingTime;
-		this.staffmembers = staffmembers;
+		this.staffMembers = staffmembers;
 	}
 
 	public int getOfficeid() {
-		return officeid;
+		return officeId;
 	}
 
 	public void setOfficeid(int officeid) {
-		this.officeid = officeid;
+		this.officeId = officeid;
 	}
 
 	public AddressDTO getAddress() {
@@ -57,17 +57,17 @@ public class CourierOfficeOutletDTO {
 	}
 
 	public List<OfficeStaffMemberDTO> getStaffmembers() {
-		return staffmembers;
+		return staffMembers;
 	}
 
 	public void setStaffmembers(List<OfficeStaffMemberDTO> staffmembers) {
-		this.staffmembers = staffmembers;
+		this.staffMembers = staffmembers;
 	}
 
 	@Override
 	public String toString() {
-		return "CourierOfficeOutletDTO [officeid=" + officeid + ", openingTime=" + openingTime + ", closingTime="
-				+ closingTime + ", staffmembers=" + staffmembers + "]";
+		return "CourierOfficeOutletDTO [officeid=" + officeId + ", openingTime=" + openingTime + ", closingTime="
+				+ closingTime + ", staffmembers=" + staffMembers + "]";
 	}
 
 }
