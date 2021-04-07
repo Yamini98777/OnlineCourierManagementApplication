@@ -7,7 +7,6 @@ import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CustomerNotFoundException;
-import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.repository.IComplaintDao;
 import com.capg.ocma.repository.ICourierDao;
@@ -73,14 +72,14 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 
 //validate mobno
-		public static boolean validateNumber(int mobileNo) throws CustomerNotFoundException
+		public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException
 		{
 		boolean flag = false;
-		String str=Integer.toString(mobileNo);
+		String str=Long.toString(mobileNo);
 		int size=str.length();
 		if(size == 0)
 			throw new CustomerNotFoundException("Mobileno cannot be empty");
-		else if(size<10 ||size>15)
+		else if(size<=10 ||size>15)
 			throw new CustomerNotFoundException("Mobileno not valid");
 		else 
 			flag = true;
@@ -88,10 +87,10 @@ public class CustomerServiceImp implements ICustomerService{
 	}
 	
 	//validate aadharno
-	public static boolean validatesetAadharno(int aadharNo) throws CustomerNotFoundException
+	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException
 	{
 		boolean flag = false;
-		String str=Integer.toString(aadharNo);
+		String str=Long.toString(aadharNo);
 		int size=str.length();
 		if(size ==0)
 			throw new CustomerNotFoundException("AAdhaarno cannot be empty");
@@ -120,9 +119,9 @@ public class CustomerServiceImp implements ICustomerService{
 			boolean flag = false;
 			String str=Integer.toString(consignmentNo);
 			int size=str.length();
-			if(str == null)
+			if(size == 0)
 				throw new ComplaintNotFoundException("Consignment no cant be empty");
-			else if(!str.matches("^[0-9a-zA-Z]+$" )&&(size==10))
+			else if(!str.matches("^[0-9a-zA-Z]+$" ))
 				throw new ComplaintNotFoundException("Consignment no invalid");
 			else
 				flag = true;

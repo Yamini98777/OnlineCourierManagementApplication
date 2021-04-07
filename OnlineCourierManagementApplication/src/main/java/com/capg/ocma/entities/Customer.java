@@ -22,7 +22,7 @@ public class Customer {
 	private long aadharNo;
 	private String firstName;
 	private String lastName;
-	private int mobileNo;
+	private long mobileNo;
 	
 	@OneToOne(cascade=CascadeType.ALL)
 	private Address addr;
@@ -37,7 +37,7 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Customer(int customerId, long aadharNo, String firstName, String lastName, Address addr, int mobileNo,
+	public Customer(int customerId, long aadharNo, String firstName, String lastName, Address addr, long mobileNo,
 			BankAccount acct) {
 		super();
 		this.customerId = customerId;
@@ -49,7 +49,8 @@ public class Customer {
 		this.acct = acct;
 	}
 
-	public int getCustomerid() {
+	
+	public int getCustomerId() {
 		return customerId;
 	}
 
@@ -57,11 +58,11 @@ public class Customer {
 		this.customerId = customerId;
 	}
 
-	public long getAadharno() {
+	public long getAadharNo() {
 		return aadharNo;
 	}
 
-	public void setAadharnNo(int aadharNo) {
+	public void setAadharNo(long aadharNo) {
 		this.aadharNo = aadharNo;
 	}
 
@@ -69,7 +70,7 @@ public class Customer {
 		return firstName;
 	}
 
-	public void setFirstname(String firstName) {
+	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
@@ -81,20 +82,20 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
+	public long getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(long mobileNo) {
+		this.mobileNo = mobileNo;
+	}
+
 	public Address getAddr() {
 		return addr;
 	}
 
 	public void setAddr(Address addr) {
 		this.addr = addr;
-	}
-
-	public int getMobileNo() {
-		return mobileNo;
-	}
-
-	public void setMobileno(int mobileNo) {
-		this.mobileNo = mobileNo;
 	}
 
 	public BankAccount getAcct() {
@@ -108,7 +109,9 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", aadharNo=" + aadharNo + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", addr=" + addr + ", mobileNo=" + mobileNo + ", acct=" + acct + "]";
+				+ ", lastName=" + lastName + ", mobileNo=" + mobileNo + ", addr=" + addr + ", acct=" + acct + "]";
 	}
+
+	
 
 }
