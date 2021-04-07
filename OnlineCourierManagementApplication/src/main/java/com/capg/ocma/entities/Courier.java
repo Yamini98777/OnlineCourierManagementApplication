@@ -24,15 +24,15 @@ public class Courier {
 	private LocalDate initiatedDate;
 	private LocalDate deliveredDate;
 
-	@Enumerated(EnumType.STRING)
-	private CourierStatus status;
+//	@Enumerated(EnumType.STRING)
+	private String status;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "sender courier Id")
 	private Customer sender;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "customer_id")
+	@JoinColumn(name = "receiver courier Id")
 	private Customer receiver;
 
 	public Courier() {
@@ -40,7 +40,7 @@ public class Courier {
 	}
 
 	public Courier(int courierId, int consignmentNo, LocalDate initiatedDate, LocalDate deliveredDate,
-			CourierStatus status, Customer sender, Customer receiver) {
+			String status, Customer sender, Customer receiver) {
 		super();
 		this.courierId = courierId;
 		this.consignmentNo = consignmentNo;
@@ -83,11 +83,11 @@ public class Courier {
 		this.deliveredDate = deliveredDate;
 	}
 
-	public CourierStatus getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(CourierStatus status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

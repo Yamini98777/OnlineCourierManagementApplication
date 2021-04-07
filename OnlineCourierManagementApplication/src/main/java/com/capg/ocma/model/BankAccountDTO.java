@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BankAccountDTO {
 
-	private int accountNo;
+	private long accountNo;
 	private String accountHolderName;
 	private String accountType;
 
@@ -21,11 +21,11 @@ public class BankAccountDTO {
 		this.accountType = accountType;
 	}
 
-	public int getAccountno() {
+	public long getAccountno() {
 		return accountNo;
 	}
 
-	public void setAccountno(int accountno) {
+	public void setAccountno(long accountno) {
 		this.accountNo = accountno;
 	}
 

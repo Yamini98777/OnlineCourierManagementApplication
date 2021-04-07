@@ -3,6 +3,7 @@ package com.capg.ocma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.AccountNotFoundException;
 import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.repository.IBankAccountDao;
@@ -25,24 +26,18 @@ public class PaymentServiceImp implements IPaymentService{
 			
 	}
 	
-
+ 
 	@Override
 	public boolean processPaymentByCard(int customerId) throws CustomerNotFoundException{
 		
+		Customer customer = customerDao.findById(customerId).orElse(null);
+		
 		boolean flag = false;
-		if(customerDao.existsById(customerId)) {
-			
-			if(customerDao.findById(customerId).orElse(null).getAcct() != null) {
-				
-				flag = true;
-				
-			}else {
-				throw new CustomerNotFoundException("Customer Not found");
-				
-			}
-		}
+		if(customer==null) 
+			throw new CustomerNotFoundException("Customer Not found");
+		else
+			flag = true;
 		return flag;
-
 	}
 	
 	

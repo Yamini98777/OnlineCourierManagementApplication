@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -18,16 +19,17 @@ import javax.persistence.Table;
 public class CourierOfficeOutlet {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="office_id")
 	private int officeId;
 	private LocalTime openingTime;
 	private LocalTime closingTime;
 	
-	@OneToOne(mappedBy = "office", cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	@OneToMany(mappedBy="office", cascade = CascadeType.ALL )
+	@OneToMany(cascade = CascadeType.ALL )
+	@JoinColumn(name="CourierOfficeOutletId")
 	private List<OfficeStaffMember> staffmembers;
 
 	public CourierOfficeOutlet() {

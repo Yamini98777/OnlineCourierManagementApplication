@@ -24,11 +24,9 @@ public class OfficeStaffMember
 	private String role;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@Column(name="zip")
 	private Address address;
 	
-	@ManyToOne
-	@JoinColumn(name="office_id")
+	@OneToOne(cascade = CascadeType.ALL)
 	private CourierOfficeOutlet office;
 	
 	public OfficeStaffMember() {

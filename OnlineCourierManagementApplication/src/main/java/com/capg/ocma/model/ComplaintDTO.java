@@ -1,19 +1,21 @@
 package com.capg.ocma.model;
 
+import com.capg.ocma.entities.Customer;
+
 public class ComplaintDTO {
 
 	private int complaintid;
 	private int consignmentno;
 	private String shortdescription;
 	private String detaildescription;
-	private CustomerDTO customer;
+	private Customer customer;
 
 	public ComplaintDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public ComplaintDTO(int complaintid, int consignmentno, String shortdescription, String detaildescription, CustomerDTO customer) {
+	public ComplaintDTO(int complaintid, int consignmentno, String shortdescription, String detaildescription, Customer customer) {
 		super();
 		this.complaintid = complaintid;
 		this.consignmentno = consignmentno;
@@ -54,11 +56,11 @@ public class ComplaintDTO {
 		this.detaildescription = detaildescription;
 	}
 
-	public CustomerDTO getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(CustomerDTO customer) {
+	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 

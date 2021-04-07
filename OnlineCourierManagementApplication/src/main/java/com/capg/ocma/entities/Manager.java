@@ -14,21 +14,21 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "manager")
-public class Manager extends OfficeStaffMember {
+public class Manager  {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name = "manager_id")
 	private int managerId;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "manager_id")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "staff_manager_id")
 	private List<OfficeStaffMember> reportingStaffMembers;
 
 	public Manager() {
 		super();
 	}
-	public Manager(int managerId, List<OfficeStaffMember> reportingstaffmembers) {
+	public Manager(int managerId, List<OfficeStaffMember> reportingStaffMembers) {
 		super();
 		this.managerId = managerId;
 		this.reportingStaffMembers = reportingStaffMembers;

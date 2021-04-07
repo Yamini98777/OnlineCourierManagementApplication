@@ -4,17 +4,19 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.capg.ocma.entities.OfficeStaffMember;
+
 @Component
-public class ManagerDTO extends OfficeStaffMemberDTO {
+public class ManagerDTO {
 
 	private int managerId;
-	private List<OfficeStaffMemberDTO> reportingstaffmembers;
+	private List<OfficeStaffMember> reportingstaffmembers;
 
 	public ManagerDTO() {
 		super();
 	}
 
-	public ManagerDTO(int managerId, List<OfficeStaffMemberDTO> reportingstaffmembers) {
+	public ManagerDTO(int managerId, List<OfficeStaffMember> reportingstaffmembers) {
 		super();
 		this.managerId = managerId;
 		this.reportingstaffmembers = reportingstaffmembers;
@@ -28,11 +30,11 @@ public class ManagerDTO extends OfficeStaffMemberDTO {
 		this.managerId = managerId;
 	}
 
-	public List<OfficeStaffMemberDTO> getReportingstaffmembers() {
+	public List<OfficeStaffMember> getReportingstaffmembers() {
 		return reportingstaffmembers;
 	}
 
-	public void setReportingstaffmembers(List<OfficeStaffMemberDTO> reportingstaffmembers) {
+	public void setReportingstaffmembers(List<OfficeStaffMember> reportingstaffmembers) {
 		this.reportingstaffmembers = reportingstaffmembers;
 	}
 

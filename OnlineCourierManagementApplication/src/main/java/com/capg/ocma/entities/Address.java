@@ -10,7 +10,6 @@ import javax.persistence.Table;
 public class Address {
 	
 	@Id
-	@Column(name="zip")
 	private int zip;
 	
 	private String street;

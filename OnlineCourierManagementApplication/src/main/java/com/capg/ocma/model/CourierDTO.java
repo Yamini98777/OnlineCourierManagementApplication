@@ -2,12 +2,14 @@ package com.capg.ocma.model;
 
 import java.time.LocalDate;
 
+import com.capg.ocma.entities.Customer;
+
 public class CourierDTO {
 
 	private int courierid;
-	private CourierStatusDTO status;
-	private CustomerDTO sender;
-	private CustomerDTO receiver;
+	private String status;
+	private Customer sender;
+	private Customer receiver;
 	private int consignmentno;
 
 	private LocalDate initiatedDate;
@@ -18,7 +20,7 @@ public class CourierDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourierDTO(int courierid, CourierStatusDTO status, CustomerDTO sender, CustomerDTO receiver, int consignmentno, LocalDate initiatedDate, LocalDate deliveredDate) {
+	public CourierDTO(int courierid, String status, Customer sender, Customer receiver, int consignmentno, LocalDate initiatedDate, LocalDate deliveredDate) {
 		super();
 		this.courierid = courierid;
 		this.status = status;
@@ -37,27 +39,27 @@ public class CourierDTO {
 		this.courierid = courierid;
 	}
 
-	public CourierStatusDTO getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(CourierStatusDTO status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public CustomerDTO getSender() {
+	public Customer getSender() {
 		return sender;
 	}
 
-	public void setSender(CustomerDTO sender) {
+	public void setSender(Customer sender) {
 		this.sender = sender;
 	}
 
-	public CustomerDTO getReceiver() {
+	public Customer getReceiver() {
 		return receiver;
 	}
 
-	public void setReceiver(CustomerDTO receiver) {
+	public void setReceiver(Customer receiver) {
 		this.receiver = receiver;
 	}
 

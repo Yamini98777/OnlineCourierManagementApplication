@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.entities.Courier;
-import com.capg.ocma.entities.CourierStatus;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -33,7 +32,7 @@ public class ManagerController {
 	@Autowired
 	IManagerService managerService;
 	
-	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class.getName());
+	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
 	
 	
 	@PostMapping("/add-staff")
@@ -99,9 +98,9 @@ public class ManagerController {
 	
 	
 	@GetMapping("/get-courier-status/")
-	public CourierStatus getCourierStatus(@RequestBody Courier courier) throws CourierNotFoundException{
+	public String getCourierStatus(@RequestBody Courier courier) throws CourierNotFoundException{
 		
-		CourierStatus courierStatus;
+		String courierStatus;
 		
 		if(courier == null)
 			throw new CourierNotFoundException("Invalid data");

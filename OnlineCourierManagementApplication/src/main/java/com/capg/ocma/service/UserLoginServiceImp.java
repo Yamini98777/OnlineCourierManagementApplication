@@ -1,35 +1,99 @@
 package com.capg.ocma.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.repository.UserLoginDao;
 
+@Service
 public class UserLoginServiceImp implements IUserLoginService {
 
+	final Logger LOGGER = LoggerFactory.getLogger(UserLoginServiceImp.class);
+	
 	@Autowired
 	private UserLoginDao repo;
 	
+	static String userNotFound = "User Not Found With Entered ID";
+	
 	@Override
-	public void addUser(UserLogin user) throws UserNotFoundException {
-		
+	public void addUser(UserLogin user) {
+			
+		String encryptedPassword;
+		encryptedPassword = encryptPassword(user.getPassword());
+		user.setPassword(encryptedPassword);
+		repo.save(user);
 		
 	}
 
-	@Override
-	public void removeUser(long userid) throws UserNotFoundException {
+	
+	public void userLogin(UserLogin user) throws UserNotFoundException {
 		
+		UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
+		
+		String encryptedPassword, decryptedPassword;
+		
+		if(existUser == null) {
+			throw new UserNotFoundException("User with the entered user ID does not exist");
+		}
+		else {
+			encryptedPassword = existUser.getPassword();			
+			decryptedPassword = decryptPassword(encryptedPassword);
+			
+			if(user.getPassword().equals(decryptedPassword)) 
+				LOGGER.info("Valid User");
+			else 
+				throw new UserNotFoundException("Wrong password!");
+		}
+		
+	}
+	
+	
+	@Override
+	public void removeUser(long userId) throws UserNotFoundException {
+		
+		UserLogin user = repo.findById(userId).orElse(null);
+		if(user == null) {
+			throw new UserNotFoundException("User not found");
+		}
+		else 
+			repo.delete(user);
 		
 	}
 
-	@Override
+	
 	public void updateUser(UserLogin user) throws UserNotFoundException {
+		UserLogin user1 = repo.findById(user.getUserId()).orElse(null);
 		
-		
+		if(user1 == null) {
+			throw new UserNotFoundException("User not Found");
+		}
+		else
+		{
+			String encryptedPassword;
+			encryptedPassword = encryptPassword(user.getPassword());
+			user.setPassword(encryptedPassword);
+			repo.save(user);
+		}
 	}
 	
 	
+	
+	
+	public static boolean validateUsername(String username) throws UserNotFoundException
+	{
+		boolean flag = false;
+		if(username == null)
+			throw new UserNotFoundException("Username cannot be empty");
+		else if(!username.matches("^[a-zA-Z]+$"))
+			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters");
+		else
+			flag = true;
+		return flag;
+	}
 	
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 	
@@ -66,5 +130,7 @@ public class UserLoginServiceImp implements IUserLoginService {
         }
         return password;
 	}
+
+	
 
 }
