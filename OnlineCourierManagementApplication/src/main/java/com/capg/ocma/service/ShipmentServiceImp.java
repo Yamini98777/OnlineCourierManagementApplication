@@ -15,36 +15,37 @@ public class ShipmentServiceImp implements IShipmentService{
 	ICourierDao courierDao;
 
 	@Override
-	public void initiateShipmentTransaction(Courier courier) throws CourierNotFoundException{
-		 
+	public boolean initiateShipmentTransaction(Courier courier) throws CourierNotFoundException
+	{
+		
           if(courierDao.existsById(courier.getCourierId()) == false) {
 			
 			throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 			
-		} else{
-
+		} else
+         
 			(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.INTRANSIT);
 			
-		}
+		return true;
 		
 	}
 
 	@Override
-	public void checkShipmentStatus(Courier courier) throws CourierNotFoundException
+	public String checkShipmentStatus(Courier courier) throws CourierNotFoundException
 	{
 		
 		 if(courierDao.existsById(courier.getCourierId()) == false) {
 				
 				throw new CourierNotFoundException("Courier with id " + courier.getCourierId() + " does not exist");
 				
-			} else{
-				 (courierDao.findById(courier.getCourierId()).orElse(null)).getStatus().toString();
-				}
-	
+			} else {
+				return (courierDao.findById(courier.getCourierId()).orElse(null)).getStatus().toString();
+				
+			}
 	}
 
 	@Override
-	public void closeShipmentTransaction(Courier courier)throws CourierNotFoundException 
+	public boolean closeShipmentTransaction(Courier courier)throws CourierNotFoundException 
 	{
 		 if(courierDao.existsById(courier.getCourierId()) == false) {
 				
@@ -54,10 +55,11 @@ public class ShipmentServiceImp implements IShipmentService{
 				(courierDao.findById(courier.getCourierId()).orElse(null)).setStatus(CourierStatus.DELIVERED);
 				
 			}
+		 return true;
 	}
 
 	@Override
-	public void rejectShipmentTransaction(Courier courier)throws CourierNotFoundException  {
+	public boolean rejectShipmentTransaction(Courier courier)throws CourierNotFoundException  {
 		 
 		if(courierDao.existsById(courier.getCourierId()) == false) 
 				
@@ -71,4 +73,10 @@ public class ShipmentServiceImp implements IShipmentService{
 		
 		}
 	}
+
+         return true;
+	
+
+}
+}
 
