@@ -3,12 +3,11 @@ package com.capg.ocma.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capg.ocma.entities.BankAccount;
 import com.capg.ocma.exception.AccountNotFoundException;
-import com.capg.ocma.model.BankAccountDTO;
+import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.repository.IBankAccountDao;
 import com.capg.ocma.repository.ICustomerDao;
-import com.capg.ocma.util.BankAccountUtil;
+
 
 
 @Service
@@ -22,38 +21,43 @@ public class PaymentServiceImp implements IPaymentService{
 	
 	@Override
 	public boolean processPaymentByCash() {
-		return true;	
+		return true;
+			
 	}
 	
-	
+
 	@Override
-	public boolean processPaymentByCard(int customerid) {
-		boolean flag = false;
+	public boolean processPaymentByCard(int customerId) throws CustomerNotFoundException{
 		
-		if(customerDao.existsById(customerid)) {
+		boolean flag = false;
+		if(customerDao.existsById(customerId)) {
 			
-			if(customerDao.findById(customerid).orElse(null).getAcct() != null) {
+			if(customerDao.findById(customerId).orElse(null).getAcct() != null) {
+				
 				flag = true;
 				
+			}else {
+				throw new CustomerNotFoundException("Customer Not found");
+				
 			}
-			else {
-				flag = false;
-			}
-			
 		}
 		return flag;
-		
+
 	}
-	public BankAccountDTO getAccount(int accountno) throws AccountNotFoundException{
-		BankAccount BankAccount = bankAccountDao.findById(accountno).orElse(null);
-		if(Integer.toString(BankAccount.getAccountNo()).matches("[0-9]")) {
-			return BankAccountUtil.convertToBankAccountDto(BankAccount);
+	
+	
+	public static boolean validateAccountNo(int accountNo) throws AccountNotFoundException
+	{
+		boolean flag = false;
+		if(accountNo <=0) {
 			
+			throw new AccountNotFoundException("Ivalild account No");
+			
+		}else {
+				flag = true;
 		}
-		else {
-			throw new AccountNotFoundException("Accont Number not found");
-		}
-	
+		
+		return flag;
+	}
 }
 	
-}
