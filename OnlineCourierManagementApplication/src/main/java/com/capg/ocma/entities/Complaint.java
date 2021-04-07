@@ -21,7 +21,7 @@ public class Complaint {
 	private String detailDescription;
 	
 	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="customer complaint Id")
+	@JoinColumn(name="customercomplaintId")
 	private Customer customer;
 
 	public Complaint() {
