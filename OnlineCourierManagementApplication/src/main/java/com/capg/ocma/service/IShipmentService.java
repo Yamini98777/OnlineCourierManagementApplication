@@ -2,7 +2,6 @@ package com.capg.ocma.service;
 
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.CourierNotFoundException;
-import com.capg.ocma.model.CourierDTO;
 
 public interface IShipmentService {
 

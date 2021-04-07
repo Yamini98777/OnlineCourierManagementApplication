@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +21,7 @@ public class CourierController
 	@Autowired
 	IShipmentService shipmentservice;
 	
-	@PatchMapping("/initiate")
+	@PostMapping("/initiate")
 	
 	public ResponseEntity<String> intiateShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException{
 		
@@ -46,7 +46,7 @@ public class CourierController
 		
 	}
 	
-	@PatchMapping("/close")
+	@PostMapping("/close")
 	public ResponseEntity <String> closeShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException
 	 {
 		
@@ -61,7 +61,7 @@ public class CourierController
 			}
 	}
 
-	@PatchMapping("/reject")
+	@PostMapping("/reject")
 	public ResponseEntity <String> rejectShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException {
 		
 			boolean flag = shipmentservice.rejectShipmentTransaction(courier);
