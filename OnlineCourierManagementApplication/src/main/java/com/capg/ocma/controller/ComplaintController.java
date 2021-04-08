@@ -23,7 +23,7 @@ public class ComplaintController {
 
 
 		@Autowired
-		ICustomerService customerService;
+		private ICustomerService customerService;
 		
 		
 		@GetMapping("/checkStatus/{consignmentNo}")

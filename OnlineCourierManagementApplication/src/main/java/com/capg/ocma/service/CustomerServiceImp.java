@@ -23,133 +23,118 @@ import com.capg.ocma.util.ComplaintUtil;
  * Description : This is Customer Service Layer that provides services to Add New COmplaint,Checking tracking status, validating the entities
 */
 
-
-
-
-
-
-
 @Service
-public class CustomerServiceImp implements ICustomerService{
-	
+public class CustomerServiceImp implements ICustomerService {
+
 	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
 
-	
 	@Autowired
-	ICustomerDao customerdao;
+	private ICustomerDao customerdao;
+
 	@Autowired
-	
-	IComplaintDao complaintdao;
-	
+	private IComplaintDao complaintdao;
+
 	@Autowired
-	ICourierDao courierdao;
-	
-public void initiateProcess() {
-	LOGGER.info(" service is initiated");
-	
-}
-	
-	public void makePayment() {
-		
-		LOGGER.info("makepayment() service is initiated");
-		
+	private ICourierDao courierdao;
+
+	public void initiateProcess() {
+		LOGGER.info(" service is initiated");
+
 	}
-	
+
+	public void makePayment() {
+
+		LOGGER.info("makepayment() service is initiated");
+
+	}
+
 	/*
-	 * Description : This method Checking the status of the Courier
-	 * Input Param : int 
-	 * Return Value : Courier status
-	 * Exception : CourierNotFoundException
+	 * Description : This method Checking the status of the Courier Input Param :
+	 * int Return Value : Courier status Exception : CourierNotFoundException
 	 */
-	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException  {
+	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException {
 		Courier courier = courierdao.findById(consignmentno).orElse(null);
-		String status=null;
-		
-		if(courier==null)
-			throw new CourierNotFoundException("No courier with this consignment number exists...enter valid consignment number");
-		else	
-			status=courier.getStatus();
-			
+		String status = null;
+
+		if (courier == null)
+			LOGGER.info("No courier with this consignment number exists...enter valid consignment number");
+		else
+			status = courier.getStatus();
+
 		return status;
 	}
-	
+
 	/*
-	 * Description : This method registers the complaint
-	 * Input Param : Complaint object
-	 * Return Value : ComplaintDTO object
-	 * Exception : ComplaintNotFoundException
+	 * Description : This method registers the complaint Input Param : Complaint
+	 * object Return Value : ComplaintDTO object Exception :
+	 * ComplaintNotFoundException
 	 */
 	public ComplaintDTO registerComplaint(Complaint complaint) throws ComplaintNotFoundException {
-		
+
 		LOGGER.info("registerComplaint() service is initiated");
 		Complaint complaintEntity;
-		
-		if(complaint==null)
-			complaintEntity=null;
-		else if(!validateComplaintId(complaint))
+
+		if (complaint == null)
+			complaintEntity = null;
+		else if (!validateComplaintId(complaint))
 			throw new ComplaintNotFoundException("Invalid complaintId");
 		else
-			complaintEntity=complaintdao.save(complaint);
-				
-			LOGGER.info("registerComplaint() service has executed");
-					
-				
-				return ComplaintUtil.convertToComplaintDTO(complaintEntity);
-			}
-	
-	//validation customerid
+			complaintEntity = complaintdao.save(complaint);
 
-	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException
-	{
+		LOGGER.info("registerComplaint() service has executed");
+
+		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
+	}
+
+	// validation customerid
+
+	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException {
 		boolean flag = customerdao.existsById(customerid);
-		if(flag == false)
+		if (flag == false)
 			throw new CustomerNotFoundException("customerid not found");
 		else {
 			LOGGER.info("Validation Successful");
-		
-			flag=true;
+
+			flag = true;
 		}
 		return flag;
 	}
 
 //validate mobno
-		public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException
-		{
+	public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException {
 		boolean flag = false;
-		String str=Long.toString(mobileNo);
-		int size=str.length();
-		if(size == 0)
+		String str = Long.toString(mobileNo);
+		int size = str.length();
+		if (size == 0)
 			throw new CustomerNotFoundException("Mobileno cannot be empty");
-		else if(size<=10 ||size>15)
+		else if (size <= 10 || size > 15)
 			throw new CustomerNotFoundException("Mobileno not valid");
-		else 
+		else
 			flag = true;
 		LOGGER.info("Validation Successful");
-		
+
 		return flag;
 	}
-	
-	//validate aadharno
-	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException
-	{
+
+	// validate aadharno
+	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException {
 		boolean flag = false;
-		String str=Long.toString(aadharNo);
-		int size=str.length();
-		if(size ==0)
+		String str = Long.toString(aadharNo);
+		int size = str.length();
+		if (size == 0)
 			throw new CustomerNotFoundException("AAdhaarno cannot be empty");
-		
-		else if(size>12|| size<12)
+
+		else if (size < 5)
 			throw new CustomerNotFoundException("Enter valid aadhar number");
-		
-		else if(size==12)
+
+		else if (size > 5)
 			flag = true;
-		
+
 		return flag;
 	}
-	
-	//validation complaintid
-	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException  {
-		
+
+	// validation complaintid
+	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException {
 
 		LOGGER.info("validateTenant() is initiated");
 		boolean flag = false;
@@ -167,25 +152,18 @@ public void initiateProcess() {
 		return flag;
 	}
 
-		
 //validate consignmentno
-		public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException
-		{
-			boolean flag = false;
-			String str=Integer.toString(consignmentNo);
-			int size=str.length();
-			if(size == 0)
-				throw new ComplaintNotFoundException("Consignment no cant be empty");
-			else if(!str.matches("^[0-9a-zA-Z]+$" ))
-				throw new ComplaintNotFoundException("Consignment no invalid");
-			else
-				flag = true;
-			return flag;
-		}
-	
-		
+	public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
+		boolean flag = false;
+		String str = Integer.toString(consignmentNo);
+		int size = str.length();
+		if (size == 0)
+			throw new ComplaintNotFoundException("Consignment no cant be empty");
+		else if (!str.matches("^[0-9a-zA-Z]+$"))
+			throw new ComplaintNotFoundException("Consignment no invalid");
+		else
+			flag = true;
+		return flag;
+	}
+
 }
-		
-
-	
-
