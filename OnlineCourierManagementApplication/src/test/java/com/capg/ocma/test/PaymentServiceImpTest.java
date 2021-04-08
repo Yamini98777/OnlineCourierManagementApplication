@@ -31,7 +31,7 @@ class PaymentServiceImpTest {
 		
 		Address address = new Address ("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600062);
 		
-		BankAccount acct = new BankAccount(22334455, "Pradhieep", "Savings");
+		BankAccount acct = new BankAccount(255, "Pradhieep", "Savings");
 		
 		Customer customer = new Customer(101, 12312, "Pradhieep", "K", address, 987321440, acct);
 		
