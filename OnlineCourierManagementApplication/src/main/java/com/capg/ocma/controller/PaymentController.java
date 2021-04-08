@@ -29,14 +29,14 @@ public class PaymentController {
 	private IPaymentService paymentService;
 	
 	
-	@GetMapping("/byCash")
+	@GetMapping("byCash")
 	public ResponseEntity<String> processPaymentByCash() {
 		
-		return new ResponseEntity<String> ("You have selected cash on delivery payment method",HttpStatus.OK);
+		return new ResponseEntity<String> ("You have selected cash on delivery payment method and ",HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/byCard")
+	@GetMapping("byCard")
 	public ResponseEntity<String> processPaymentByCard(@PathVariable int customerId) throws CustomerNotFoundException{
 		 boolean flag = false;
 		ResponseEntity<String> response = null;

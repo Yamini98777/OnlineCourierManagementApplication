@@ -1,5 +1,9 @@
 package com.capg.ocma.service;
 
+import java.util.Optional;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +24,16 @@ import com.capg.ocma.repository.ICustomerDao;
 
 @Service
 public class PaymentServiceImp implements IPaymentService{
+	
+	final static Logger logger = LoggerFactory.getLogger(PaymentServiceImp.class);
 
 	@Autowired
 	private ICustomerDao customerDao;
 	
 	@Autowired
 	private IBankAccountDao bankAccountDao;
+
+
 	
 	/*
 	 * Description : This method uses payment by cash 
@@ -33,7 +41,7 @@ public class PaymentServiceImp implements IPaymentService{
 	 */
 	@Override
 	public boolean processPaymentByCash() {
-		
+		logger.info(" process Payment is init");
 		return true;		
 	}
 	
@@ -46,11 +54,15 @@ public class PaymentServiceImp implements IPaymentService{
 	@Override
 	public boolean processPaymentByCard(int customerId) throws CustomerNotFoundException{
 		
-		Customer customer = customerDao.findById(customerId).orElse(null);
+		logger.info(" process Payment by card is init");
+		
+		Optional<Customer> customer = customerDao.findById(customerId);
 		
 		boolean flag = false;
-		if(customer==null) 
+		if(customer==null) {
+			logger.error("Customer not found");
 			throw new CustomerNotFoundException("Customer Not found");
+		}
 		else
 			flag = true;
 		return flag;
