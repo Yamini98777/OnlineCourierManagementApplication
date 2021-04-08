@@ -54,5 +54,32 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		return flag;
 	}
+	public static boolean validateAccountHolderName(String accountHolderName) throws AccountNotFoundException{
+		boolean flag = false;
+		
+		if(accountHolderName == null)
+			throw new AccountNotFoundException("Account Holder Name cannot be empty ");
+		else if (!accountHolderName.matches("^[a-zA-Z]+$"))
+			throw new AccountNotFoundException("Account Holder Name cannot contain Numbers or Special Characters");
+		else 
+			flag = true;
+		
+		return flag;
+		
+	}
+	
+	public static boolean validateAccountType(String accountType) throws AccountNotFoundException{
+		boolean flag = false;
+		
+		if(accountType == null)
+			throw new AccountNotFoundException("Account Type cannot be empty");
+		else if(!accountType.matches("^[a-zA-Z]+$")) 
+			throw new AccountNotFoundException("Account Type cannot contain Numbers or Special Characters");
+		else if(accountType.equals("Current") || accountType.equals("Savings") || accountType.equals("Salary"))
+			flag = true;
+			
+		return flag;
+		
+	}
 }
 	

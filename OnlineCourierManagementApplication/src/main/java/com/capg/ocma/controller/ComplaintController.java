@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.exception.ComplaintNotFoundException;
+import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.service.ICustomerService;
 
@@ -26,7 +27,7 @@ public class ComplaintController {
 		
 		
 		@GetMapping("/checkStatus/{consignmentNo}")
-		public ResponseEntity <String> checkCourierStatusAction(@PathVariable int consignmentNo)  {
+		public ResponseEntity <String> checkCourierStatusAction(@PathVariable int consignmentNo) throws CourierNotFoundException   {
 
 				String status = customerService.checkOnlineTrackingStatus(consignmentNo);
 				ResponseEntity <String> response = new ResponseEntity <String> ( status, HttpStatus.OK);
