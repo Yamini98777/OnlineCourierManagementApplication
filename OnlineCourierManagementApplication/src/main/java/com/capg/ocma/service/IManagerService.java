@@ -21,6 +21,6 @@ public interface IManagerService {
 	
 	public String getCourierStatus(Courier courier) throws CourierNotFoundException;
 	
-	public ComplaintDTO getRegistedComplaint(int complaintid) throws ComplaintNotFoundException;
+	public ComplaintDTO getRegistedComplaint(long complaintid) throws ComplaintNotFoundException;
 	public List<ComplaintDTO> getAllComplaints();
 }

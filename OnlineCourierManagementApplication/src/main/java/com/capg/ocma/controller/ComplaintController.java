@@ -20,10 +20,14 @@ import com.capg.ocma.service.ICustomerService;
 @RestController
 @RequestMapping("/api/ocma/customer")
 public class ComplaintController {
+	
 
 
 		@Autowired
 		private ICustomerService customerService;
+		
+		
+		
 		
 		
 		@GetMapping("/checkStatus/{consignmentNo}")

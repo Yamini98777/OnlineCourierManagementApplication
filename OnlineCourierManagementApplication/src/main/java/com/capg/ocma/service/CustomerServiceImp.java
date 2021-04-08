@@ -57,7 +57,7 @@ public class CustomerServiceImp implements ICustomerService {
 		String status = null;
 
 		if (courier == null)
-			LOGGER.info("No courier with this consignment number exists...enter valid consignment number");
+			LOGGER.error("No courier with this consignment number exists...enter valid consignment number");
 		else
 			status = courier.getStatus();
 
@@ -79,9 +79,12 @@ public class CustomerServiceImp implements ICustomerService {
 		else if (!validateComplaintId(complaint))
 			throw new ComplaintNotFoundException("Invalid complaintId");
 		else
+		{
+			complaint.setCustomer(null);
 			complaintEntity = complaintdao.save(complaint);
 
 		LOGGER.info("registerComplaint() service has executed");
+		}
 
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
@@ -102,6 +105,9 @@ public class CustomerServiceImp implements ICustomerService {
 
 //validate mobno
 	public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException {
+		
+		LOGGER.info("validateNumber() is initiated");
+		
 		boolean flag = false;
 		String str = Long.toString(mobileNo);
 		int size = str.length();
@@ -118,6 +124,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 	// validate aadharno
 	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException {
+		LOGGER.info("validatesetAadharno() is initiated");
 		boolean flag = false;
 		String str = Long.toString(aadharNo);
 		int size = str.length();
@@ -129,6 +136,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 		else if (size > 5)
 			flag = true;
+		LOGGER.info("validatesetAadharno() has executed");
 
 		return flag;
 	}
@@ -136,7 +144,7 @@ public class CustomerServiceImp implements ICustomerService {
 	// validation complaintid
 	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException {
 
-		LOGGER.info("validateTenant() is initiated");
+		LOGGER.info("validateComplaintId() is initiated");
 		boolean flag = false;
 		if (complaint == null) {
 			LOGGER.error("Tenant details cannot be blank");
@@ -148,14 +156,17 @@ public class CustomerServiceImp implements ICustomerService {
 			LOGGER.info("Validation Successful");
 			flag = true;
 		}
-		LOGGER.info("validateTenant() has executed");
+		LOGGER.info("validateComplaintId() has executed");
 		return flag;
 	}
 
 //validate consignmentno
-	public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
+	public static boolean validateConsignmentNo(long consignmentNo) throws ComplaintNotFoundException {
+		
+		LOGGER.info("validateConsignmentNo() is initiated");
+		
 		boolean flag = false;
-		String str = Integer.toString(consignmentNo);
+		String str = Long.toString(consignmentNo);
 		int size = str.length();
 		if (size == 0)
 			throw new ComplaintNotFoundException("Consignment no cant be empty");
@@ -163,7 +174,10 @@ public class CustomerServiceImp implements ICustomerService {
 			throw new ComplaintNotFoundException("Consignment no invalid");
 		else
 			flag = true;
+		LOGGER.info("validateConsignmentNo() has executed");
+		
 		return flag;
+		
 	}
 
 }
