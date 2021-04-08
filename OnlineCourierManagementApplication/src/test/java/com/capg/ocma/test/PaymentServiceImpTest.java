@@ -1,5 +1,6 @@
 package com.capg.ocma.test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.jupiter.api.Test;
@@ -35,7 +36,13 @@ class PaymentServiceImpTest {
 		
 		Customer customer = new Customer(101, 12312, "Pradhieep", "K", address, 987321440, acct);
 		
-		assertTrue(service.processPaymentByCard(101));
+		try{
+		    service.processPaymentByCard(101);
+		}
+		catch(CustomerNotFoundException exception)
+		{
+		   assertEquals( "throw new CustomerNotFoundException", exception.getMessage());
+		}
 		
 		
 	}

@@ -14,7 +14,7 @@ public class BankAccount {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
-	private long accountNo;
+	private int accountNo;
 	
 	@Column(name="account_Holder_Type")
 	private String accountHolderName;
@@ -27,7 +27,7 @@ public class BankAccount {
 	
 	}
 
-	public BankAccount(long accountNo, String accountHolderName, String accountType) {
+	public BankAccount(int accountNo, String accountHolderName, String accountType) {
 		super();
 		this.accountNo = accountNo;
 		this.accountHolderName = accountHolderName;
@@ -38,7 +38,7 @@ public class BankAccount {
 		return accountNo;
 	}
 
-	public void setAccountNo(long accountNo) {
+	public void setAccountNo(int accountNo) {
 		this.accountNo = accountNo;
 	}
 
