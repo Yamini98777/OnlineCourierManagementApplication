@@ -3,6 +3,7 @@ package com.capg.ocma.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,23 +12,31 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.service.IPaymentService;
 
+/*
+ * Author : PRADHIEEP K
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Payment Controller
+*/ 
+
 
 @RestController
-@RequestMapping("/api/ocma/payment")
+@RequestMapping("/api/ocma/customer/{customerid}/initiate")
+@CrossOrigin
 public class PaymentController {
 	
 	@Autowired
-	IPaymentService paymentService;
+	private IPaymentService paymentService;
 	
 	
-	@GetMapping("/byCash")
+	@GetMapping("byCash")
 	public ResponseEntity<String> processPaymentByCash() {
 		
-		return new ResponseEntity<String> ("You have selected cash on delivery payment method",HttpStatus.OK);
+		return new ResponseEntity<String> ("You have selected cash on delivery payment method and ",HttpStatus.OK);
 		
 	}
 	
-	@GetMapping("/byCard/{customerId}")
+	@GetMapping("byCard")
 	public ResponseEntity<String> processPaymentByCard(@PathVariable int customerId) throws CustomerNotFoundException{
 		 boolean flag = false;
 		ResponseEntity<String> response = null;
