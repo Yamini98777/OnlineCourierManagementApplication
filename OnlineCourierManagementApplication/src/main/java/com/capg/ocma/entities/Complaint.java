@@ -15,8 +15,8 @@ public class Complaint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
-	private int complaintId;
-	private int consignmentNo;
+	private long complaintId;
+	private long consignmentNo;
 	private String shortDescription;
 	private String detailDescription;
 	
@@ -29,7 +29,7 @@ public class Complaint {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription,
+	public Complaint(long complaintId, long consignmentNo, String shortDescription, String detailDescription,
 			Customer customer) {
 		super();
 		this.complaintId = complaintId;
@@ -39,19 +39,19 @@ public class Complaint {
 		this.customer = customer;
 	}
 
-	public int getComplaintId() {
+	public long getComplaintId() {
 		return complaintId;
 	}
 
-	public void setComplaintId(int complaintId) {
+	public void setComplaintId(long complaintId) {
 		this.complaintId = complaintId;
 	}
 
-	public int getConsignmentNo() {
+	public long getConsignmentNo() {
 		return consignmentNo;
 	}
 
-	public void setConsignmentNo(int consignmentNo) {
+	public void setConsignmentNo(long consignmentNo) {
 		this.consignmentNo = consignmentNo;
 	}
 

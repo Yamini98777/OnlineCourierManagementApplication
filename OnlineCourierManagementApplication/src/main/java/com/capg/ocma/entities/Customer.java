@@ -19,7 +19,7 @@ public class Customer {
 	@Column(name="customer_id")
 	private int customerId;
 	@Column(name="aadhar_no")
-	private long aadharNo;
+	private long  aadharNo;
 	private String firstName;
 	private String lastName;
 	private long mobileNo;

@@ -130,7 +130,7 @@ public class ManagerServiceImp implements IManagerService {
 	 */
 	
 	@Override
-	public ComplaintDTO getRegistedComplaint(int complaintId) throws ComplaintNotFoundException {
+	public ComplaintDTO getRegistedComplaint(long complaintId) throws ComplaintNotFoundException {
 		
 		Complaint complaint = complaintRepo.findById(complaintId).orElse(null);
 		
