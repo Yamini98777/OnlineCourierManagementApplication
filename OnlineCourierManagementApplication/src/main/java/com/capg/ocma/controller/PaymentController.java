@@ -24,7 +24,7 @@ import com.capg.ocma.service.IPaymentService;
 public class PaymentController {
 	
 	@Autowired
-	IPaymentService paymentService;
+	private IPaymentService paymentService;
 	
 	
 	@GetMapping("/byCash")

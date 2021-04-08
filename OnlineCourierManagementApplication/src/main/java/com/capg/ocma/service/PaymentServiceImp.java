@@ -22,10 +22,10 @@ import com.capg.ocma.repository.ICustomerDao;
 public class PaymentServiceImp implements IPaymentService{
 
 	@Autowired
-	ICustomerDao customerDao;
+	private ICustomerDao customerDao;
 	
 	@Autowired
-	IBankAccountDao bankAccountDao;
+	private IBankAccountDao bankAccountDao;
 	
 	/*
 	 * Description : This method uses payment by cash 
@@ -40,7 +40,7 @@ public class PaymentServiceImp implements IPaymentService{
 	/*
 	 * Description : This method uses payment by cash
 	 * Input Param : Customer Object
-	 * Return Value : CustomerDTO Object
+	 * Return Value : true
 	 * Exception : CustomerNotFoundException
 	 */
 	@Override
