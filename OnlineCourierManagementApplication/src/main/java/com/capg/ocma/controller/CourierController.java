@@ -1,4 +1,4 @@
-package com.capg.ocma.controller;
+	package com.capg.ocma.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +15,14 @@ import com.capg.ocma.service.IShipmentService;
 
 @RestController
 @RequestMapping("/api/ocma/courier")
+
+/*
+ * Author : SRINIVAS MADIVAL
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Shipment Service Layer
+*/
+
 public class CourierController 
 {
    

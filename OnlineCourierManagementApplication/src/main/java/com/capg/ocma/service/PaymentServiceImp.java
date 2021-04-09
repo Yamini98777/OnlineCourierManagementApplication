@@ -1,5 +1,10 @@
 package com.capg.ocma.service;
 
+
+
+import java.util.Optional;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,33 +16,62 @@ import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.repository.IBankAccountDao;
 import com.capg.ocma.repository.ICustomerDao;
 
+/*
+ * Author : PRADHIEEP K
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Payment Service Layer that provides services to pay either by cash or card 
+*/ 
+
 
 
 @Service
 public class PaymentServiceImp implements IPaymentService{
-	
+
+	final static Logger logger = LoggerFactory.getLogger(PaymentServiceImp.class);
+
 
 	@Autowired
-	ICustomerDao customerDao;
+	private ICustomerDao customerDao;
 	
 	@Autowired
-	IBankAccountDao bankAccountDao;
+	private IBankAccountDao bankAccountDao;
+
+
 	
+	/*
+	 * Description : This method uses payment by cash 
+	 * Return Value : True
+	 */
 	@Override
 	public boolean processPaymentByCash() {
-		return true;
-			
+		logger.info(" process Payment is init");
+		return true;		
 	}
 	
- 
+	/*
+	 * Description : This method uses payment by cash
+	 * Input Param : Customer Object
+	 * Return Value : true
+	 * Exception : CustomerNotFoundException
+	 */
 	@Override
 	public boolean processPaymentByCard(int customerId) throws CustomerNotFoundException{
 		
-		Customer customer = customerDao.findById(customerId).orElse(null);
+		logger.info(" process Payment by card is init");
+		
+		Optional<Customer> customer = customerDao.findById(customerId);
 		
 		boolean flag = false;
+
 		if(customer==null) 
 			throws new CustomerNotFoundException("Customer with given customer ID not found");
+
+		if(customer==null) {
+			logger.error("Customer not found");
+			throw new CustomerNotFoundException("Customer Not found");
+		}
+
 		else
 			flag = true;
 		return flag;
