@@ -1,11 +1,11 @@
 package com.capg.ocma.entities;
 
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -15,13 +15,12 @@ public class Complaint {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO )
-	private long complaintId;
-	private long consignmentNo;
+	private int complaintId;
+	private int consignmentNo;
 	private String shortDescription;
 	private String detailDescription;
 	
-	@OneToOne(cascade=CascadeType.ALL)
-	@JoinColumn(name="customercomplaintId")
+	@OneToOne
 	private Customer customer;
 
 	public Complaint() {
@@ -29,7 +28,7 @@ public class Complaint {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Complaint(long complaintId, long consignmentNo, String shortDescription, String detailDescription,
+	public Complaint(int complaintId, int consignmentNo, String shortDescription, String detailDescription,
 			Customer customer) {
 		super();
 		this.complaintId = complaintId;
@@ -39,19 +38,19 @@ public class Complaint {
 		this.customer = customer;
 	}
 
-	public long getComplaintId() {
+	public int getComplaintId() {
 		return complaintId;
 	}
 
-	public void setComplaintId(long complaintId) {
+	public void setComplaintId(int complaintId) {
 		this.complaintId = complaintId;
 	}
 
-	public long getConsignmentNo() {
+	public int getConsignmentNo() {
 		return consignmentNo;
 	}
 
-	public void setConsignmentNo(long consignmentNo) {
+	public void setConsignmentNo(int consignmentNo) {
 		this.consignmentNo = consignmentNo;
 	}
 

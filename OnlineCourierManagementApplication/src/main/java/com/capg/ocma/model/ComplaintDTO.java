@@ -4,8 +4,8 @@ import com.capg.ocma.entities.Customer;
 
 public class ComplaintDTO {
 
-	private long complaintid;
-	private long consignmentno;
+	private int complaintid;
+	private int consignmentno;
 	private String shortdescription;
 	private String detaildescription;
 	private Customer customer;
@@ -15,7 +15,7 @@ public class ComplaintDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ComplaintDTO(long complaintid, long consignmentno, String shortdescription, String detaildescription, Customer customer) {
+	public ComplaintDTO(int complaintid, int consignmentno, String shortdescription, String detaildescription, Customer customer) {
 		super();
 		this.complaintid = complaintid;
 		this.consignmentno = consignmentno;
@@ -24,19 +24,19 @@ public class ComplaintDTO {
 		this.customer = customer;
 	}
 
-	public long getComplaintid() {
+	public int getComplaintid() {
 		return complaintid;
 	}
 
-	public void setComplaintid(long complaintid) {
+	public void setComplaintid(int complaintid) {
 		this.complaintid = complaintid;
 	}
 
-	public long getConsignmentno() {
+	public int getConsignmentno() {
 		return consignmentno;
 	}
 
-	public void setConsignmentno(long consignmentno) {
+	public void setConsignmentno(int consignmentno) {
 		this.consignmentno = consignmentno;
 	}
 

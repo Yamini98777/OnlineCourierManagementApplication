@@ -1,6 +1,9 @@
 package com.capg.ocma.service;
 
+
+
 import java.util.Optional;
+
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +27,9 @@ import com.capg.ocma.repository.ICustomerDao;
 
 @Service
 public class PaymentServiceImp implements IPaymentService{
-	
+
 	final static Logger logger = LoggerFactory.getLogger(PaymentServiceImp.class);
+
 
 	@Autowired
 	private ICustomerDao customerDao;
@@ -59,17 +63,22 @@ public class PaymentServiceImp implements IPaymentService{
 		Optional<Customer> customer = customerDao.findById(customerId);
 		
 		boolean flag = false;
+
+		if(customer==null) 
+			throws new CustomerNotFoundException("Customer with given customer ID not found");
+
 		if(customer==null) {
 			logger.error("Customer not found");
 			throw new CustomerNotFoundException("Customer Not found");
 		}
+
 		else
 			flag = true;
 		return flag;
 	}
 	
 	
-	public static boolean validateAccountNo(int accountNo) throws AccountNotFoundException
+	public static boolean validateAccountNo(long accountNo) throws AccountNotFoundException
 	{
 		boolean flag = false;
 		if(accountNo <=0) {

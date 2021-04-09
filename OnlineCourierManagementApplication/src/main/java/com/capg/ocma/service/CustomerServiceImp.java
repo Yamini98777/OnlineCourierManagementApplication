@@ -1,5 +1,7 @@
 package com.capg.ocma.service;
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
+import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
+import com.capg.ocma.model.CustomerDTO;
 import com.capg.ocma.repository.IComplaintDao;
 import com.capg.ocma.repository.ICourierDao;
 import com.capg.ocma.repository.ICustomerDao;
 import com.capg.ocma.util.ComplaintUtil;
+import com.capg.ocma.util.CustomerUtil;
 
 /*
  * Author : GOMATHI M
@@ -26,7 +31,7 @@ import com.capg.ocma.util.ComplaintUtil;
 @Service
 public class CustomerServiceImp implements ICustomerService {
 
-	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
+	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 
 	@Autowired
 	private ICustomerDao customerdao;
@@ -38,14 +43,28 @@ public class CustomerServiceImp implements ICustomerService {
 	private ICourierDao courierdao;
 
 	public void initiateProcess() {
-		LOGGER.info(" service is initiated");
+		logger.info(" service is initiated");
 
 	}
 
 	public void makePayment() {
 
-		LOGGER.info("makepayment() service is initiated");
+		logger.info("makepayment() service is initiated");
 
+	}
+	
+	/*
+	 * Description : This method add the customer 
+	 * Input Param : Customer
+	 * object Return Value : CustomerDto object
+	 *  Exception : CustomerNotFound
+	 */
+	@Override
+	public CustomerDTO addcustomer(Customer customer) {
+		
+	
+		 Customer cust= customerdao.save(customer);
+		 return CustomerUtil.convertToCustomerDTO(cust);
 	}
 
 	/*
@@ -57,7 +76,7 @@ public class CustomerServiceImp implements ICustomerService {
 		String status = null;
 
 		if (courier == null)
-			LOGGER.error("No courier with this consignment number exists...enter valid consignment number");
+			throw new CourierNotFoundException("No courier with this consignment number exists...enter valid consignment number");
 		else
 			status = courier.getStatus();
 
@@ -65,25 +84,29 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	/*
-	 * Description : This method registers the complaint Input Param : Complaint
+	 * Description : This method registers the complaint 
+	 * Input Param : Complaint
 	 * object Return Value : ComplaintDTO object Exception :
 	 * ComplaintNotFoundException
 	 */
 	public ComplaintDTO registerComplaint(Complaint complaint) throws ComplaintNotFoundException {
 
-		LOGGER.info("registerComplaint() service is initiated");
+		logger.info("registerComplaint() service is initiated");
 		Complaint complaintEntity;
 
 		if (complaint == null)
+		{
 			complaintEntity = null;
+		}
 		else if (!validateComplaintId(complaint))
+		{
 			throw new ComplaintNotFoundException("Invalid complaintId");
+		}
 		else
 		{
-			complaint.setCustomer(null);
+			
 			complaintEntity = complaintdao.save(complaint);
-
-		LOGGER.info("registerComplaint() service has executed");
+			logger.info("registerComplaint() service has executed");
 		}
 
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
@@ -96,7 +119,7 @@ public class CustomerServiceImp implements ICustomerService {
 		if (flag == false)
 			throw new CustomerNotFoundException("customerid not found");
 		else {
-			LOGGER.info("Validation Successful");
+			logger.info("Validation Successful");
 
 			flag = true;
 		}
@@ -106,7 +129,7 @@ public class CustomerServiceImp implements ICustomerService {
 //validate mobno
 	public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException {
 		
-		LOGGER.info("validateNumber() is initiated");
+		logger.info("validateNumber() is initiated");
 		
 		boolean flag = false;
 		String str = Long.toString(mobileNo);
@@ -117,14 +140,14 @@ public class CustomerServiceImp implements ICustomerService {
 			throw new CustomerNotFoundException("Mobileno not valid");
 		else
 			flag = true;
-		LOGGER.info("Validation Successful");
+		logger.info("Validation Successful");
 
 		return flag;
 	}
 
 	// validate aadharno
 	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException {
-		LOGGER.info("validatesetAadharno() is initiated");
+		logger.info("validatesetAadharno() is initiated");
 		boolean flag = false;
 		String str = Long.toString(aadharNo);
 		int size = str.length();
@@ -136,7 +159,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 		else if (size > 5)
 			flag = true;
-		LOGGER.info("validatesetAadharno() has executed");
+		logger.info("validatesetAadharno() has executed");
 
 		return flag;
 	}
@@ -144,26 +167,26 @@ public class CustomerServiceImp implements ICustomerService {
 	// validation complaintid
 	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException {
 
-		LOGGER.info("validateComplaintId() is initiated");
+		logger.info("validateComplaintId() is initiated");
 		boolean flag = false;
 		if (complaint == null) {
-			LOGGER.error("Tenant details cannot be blank");
+			logger.error("Tenant details cannot be blank");
 			throw new ComplaintNotFoundException("Complaint details cannot be blank");
 		} else if (!(validateConsignmentNo(complaint.getConsignmentNo()))) {
-			LOGGER.error("Invalid Address");
+			logger.error("Invalid Address");
 			throw new ComplaintNotFoundException("Invalid consignment");
 		} else {
-			LOGGER.info("Validation Successful");
+			logger.info("Validation Successful");
 			flag = true;
 		}
-		LOGGER.info("validateComplaintId() has executed");
+		logger.info("validateComplaintId() has executed");
 		return flag;
 	}
 
 //validate consignmentno
 	public static boolean validateConsignmentNo(long consignmentNo) throws ComplaintNotFoundException {
 		
-		LOGGER.info("validateConsignmentNo() is initiated");
+		logger.info("validateConsignmentNo() is initiated");
 		
 		boolean flag = false;
 		String str = Long.toString(consignmentNo);
@@ -174,10 +197,12 @@ public class CustomerServiceImp implements ICustomerService {
 			throw new ComplaintNotFoundException("Consignment no invalid");
 		else
 			flag = true;
-		LOGGER.info("validateConsignmentNo() has executed");
+		logger.info("validateConsignmentNo() has executed");
 		
 		return flag;
 		
 	}
+
+	
 
 }
