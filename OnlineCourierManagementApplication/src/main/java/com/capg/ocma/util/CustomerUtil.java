@@ -32,7 +32,7 @@ public class CustomerUtil {
  * 
  * }
  */
-	private static CustomerDTO convertToCustomerDTO(Customer customer) {
+	public static CustomerDTO convertToCustomerDTO(Customer customer) {
 		CustomerDTO dto =new CustomerDTO();
 		
 		dto.setCustomerid(customer.getCustomerId());

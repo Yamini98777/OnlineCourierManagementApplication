@@ -1,5 +1,7 @@
 package com.capg.ocma.service;
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,14 +9,17 @@ import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
+import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
+import com.capg.ocma.model.CustomerDTO;
 import com.capg.ocma.repository.IComplaintDao;
 import com.capg.ocma.repository.ICourierDao;
 import com.capg.ocma.repository.ICustomerDao;
 import com.capg.ocma.util.ComplaintUtil;
+import com.capg.ocma.util.CustomerUtil;
 
 /*
  * Author : GOMATHI M
@@ -47,6 +52,20 @@ public class CustomerServiceImp implements ICustomerService {
 		LOGGER.info("makepayment() service is initiated");
 
 	}
+	
+	/*
+	 * Description : This method add the customer 
+	 * Input Param : Customer
+	 * object Return Value : CustomerDto object
+	 *  Exception : CustomerNotFound
+	 */
+	@Override
+	public CustomerDTO addcustomer(Customer customer) {
+		
+	
+		 Customer cust= customerdao.save(customer);
+		 return CustomerUtil.convertToCustomerDTO(cust);
+	}
 
 	/*
 	 * Description : This method Checking the status of the Courier Input Param :
@@ -65,7 +84,8 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	/*
-	 * Description : This method registers the complaint Input Param : Complaint
+	 * Description : This method registers the complaint 
+	 * Input Param : Complaint
 	 * object Return Value : ComplaintDTO object Exception :
 	 * ComplaintNotFoundException
 	 */
@@ -75,15 +95,18 @@ public class CustomerServiceImp implements ICustomerService {
 		Complaint complaintEntity;
 
 		if (complaint == null)
+		{
 			complaintEntity = null;
+		}
 		else if (!validateComplaintId(complaint))
+		{
 			throw new ComplaintNotFoundException("Invalid complaintId");
+		}
 		else
 		{
-			complaint.setCustomer(null);
+			
 			complaintEntity = complaintdao.save(complaint);
-
-		LOGGER.info("registerComplaint() service has executed");
+			LOGGER.info("registerComplaint() service has executed");
 		}
 
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
@@ -179,5 +202,7 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 		
 	}
+
+	
 
 }

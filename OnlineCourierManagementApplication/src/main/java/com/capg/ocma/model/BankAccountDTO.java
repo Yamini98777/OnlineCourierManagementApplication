@@ -14,7 +14,7 @@ public class BankAccountDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public BankAccountDTO(int accountno, String accountHolderName, String accountType) {
+	public BankAccountDTO(long accountno, String accountHolderName, String accountType) {
 		super();
 		this.accountNo = accountno;
 		this.accountHolderName = accountHolderName;

@@ -1,10 +1,8 @@
 package com.capg.ocma.test;
 
-import static org.junit.Assert.assertNotNull;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -17,7 +15,6 @@ import com.capg.ocma.entities.Address;
 import com.capg.ocma.entities.BankAccount;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Customer;
-import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.service.ICustomerService;
