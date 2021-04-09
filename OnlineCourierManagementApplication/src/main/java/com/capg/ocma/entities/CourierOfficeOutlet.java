@@ -37,7 +37,7 @@ public class CourierOfficeOutlet {
 	private Address address;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="staff_id")
+	@JoinColumn(name="staff_office_id")
 	private List<OfficeStaffMember> staffmembers;
 
 	public CourierOfficeOutlet() {

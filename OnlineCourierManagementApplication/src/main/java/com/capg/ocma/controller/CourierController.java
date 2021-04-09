@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.model.CourierDTO;
 import com.capg.ocma.service.IShipmentService;
 
 @RestController
@@ -27,13 +28,27 @@ public class CourierController
 {
    
 	@Autowired
-	IShipmentService shipmentservice;
+	private IShipmentService shipmentService;
 	
+
+	@PostMapping("/add-courier")
+	public ResponseEntity<CourierDTO> addCourier(@RequestBody Courier courier) throws CourierNotFoundException{
+	
+		CourierDTO  courierDTO= null;
+		ResponseEntity<CourierDTO> courierResponse = null;
+		
+		courierDTO = shipmentService.addCourier(courier);
+		courierResponse = new ResponseEntity<CourierDTO>(courierDTO, HttpStatus.ACCEPTED);
+		
+		return 	courierResponse;
+	
+	
+	}
+		
 	@PostMapping("/initiate")
-	
 	public ResponseEntity<String> intiateShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException{
 		
-		boolean flag= shipmentservice.initiateShipmentTransaction(courier);
+		boolean flag= shipmentService.initiateShipmentTransaction(courier);
 		if(flag) {
 			
 			return new ResponseEntity <> ("You have successfully initiated the shipment process for the courier with id " + courier, HttpStatus.OK);
@@ -49,7 +64,7 @@ public class CourierController
 	@GetMapping("/checkStatus")
 	public ResponseEntity <String> checkShipmentStatusAction(@RequestBody Courier courier) throws CourierNotFoundException {
 		
-			String status = shipmentservice.checkShipmentStatus(courier);
+			String status = shipmentService.checkShipmentStatus(courier);
 			return new ResponseEntity <> ("The status of the courier with courier id is: " + status, HttpStatus.OK);
 		
 	}
@@ -58,7 +73,7 @@ public class CourierController
 	public ResponseEntity <String> closeShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException
 	 {
 		
-			boolean flag = shipmentservice.closeShipmentTransaction(courier);
+			boolean flag = shipmentService.closeShipmentTransaction(courier);
 			if(flag) {
 				
 				return new ResponseEntity <> ("You have successfully closed the shipment process for the courier with id " + courier, HttpStatus.OK);
@@ -72,7 +87,7 @@ public class CourierController
 	@PostMapping("/reject")
 	public ResponseEntity <String> rejectShipmentTransaction(@RequestBody Courier courier) throws CourierNotFoundException {
 		
-			boolean flag = shipmentservice.rejectShipmentTransaction(courier);
+			boolean flag = shipmentService.rejectShipmentTransaction(courier);
 			if(flag) {
 				
 				return new ResponseEntity <> ("You have successfully rejected the shipment process for the courier with id ", HttpStatus.OK);

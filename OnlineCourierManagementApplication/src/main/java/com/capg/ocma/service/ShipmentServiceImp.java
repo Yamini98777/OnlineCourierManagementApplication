@@ -1,11 +1,16 @@
 package com.capg.ocma.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.exception.CustomerNotFoundException;
+import com.capg.ocma.model.CourierDTO;
 import com.capg.ocma.repository.ICourierDao;
+import com.capg.ocma.util.CourierUtil;
 /*
  * Author : SRINIVAS MADIVAL
  * Version : 1.0
@@ -17,7 +22,29 @@ public class ShipmentServiceImp implements IShipmentService{
 	
 	@Autowired
 	ICourierDao courierDao;
+	
+	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
 
+	
+	@Override
+	public CourierDTO addCourier(Courier courier) throws CourierNotFoundException
+	{
+		LOGGER.info("addCourier() service is initiated");
+		Courier courierEntity;
+
+		if (courier == null)
+			courierEntity = null;
+		else
+		{
+			courierEntity = courierDao.save(courier);
+
+			LOGGER.info("addCourier() service has executed");
+		}
+
+		return CourierUtil.convertToCourierDto(courierEntity);
+	}
+	
+	
 	@Override
 	public boolean initiateShipmentTransaction(Courier courier) throws CourierNotFoundException
 	{
@@ -77,6 +104,18 @@ public class ShipmentServiceImp implements IShipmentService{
 		return true;
 		}
 	
+//	VALIDATE courierId
+	
+	public boolean validateCourierId(int courierId) throws CourierNotFoundException
+	{
+		boolean flag=false;
+		
+		if(courierId<=0)
+			throw new CourierNotFoundException("Invalid Courier ID");
+		else 
+			flag = true;
+		return flag;
+	}
 
          
 	

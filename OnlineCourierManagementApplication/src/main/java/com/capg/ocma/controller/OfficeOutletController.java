@@ -31,7 +31,7 @@ public class OfficeOutletController {
 	@PostMapping("/addOffice")
 	public ResponseEntity<CourierOfficeOutletDTO> addNewOffice(@RequestBody CourierOfficeOutlet officeOutlet)
 			throws OutletNotFoundException {
-		System.out.println(officeOutlet);
+		
 		CourierOfficeOutletDTO officeDTO = null;
 		ResponseEntity<CourierOfficeOutletDTO> officeResponse = null;
 

@@ -12,9 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.entities.Complaint;
+import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
+import com.capg.ocma.model.CustomerDTO;
 import com.capg.ocma.service.ICustomerService;
 
 
@@ -39,6 +42,7 @@ public class ComplaintController {
 				ResponseEntity <String> response = new ResponseEntity <String> ( status, HttpStatus.OK);
 				return response;
 		}
+		
 		@PostMapping("/add-complaint")
 		public ResponseEntity<ComplaintDTO> registerComplaint(@RequestBody Complaint complaint) throws ComplaintNotFoundException {
 			
@@ -51,6 +55,21 @@ public class ComplaintController {
 				complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
 			
 			return complaintResponse;
+			
+		}
+		
+		@PostMapping("/add-customer")
+		public ResponseEntity<CustomerDTO> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+			
+			CustomerDTO  customerDTO= null;
+			ResponseEntity<CustomerDTO> customerResponse = null;
+			
+		
+				
+			customerDTO = customerService.addCustomer(customer);
+			customerResponse = new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.ACCEPTED);
+			
+			return customerResponse;
 			
 		}
 }

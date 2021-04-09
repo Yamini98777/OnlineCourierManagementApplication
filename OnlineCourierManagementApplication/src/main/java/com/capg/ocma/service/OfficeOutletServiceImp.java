@@ -22,12 +22,12 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 
 	@Override
 	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeOutlet) {
-		System.out.println(officeOutlet);
+	
 		CourierOfficeOutlet officeoutletEntity;
 		if (officeOutlet == null) {
 			officeoutletEntity = null;
 		} else {
-			System.out.println(officeOutlet);
+			
 //			CourierOfficeOutlet obj = new CourierOfficeOutlet(officeOutlet.getOfficeId(), officeOutlet.getAddress(), officeOutlet.getOpeningTime(), officeOutlet.getClosingTime(), officeOutlet.getStaffmembers());
 			officeoutletEntity = repo.save(officeOutlet);
 		}

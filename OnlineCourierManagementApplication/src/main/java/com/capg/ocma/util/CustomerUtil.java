@@ -17,22 +17,8 @@ public class CustomerUtil {
 	
 }
 	
-	
-/*
- * public static Customer convertToCustomer(CustomerDTO dto) { Customer customer
- * =new Customer();
- * 
- * customer.setCustomerid(dto.getCustomerid());
- * customer.setAadharno(dto.getAadharno());
- * customer.setFirstname(dto.getFirstname());
- * customer.setLastname(dto.getLastname());
- * customer.setMobileno(dto.getMobileno());
- * 
- * return customer;
- * 
- * }
- */
-	private static CustomerDTO convertToCustomerDTO(Customer customer) {
+
+	public static CustomerDTO convertToCustomerDTO(Customer customer) {
 		CustomerDTO dto =new CustomerDTO();
 		
 		dto.setCustomerid(customer.getCustomerId());

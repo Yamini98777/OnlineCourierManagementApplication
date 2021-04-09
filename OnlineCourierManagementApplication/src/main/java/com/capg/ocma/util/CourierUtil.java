@@ -33,21 +33,6 @@ public class CourierUtil {
 		return courierDto;
 	}
 	
-	/*
-	 * public static Courier convertToCourier(CourierDTO courierDto) { 
-	 * Courier courier = new Courier();
-	 * 
-	 * courier.setCourierid(courierDto.getCourierid()); 
-	 * courier.setStatus(courier.getStatus());
-	 * courier.setSender(courier.getSender()); 
-	 * courier.setReceiver(courier.getReceiver());
-	 * courier.setConsignmentno(courierDto.getConsignmentno());
-	 * courier.setInitiatedDate(courierDto.getInitiatedDate());
-	 * courier.setDeliveredDate(courierDto.getDeliveredDate());
-	 * 
-	 * return courier;
-	 * 
-	 * }
-	 */
+	
 }
 	
