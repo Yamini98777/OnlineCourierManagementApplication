@@ -15,7 +15,7 @@ import com.capg.ocma.repository.ICustomerDao;
 
 @Service
 public class PaymentServiceImp implements IPaymentService{
-	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
+	
 
 	@Autowired
 	ICustomerDao customerDao;
@@ -37,7 +37,7 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		boolean flag = false;
 		if(customer==null) 
-			LOGGER.error("Customer Not found");
+			throws new CustomerNotFoundException("Customer with given customer ID not found");
 		else
 			flag = true;
 		return flag;
