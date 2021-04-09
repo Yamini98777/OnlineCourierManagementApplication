@@ -22,7 +22,7 @@ public class Courier {
 	private LocalDate initiatedDate;
 	private LocalDate deliveredDate;
 
-//	@Enumerated(EnumType.STRING)
+
 	private String status;
 
 	@OneToOne(cascade = CascadeType.ALL)

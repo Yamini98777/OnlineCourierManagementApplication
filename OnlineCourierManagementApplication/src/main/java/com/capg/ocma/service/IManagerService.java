@@ -19,7 +19,7 @@ public interface IManagerService {
 	public OfficeStaffMemberDTO getStaffMember(int empid) throws StaffMemberNotFoundException;
 	public List<OfficeStaffMemberDTO> getAllStaffMembers();
 	
-	public String getCourierStatus(Courier courier) throws CourierNotFoundException;
+	public String getCourierStatus(int courierId) throws CourierNotFoundException;
 	
 	public ComplaintDTO getRegistedComplaint(long complaintid) throws ComplaintNotFoundException;
 	public List<ComplaintDTO> getAllComplaints();

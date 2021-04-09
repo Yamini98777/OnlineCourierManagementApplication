@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,21 +26,17 @@ public class OfficeStaffMember
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	private CourierOfficeOutlet office;
-	
 	public OfficeStaffMember() {
 		super();
 	}
 	
-	public OfficeStaffMember(int empid, String name, Address address, String role, CourierOfficeOutlet office) 
+	public OfficeStaffMember(int empid, String name, Address address, String role) 
 	{
 		super();
 		this.empid = empid;
 		this.name = name;
 		this.address = address;
 		this.role = role;
-		this.office = office;
 	}
 
 	public int getEmpid() {
@@ -65,18 +63,12 @@ public class OfficeStaffMember
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public CourierOfficeOutlet getOffice() {
-		return office;
-	}
-	public void setOffice(CourierOfficeOutlet office) {
-		this.office = office;
-	}
+	
 
 	@Override
 	public String toString() 
 	{
-		return "OfficeStaffMember [empid=" + empid + ", name=" + name + ", address=" + address + ", role=" + role
-				+ ", office=" + office + "]";
+		return "OfficeStaffMember [empid=" + empid + ", name=" + name + ", address=" + address + ", role=" + role + "]";
 	}
 	
 	

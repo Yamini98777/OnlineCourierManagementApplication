@@ -1,6 +1,6 @@
 package com.capg.ocma.entities;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+
 @Entity
 @Table(name="courier_office_outlet")
 public class CourierOfficeOutlet {
@@ -22,23 +26,25 @@ public class CourierOfficeOutlet {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="office_id")
 	private int officeId;
-	private LocalTime openingTime;
-	private LocalTime closingTime;
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate openingTime;
+	
+	@DateTimeFormat(iso = ISO.DATE)
+	private LocalDate closingTime;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
-	@OneToMany(cascade = CascadeType.ALL )
-	@JoinColumn(name="CourierOfficeOutletId")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="staff_id")
 	private List<OfficeStaffMember> staffmembers;
 
 	public CourierOfficeOutlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public CourierOfficeOutlet(int officeId, Address address, LocalTime openingTime, LocalTime closingTime,
-			List<OfficeStaffMember> staffmembers) {
+	public CourierOfficeOutlet(int officeId, Address address, LocalDate openingTime, LocalDate closingTime, List<OfficeStaffMember> staffmembers) {
 		super();
 		this.officeId = officeId;
 		this.address = address;
@@ -63,19 +69,19 @@ public class CourierOfficeOutlet {
 		this.address = address;
 	}
 
-	public LocalTime getOpeningTime() {
+	public LocalDate getOpeningTime() {
 		return openingTime;
 	}
 
-	public void setOpeningTime(LocalTime openingTime) {
+	public void setOpeningTime(LocalDate openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public LocalTime getClosingTime() {
+	public LocalDate getClosingTime() {
 		return closingTime;
 	}
 
-	public void setClosingTime(LocalTime closingTime) {
+	public void setClosingTime(LocalDate closingTime) {
 		this.closingTime = closingTime;
 	}
 

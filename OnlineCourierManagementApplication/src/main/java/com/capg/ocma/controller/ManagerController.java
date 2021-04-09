@@ -106,22 +106,22 @@ public class ManagerController {
 	}
 	
 	
-	@GetMapping("/get-courier-status/")
-	public String getCourierStatus(@RequestBody Courier courier) throws CourierNotFoundException{
+	@GetMapping("/get-courier-status/{courierId}")
+	public String getCourierStatus(@PathVariable int courierId) throws CourierNotFoundException{
 		
 		String courierStatus;
 		
-		if(courier == null)
+		if(courierId <=0)
 			throw new CourierNotFoundException("Invalid data");
 		else
-			courierStatus = managerService.getCourierStatus(courier);
+			courierStatus = managerService.getCourierStatus(courierId);
 		return courierStatus;
 
 	}
 	
 	
 	@GetMapping("/get-complaint-byid/{complaintId}")
-	public ResponseEntity<ComplaintDTO> getRegistedComplaint(int complaintId) throws ComplaintNotFoundException{
+	public ResponseEntity<ComplaintDTO> getRegistedComplaint(@PathVariable int complaintId) throws ComplaintNotFoundException{
 		
 		ComplaintDTO complaintDTO = null;
 		ResponseEntity<ComplaintDTO> complaintResponse = null;

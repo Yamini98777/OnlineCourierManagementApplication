@@ -1,12 +1,17 @@
 package com.capg.ocma.service;
 
+import java.time.LocalTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capg.ocma.controller.ManagerController;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
+import com.capg.ocma.entities.CourierOfficeOutlet;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -31,6 +36,8 @@ import com.capg.ocma.util.OfficeStaffMemberUtil;
 @Service
 public class ManagerServiceImp implements IManagerService {
 
+	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	
 	@Autowired
 	private IStaffMemberDao repo;
 	
@@ -50,7 +57,13 @@ public class ManagerServiceImp implements IManagerService {
 	
 	@Override
 	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffMember) {
-
+		
+		LOGGER.info("addStaffMember() service is initiated");
+		
+//		CourierOfficeOutlet office = new CourierOfficeOutlet();
+//		LocalTime open = LocalTime.parse(office.getOpeningTime());
+//		LocalTime close = LocalTime.parse(office.getClosingTime());
+//		office.setClosingTime(close);
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(repo.save(staffMember));
 	}
 
@@ -64,12 +77,17 @@ public class ManagerServiceImp implements IManagerService {
 	@Override
 	public OfficeStaffMemberDTO removeStaffMember(int empId) throws StaffMemberNotFoundException {
 		
+		LOGGER.info("removeStaffMember() service is initiated");
+		
 		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
 				
 		if(existStaffMember == null)
 			throw new StaffMemberNotFoundException(staffMemberNotFound);
 		else
 			repo.delete(existStaffMember);
+		
+		LOGGER.info("removeStaffMember() service has executed");
+		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
 
@@ -83,10 +101,14 @@ public class ManagerServiceImp implements IManagerService {
 	@Override
 	public OfficeStaffMemberDTO getStaffMember(int empId) throws StaffMemberNotFoundException {
 		
+		LOGGER.info("getStaffMember() service is initiated");
+		
 		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
 		
 		if(existStaffMember == null)
 			throw new StaffMemberNotFoundException(staffMemberNotFound);
+		
+		LOGGER.info("getStaffMember() service has executed");
 		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
@@ -98,7 +120,13 @@ public class ManagerServiceImp implements IManagerService {
 	
 	@Override
 	public List<OfficeStaffMemberDTO> getAllStaffMembers() {
+		
+		LOGGER.info("getAllStaffMembers() service is initiated");
+		
 		List<OfficeStaffMember> list = repo.findAll();
+		
+		LOGGER.info("getAllStaffMembers() service has executed");
+		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDtoList(list);
 	}
 
@@ -110,14 +138,19 @@ public class ManagerServiceImp implements IManagerService {
 	 */
 	
 	@Override
-	public String getCourierStatus(Courier courier) throws CourierNotFoundException {
+	public String getCourierStatus(int courierId) throws CourierNotFoundException {
 		
-		String status = courier.getStatus();
+		LOGGER.info("getCourierStatus() service is initiated");
 		
-		courier= courierRepo.findById(courier.getCourierId()).orElse(null);
+		Courier courier= courierRepo.findById(courierId).orElse(null);
+		
+		String status;
 		
 		if(courier == null)
 			throw new CourierNotFoundException("No Courier found with given ID");
+		else
+			status = courier.getStatus();
+		LOGGER.info("getCourierStatus() service has executed");
 		
 		return  status;
 	}
@@ -128,17 +161,21 @@ public class ManagerServiceImp implements IManagerService {
 	 * Return Value : ComplaintDTO Object 
 	 * Exception : ComplaintNotFoundException
 	 */
-	
 	@Override
 	public ComplaintDTO getRegistedComplaint(long complaintId) throws ComplaintNotFoundException {
+		
+		LOGGER.info("getRegistedComplaint() service is initiated");
 		
 		Complaint complaint = complaintRepo.findById(complaintId).orElse(null);
 		
 		if(complaint == null)
 			throw new ComplaintNotFoundException("No Complaint found with given ID");
 		
+		LOGGER.info("getRegistedComplaint() service has executed");
+		
 		return ComplaintUtil.convertToComplaintDTO(complaint);
 	}
+	
 
 	/*
 	 * Description : This method shows all registered Complaints
@@ -147,7 +184,13 @@ public class ManagerServiceImp implements IManagerService {
 	
 	@Override
 	public List<ComplaintDTO> getAllComplaints() {
+		
+		LOGGER.info("getAllComplaints() service is initiated");
+		
 		List<Complaint> list = complaintRepo.findAll();
+		
+		LOGGER.info("getAllComplaints() service has executed");
+		
 		return ComplaintUtil.convertToComplaintDtoList(list);
 	}
 
@@ -207,5 +250,7 @@ public class ManagerServiceImp implements IManagerService {
 		
 		return flag;
 	}
+
+	
 }
 

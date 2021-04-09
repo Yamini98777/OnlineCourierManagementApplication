@@ -1,5 +1,6 @@
 package com.capg.ocma.model;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -12,8 +13,8 @@ import com.capg.ocma.entities.OfficeStaffMember;
 public class CourierOfficeOutletDTO {
 	private int officeId;
 	private Address address;
-	private LocalTime openingTime;
-	private LocalTime closingTime;
+	private LocalDate openingTime;
+	private LocalDate closingTime;
 	private List<OfficeStaffMember> staffMembers;
 
 	public CourierOfficeOutletDTO() {
@@ -21,7 +22,7 @@ public class CourierOfficeOutletDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourierOfficeOutletDTO(int officeid, Address address, LocalTime openingTime, LocalTime closingTime, List<OfficeStaffMember> staffmembers) {
+	public CourierOfficeOutletDTO(int officeid, Address address, LocalDate openingTime, LocalDate closingTime, List<OfficeStaffMember> staffmembers) {
 		super();
 		this.officeId = officeid;
 		this.address = address;
@@ -46,19 +47,19 @@ public class CourierOfficeOutletDTO {
 		this.address = address;
 	}
 
-	public LocalTime getOpeningTime() {
+	public LocalDate getOpeningTime() {
 		return openingTime;
 	}
 
-	public void setOpeningTime(LocalTime openingTime) {
+	public void setOpeningTime(LocalDate openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public LocalTime getClosingTime() {
+	public LocalDate getClosingTime() {
 		return closingTime;
 	}
 
-	public void setClosingTime(LocalTime closingTime) {
+	public void setClosingTime(LocalDate closingTime) {
 		this.closingTime = closingTime;
 	}
 

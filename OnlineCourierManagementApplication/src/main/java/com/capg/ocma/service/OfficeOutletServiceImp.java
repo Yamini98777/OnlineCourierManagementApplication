@@ -21,12 +21,15 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	IOfficeOutletDao repo;
 
 	@Override
-	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeoutlet) {
+	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeOutlet) {
+		System.out.println(officeOutlet);
 		CourierOfficeOutlet officeoutletEntity;
-		if (officeoutlet == null) {
+		if (officeOutlet == null) {
 			officeoutletEntity = null;
 		} else {
-			officeoutletEntity = repo.save(officeoutlet);
+			System.out.println(officeOutlet);
+//			CourierOfficeOutlet obj = new CourierOfficeOutlet(officeOutlet.getOfficeId(), officeOutlet.getAddress(), officeOutlet.getOpeningTime(), officeOutlet.getClosingTime(), officeOutlet.getStaffmembers());
+			officeoutletEntity = repo.save(officeOutlet);
 		}
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutletEntity);
 	}
@@ -160,6 +163,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		            	System.out.println("Office details should not be empty");
 		            else
 		            	flag = true;
+		            System.out.println(flag);
 		            return flag;
 		}
 		

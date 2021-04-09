@@ -22,7 +22,7 @@ public class Manager  {
 	private int managerId;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "staff_manager_id")
+//	@JoinColumn(name = "staff_manager_id")
 	private List<OfficeStaffMember> reportingStaffMembers;
 
 	public Manager() {
