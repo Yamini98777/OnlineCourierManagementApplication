@@ -22,10 +22,9 @@ public class CourierOfficeOutletUtils {
 		officedto.setAddress(office.getAddress());
 		officedto.setOpeningTime(office.getOpeningTime());
 		officedto.setClosingTime(office.getClosingTime());
-		officedto.setStaffMembers(office.getStaffmembers());
+		
 		return officedto;
 	}
-	
 	
 
 }

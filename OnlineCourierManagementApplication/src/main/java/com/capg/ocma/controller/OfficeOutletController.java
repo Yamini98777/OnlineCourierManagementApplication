@@ -2,7 +2,6 @@ package com.capg.ocma.controller;
 
 import java.util.List;
 
-import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,11 +60,10 @@ public class OfficeOutletController {
 	public ResponseEntity<CourierOfficeOutletDTO> getOfficeInfo(@PathVariable("officeId") int officeId)
 			throws OutletNotFoundException {
 		CourierOfficeOutletDTO officeoutlet = new CourierOfficeOutletDTO();
-		CourierOfficeOutletDTO officeDTO = null;
 		ResponseEntity<CourierOfficeOutletDTO> officeresponse = null;
 	   
 			officeoutlet = officeService.getOfficeInfo(officeId);
-			officeresponse = new ResponseEntity<CourierOfficeOutletDTO>(officeDTO, HttpStatus.ACCEPTED);
+			officeresponse = new ResponseEntity<CourierOfficeOutletDTO>(officeoutlet, HttpStatus.ACCEPTED);
 	
 		return officeresponse;
 

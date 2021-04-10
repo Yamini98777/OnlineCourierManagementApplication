@@ -1,47 +1,35 @@
 package com.capg.ocma.model;
 
-
-import java.util.List;
-
 import org.springframework.stereotype.Component;
 
 import com.capg.ocma.entities.Address;
-import com.capg.ocma.entities.OfficeStaffMember;
 
 @Component
 public class CourierOfficeOutletDTO {
 
-	private int officeStaffId;
+	
 	private int officeId;
 	private Address address;
 	private String openingTime;
 	private String closingTime;
-	private List<OfficeStaffMember> staffMembers;
+	
 
 	public CourierOfficeOutletDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourierOfficeOutletDTO(int officeId, Address address, String openingTime, String closingTime, List<OfficeStaffMember> staffMembers) {
+	public CourierOfficeOutletDTO(int officeId, Address address, String openingTime, String closingTime) {
 		super();
 
 		this.officeId = officeId;
 		this.address = address;
 		this.openingTime = openingTime;
 		this.closingTime = closingTime;
-		this.staffMembers = staffMembers;
+		
 	}
-
-	public int getOfficeStaffId() {
-		return officeStaffId;
-	}
-
-	public void setOfficeStaffId(int officeStaffId) {
-		this.officeStaffId = officeStaffId;
-	}
-
-	public int getOfficeId() {
+	
+    public int getOfficeId() {
 		return officeId;
 	}
 
@@ -73,19 +61,12 @@ public class CourierOfficeOutletDTO {
 		this.closingTime = closingTime;
 	}
 
-	public List<OfficeStaffMember> getStaffMembers() {
-		return staffMembers;
-	}
-
-	public void setStaffMembers(List<OfficeStaffMember> staffMembers) {
-		this.staffMembers = staffMembers;
-	}
-
 	@Override
 	public String toString() {
-		return "CourierOfficeOutletDTO [officeStaffId=" + officeStaffId + ", officeId=" + officeId + ", address="
-				+ address + ", openingTime=" + openingTime + ", closingTime=" + closingTime + ", staffMembers="
-				+ staffMembers + "]";
+		return "CourierOfficeOutletDTO [officeId=" + officeId + ", address=" + address + ", openingTime=" + openingTime
+				+ ", closingTime=" + closingTime + "]";
 	}
+
+	
 
 }

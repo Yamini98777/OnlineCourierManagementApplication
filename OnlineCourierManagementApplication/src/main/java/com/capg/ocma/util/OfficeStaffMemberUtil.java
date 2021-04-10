@@ -27,6 +27,7 @@ public static List<OfficeStaffMemberDTO> convertToOfficeStaffMemberDtoList(List<
 		dto.setName(officeStaffMember.getName());
 		dto.setRole(officeStaffMember.getRole());
 		dto.setAddress(officeStaffMember.getAddress());
+		dto.setOffice(officeStaffMember.getOfficeOutlet());
 
 		return dto;
 		
