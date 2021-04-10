@@ -3,7 +3,7 @@ package com.capg.ocma.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -17,6 +17,7 @@ import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.repository.ICustomerDao;
 import com.capg.ocma.service.ICustomerService;
 
 @SpringBootTest
@@ -24,6 +25,8 @@ class CustomerServiceImpTest {
 
 	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImpTest.class);
 
+	@Autowired
+	private ICustomerDao customerdao;
 	@Autowired
 	private ICustomerService customerservice;
 
@@ -33,7 +36,7 @@ class CustomerServiceImpTest {
 	Address addr = null;
 
 	@BeforeAll
-	public static void init() {
+	public static void init1() {
 		LOGGER.info("Customer Testing Initiated");
 	}
 
@@ -43,8 +46,9 @@ class CustomerServiceImpTest {
 		LOGGER.info("Testing registerComplaint()");
 		addr = new Address("east street", "Chennai", "Tamil Nadu", "India", 666666);
 		bank = new BankAccount(122, "art", "save");
-		customer = new Customer(121, 123456789, "arthy", "M", addr, 908067282, bank);
-		complaint = new Complaint(0, 120, "string", "string", customer);
+		customer = new Customer(2, 123456789, "arthy", "M", addr, 908067282, bank);
+		customerdao.save(customer);
+		complaint = new Complaint(3, 120, "string", "string", customer);
 		try
 		{
 			customerservice.registerComplaint(complaint);
@@ -56,15 +60,19 @@ class CustomerServiceImpTest {
 	}
 
 	@Test
-	void testcheckOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException {
+	void testcheckOnlineTrackingStatus() throws CourierNotFoundException {
 
-		complaint = new Complaint(101, 0, "string", "string", customer);
+		int consignmentNo=156;
 		try {
-			customerservice.checkOnlineTrackingStatus(consignmentno);
+			customerservice.checkOnlineTrackingStatus(consignmentNo);
 		} catch (CourierNotFoundException exception) {
 			assertEquals("Consignment no should not be empty", exception.getMessage());
 		}
 
+	}
+	@AfterAll
+	public static void init() {
+		LOGGER.info("Customer Testing Initiated");
 	}
 
 }

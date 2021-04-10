@@ -42,17 +42,6 @@ public class CustomerServiceImp implements ICustomerService {
 	@Autowired
 	private ICourierDao courierdao;
 
-	public void initiateProcess() {
-		logger.info(" service is initiated");
-
-	}
-
-	public void makePayment() {
-
-		logger.info("makepayment() service is initiated");
-
-	}
-	
 	/*
 	 * Description : This method add the customer 
 	 * Input Param : Customer
@@ -72,11 +61,11 @@ public class CustomerServiceImp implements ICustomerService {
 	 * int Return Value : Courier status Exception : CourierNotFoundException
 	 */
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException {
-		Courier courier = courierdao.findById(consignmentno).orElse(null);
+		Courier courier = courierdao.findByConsignmentNo(consignmentno);
 		String status = null;
-
+		System.out.println(courier);
 		if (courier == null)
-			throw new CourierNotFoundException("No courier with this consignment number exists...enter valid consignment number");
+			throw new CourierNotFoundException("No complaint with this consignment number exists...enter valid consignment number");
 		else
 			status = courier.getStatus();
 
