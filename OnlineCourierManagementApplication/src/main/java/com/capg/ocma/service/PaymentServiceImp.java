@@ -15,10 +15,10 @@ import com.capg.ocma.repository.ICourierDao;
 import com.capg.ocma.util.CourierUtil;
 
 /*
- * Author : PRADHIEEP K
- * Version : 1.0
- * Date : 04-04-2021
- * Description : This is Payment Service Layer that provides services to pay either by cash or card 
+ * Author      : PRADHIEEP K
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : This is Payment Service Layer that provides services to pay either by cash or card.
 */ 
 
 
@@ -28,46 +28,48 @@ public class PaymentServiceImp implements IPaymentService{
 	final static Logger logger = LoggerFactory.getLogger(PaymentServiceImp.class);
 	
 	@Autowired
-	private IBankAccountDao bankAccountDao;
+	private IBankAccountDao bankAccountRepo;
 
 	@Autowired
 	private ICourierDao courierRepo;
 	
 	
 	/*
-	 * Description : This method uses payment by cash 
+	 * Description  : This method uses payment by cash 
 	 * Return Value : True
 	 */
 	@Override
 	public CourierDTO processPaymentByCash(int courierId) throws CourierNotFoundException {
+		
 		logger.info(" process Payment by Cash is initialized");
 		
 		Courier courier = courierRepo.findById(courierId).orElse(null);
 		
 		if(courier == null)
+			
 			throw new CourierNotFoundException("No courier found with given courier ID");
 		
 		return CourierUtil.convertToCourierDto(courier);		
 	}
 	
 	/*
-	 * Description : This method uses payment by cash
-	 * Input Param : Customer Object
+	 * Description  : This method uses payment by cash
+	 * Input Param  : Customer Object
 	 * Return Value : true
-	 * Exception : CustomerNotFoundException
+	 * Exception    : CustomerNotFoundException
 	 */
 	@Override
 	public boolean processPaymentByCard(long accountNo) throws AccountNotFoundException{
 		
 		logger.info(" Process Payment by card is initiated");
 		
-		BankAccount bankAccount = bankAccountDao.findById(accountNo).orElse(null);
+		BankAccount bankAccount = bankAccountRepo.findById(accountNo).orElse(null);
 		
 		boolean flag = false;
 		
-		if(!validateBankAccount(bankAccount))
+		if(bankAccount == null)
 			
-			throw new AccountNotFoundException("Account not found with entered account number");
+			throw new AccountNotFoundException("No Account found with given account number");
 		
 		else
 			flag = true;
@@ -77,7 +79,7 @@ public class PaymentServiceImp implements IPaymentService{
 		return flag;
 	}
 	
-	public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
+/*	public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
 	{
 		boolean flag = false;
 		if(bankAccount == null)
@@ -90,8 +92,8 @@ public class PaymentServiceImp implements IPaymentService{
 		else
 			flag = true;
 		
-		return flag;
-	}
+		return flag; 
+	} */
 	
 	public static boolean validateAccountNo(long accountNo) throws AccountNotFoundException
 	{

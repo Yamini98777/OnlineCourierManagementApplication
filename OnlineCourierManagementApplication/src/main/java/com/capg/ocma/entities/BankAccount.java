@@ -25,7 +25,7 @@ public class BankAccount {
 	
 	}
 
-	public BankAccount(int accountNo, String accountHolderName, String accountType) {
+	public BankAccount(long accountNo, String accountHolderName, String accountType) {
 		super();
 		this.accountNo = accountNo;
 		this.accountHolderName = accountHolderName;
@@ -36,7 +36,7 @@ public class BankAccount {
 		return accountNo;
 	}
 
-	public void setAccountNo(int accountNo) {
+	public void setAccountNo(long accountNo) {
 		this.accountNo = accountNo;
 	}
 
