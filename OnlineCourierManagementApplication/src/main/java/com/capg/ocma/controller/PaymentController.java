@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.exception.AccountNotFoundException;
+import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.model.CourierDTO;
 import com.capg.ocma.service.IPaymentService;
+import com.capg.ocma.service.IShipmentService;
 
 /*
  * Author : PRADHIEEP K
@@ -27,10 +30,13 @@ public class PaymentController {
 	private IPaymentService paymentService;
 	
 	
-	@GetMapping("/byCash")
-	public ResponseEntity<String> processPaymentByCash() {
+	@GetMapping("/byCash/{courierid}")
+	public ResponseEntity<CourierDTO> processPaymentByCash(@PathVariable int courierId)  throws CourierNotFoundException {
 		
-		return new ResponseEntity<String> ("You have selected cash on delivery payment method and ",HttpStatus.OK);
+		CourierDTO courierDTO = paymentService.processPaymentByCash(courierId);
+		
+		
+		return new ResponseEntity<CourierDTO> (courierDTO ,HttpStatus.OK);
 		
 	}
 	
