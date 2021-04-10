@@ -4,9 +4,12 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capg.ocma.controller.ManagerController;
 import com.capg.ocma.entities.CourierOfficeOutlet;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.OutletClosedException;
@@ -15,60 +18,114 @@ import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.model.CourierOfficeOutletDTO;
 import com.capg.ocma.repository.IOfficeOutletDao;
 import com.capg.ocma.util.CourierOfficeOutletUtils;
+/*
+ * Author : JEGANNATH P S
+ * Version : 1.0
+ * Date : 04-04-2021
+ * Description : This is Office outlet service Implementation layer which has implementaions from 
+ * interface IOfficeOutletService.
+*/
 
 @Service
 public class OfficeOutletServiceImp implements IOfficeOutletService {
+	
+	final Logger Logger = LoggerFactory.getLogger(ManagerController.class);
 	@Autowired
 	IOfficeOutletDao repo;
-
+	/*
+	 * Description  : This method adds new Office Outlet
+	 * Input Param  : CourierOfficeOutlet
+	 * Return Value : CourierOfficeOutletDTO Object 
+	 */
 	@Override
-	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeOutlet) {
-	
+	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeoutlet) {
+		Logger.info(" addNewOffice() service is initiated");
 		CourierOfficeOutlet officeoutletEntity;
-		if (officeOutlet == null) {
+		if (officeoutlet == null) {
 			officeoutletEntity = null;
 		} else {
-			
-//			CourierOfficeOutlet obj = new CourierOfficeOutlet(officeOutlet.getOfficeId(), officeOutlet.getAddress(), officeOutlet.getOpeningTime(), officeOutlet.getClosingTime(), officeOutlet.getStaffmembers());
-			officeoutletEntity = repo.save(officeOutlet);
+			officeoutletEntity = repo.save(officeoutlet);
 		}
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutletEntity);
 	}
+	
+	/*
+	 * Description  : This method deletes existing Office outlet by taking the office id has reference.
+	 * Input Param  : Integer 
+	 * Return Value : CourierOfficeOutletDTO Object 
+	 * Exception    : OutletNotFoundException
+	 */
+	
 
 	@Override
-	public CourierOfficeOutletDTO removeNewOffice(CourierOfficeOutlet officeoutlet) {
-		CourierOfficeOutlet existOffice = repo.findById(officeoutlet.getOfficeId()).orElse(null);
-		if (existOffice == null)
-			System.out.println("Office not Found");
-
+	public CourierOfficeOutletDTO removeNewOffice(int officeId ) throws OutletNotFoundException
+	{
+		Logger.info(" removeNewOffice() service is initiated");
+		
+		CourierOfficeOutlet existOffice = repo.findById(officeId).orElse(null);
+		
+		if(existOffice == null)
+		        throw new OutletNotFoundException("Office outlet not found");
 		else
 			repo.delete(existOffice);
-		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(officeoutlet);
+		
+		Logger.info(" removeNewOffice() service has executed");
+		
+		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(existOffice);
 
 	}
+	
+	/*
+	 * Description  : This method will fetch the details of existing office by using office ID has reference.
+	 * Input Param  : Integer
+	 * Return Value : CourierOfficeOutletDTO object
+	 * Exception    : OutletNotFoundException
+	 */
 
 	@Override
-	public CourierOfficeOutlet getOfficeInfo(int officeid) throws OutletNotFoundException {
-		if (repo.existsById(officeid) == false) {
+	public CourierOfficeOutletDTO getOfficeInfo(int officeId) throws OutletNotFoundException {
+		Logger.info(" getOfficeInfo() service has executed");
+		
+		CourierOfficeOutlet existOffice = repo.findById(officeId).orElse(null);
+		
+		if (existOffice == null) {
+			
 			throw new OutletNotFoundException("Office doesn't exist");
-		} else {
-			return repo.findById(officeid).orElse(null);
-		}
-
+			
+		} else 
+			Logger.info(" getOfficeInfo() service has executed");
+		
+			return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(existOffice);
+		
 	}
-
+	/*
+	 * Description  : This method shows all existing Office outlets in the database
+	 * Return Value : List<OfficeStaffMemberDTO>
+	 * Exception    : OutletNotFoundException
+	 */
 	@Override
-	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException {
+	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException
+	{
+		Logger.info(" getAllOfficesData() service has executed");
 		if (repo.count() == 0) {
 			throw new OutletNotFoundException("No Offices Exist");
 		}
-		List<CourierOfficeOutlet> list = repo.findAll();
+		else
+		{
+			List<CourierOfficeOutlet> list = repo.findAll();
+		
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDtoList(list);
-
+		}
 	}
+	/*
+	 * Description  : This method checks whether the office is opened now by taking the current system time as reference.
+	 * Input Param  : Integer
+	 * Return Value : boolean
+	 * Exception    : 
+	 */
 
 	@Override
-	public boolean isOfficeOpen(int officeId)  {
+	public boolean isOfficeOpen(int officeId) throws OutletClosedException {
 		
 			CourierOfficeOutlet officedto = repo.findById(officeId).orElse(null);
 			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
@@ -116,6 +173,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 			}
 			
 		}
+	
 	//Validations
 	//VALIDATIONS 
 		public static boolean validateOfficeStaffMember(OfficeStaffMember officeStaffMember) throws StaffMemberNotFoundException
@@ -177,9 +235,10 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		            	System.out.println("Office details should not be empty");
 		            else
 		            	flag = true;
-		            System.out.println(flag);
 		            return flag;
 		}
+		
+		
 		
 	
 }
