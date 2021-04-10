@@ -6,8 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.BankAccount;
+import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.AccountNotFoundException;
+import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.model.CourierDTO;
 import com.capg.ocma.repository.IBankAccountDao;
+import com.capg.ocma.repository.ICourierDao;
+import com.capg.ocma.util.CourierUtil;
 
 /*
  * Author : PRADHIEEP K
@@ -25,16 +30,24 @@ public class PaymentServiceImp implements IPaymentService{
 	@Autowired
 	private IBankAccountDao bankAccountDao;
 
-
+	@Autowired
+	private ICourierDao courierRepo;
+	
 	
 	/*
 	 * Description : This method uses payment by cash 
 	 * Return Value : True
 	 */
 	@Override
-	public boolean processPaymentByCash() {
+	public CourierDTO processPaymentByCash(int courierId) throws CourierNotFoundException {
 		logger.info(" process Payment by Cash is initialized");
-		return true;		
+		
+		Courier courier = courierRepo.findById(courierId).orElse(null);
+		
+		if(courier == null)
+			throw new CourierNotFoundException("No courier found with given courier ID");
+		
+		return CourierUtil.convertToCourierDto(courier);		
 	}
 	
 	/*

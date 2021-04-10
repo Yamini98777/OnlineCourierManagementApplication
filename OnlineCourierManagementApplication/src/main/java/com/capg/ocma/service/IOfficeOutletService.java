@@ -10,11 +10,11 @@ import com.capg.ocma.model.CourierOfficeOutletDTO;
 public interface IOfficeOutletService {
 	
 	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeoutlet);
-	public CourierOfficeOutletDTO removeNewOffice(CourierOfficeOutlet officeoutlet) throws OutletNotFoundException;
-	public CourierOfficeOutlet getOfficeInfo(int officeid) throws OutletNotFoundException;
+	public CourierOfficeOutletDTO removeNewOffice(int officeId) throws OutletNotFoundException;
+	public CourierOfficeOutletDTO getOfficeInfo(int officeId) throws OutletNotFoundException;
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException;
 	
-	public boolean isOfficeOpen(int officeId);
-	public boolean isOfficeClosed(int officeId) throws OutletClosedException;
+	public boolean isOfficeOpen(int officeid) throws OutletClosedException;
+	public boolean isOfficeClosed(int officeid)throws OutletClosedException;
 	
 }
