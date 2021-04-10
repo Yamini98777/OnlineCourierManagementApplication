@@ -15,6 +15,7 @@ public class CourierDTO {
 	private LocalDate initiatedDate;
 	private LocalDate deliveredDate;
 
+	
 	public CourierDTO() {
 		super();
 		// TODO Auto-generated constructor stub

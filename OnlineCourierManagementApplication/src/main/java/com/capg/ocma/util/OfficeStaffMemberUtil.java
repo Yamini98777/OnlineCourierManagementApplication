@@ -26,24 +26,10 @@ public static List<OfficeStaffMemberDTO> convertToOfficeStaffMemberDtoList(List<
 		dto.setEmpid(officeStaffMember.getEmpid());
 		dto.setName(officeStaffMember.getName());
 		dto.setRole(officeStaffMember.getRole());
-		dto.setAddress(dto.getAddress());
-		dto.setOffice(dto.getOffice());
+		dto.setAddress(officeStaffMember.getAddress());
 
 		return dto;
 		
 	}
-	
-	/*
-	 * public static OfficeStaffMember
-	 * converttoOfficeStaffMember(OfficeStaffMemberDTO dto) {
-	 * 
-	 * OfficeStaffMember staff = new OfficeStaffMember();
-	 * 
-	 * staff.setEmpid(dto.getEmpid()); staff.setName(dto.getName());
-	 * staff.setRole(dto.getRole()); staff.setOffice(staff.getOffice());
-	 * staff.setAddress(staff.getAddress());
-	 * 
-	 * return staff; }
-	 */
 
 }

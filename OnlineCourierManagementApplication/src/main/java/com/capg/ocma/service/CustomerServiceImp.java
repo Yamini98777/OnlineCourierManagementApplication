@@ -1,5 +1,7 @@
 package com.capg.ocma.service;
 
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,23 +34,26 @@ public class CustomerServiceImp implements ICustomerService {
 	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 
 	@Autowired
-	private ICustomerDao customerDao;
+	private ICustomerDao customerdao;
 
 	@Autowired
-	private IComplaintDao complaintDao;
+	private IComplaintDao complaintdao;
 
 	@Autowired
-	private ICourierDao courierDao;
+	private ICourierDao courierdao;
 
-	public void initiateProcess() {
-		logger.info(" service is initiated");
-
-	}
-
-	public void makePayment() {
-
-		logger.info("makepayment() service is initiated");
-
+	/*
+	 * Description : This method add the customer 
+	 * Input Param : Customer
+	 * object Return Value : CustomerDto object
+	 *  Exception : CustomerNotFound
+	 */
+	@Override
+	public CustomerDTO addcustomer(Customer customer) {
+		
+	
+		 Customer cust= customerdao.save(customer);
+		 return CustomerUtil.convertToCustomerDTO(cust);
 	}
 
 	/*
@@ -56,11 +61,11 @@ public class CustomerServiceImp implements ICustomerService {
 	 * int Return Value : Courier status Exception : CourierNotFoundException
 	 */
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException {
-		Courier courier = courierDao.findById(consignmentno).orElse(null);
+		Courier courier = courierdao.findByConsignmentNo(consignmentno);
 		String status = null;
-
+		System.out.println(courier);
 		if (courier == null)
-			logger.error("No courier with this consignment number exists...enter valid consignment number");
+			throw new CourierNotFoundException("No complaint with this consignment number exists...enter valid consignment number");
 		else
 			status = courier.getStatus();
 
@@ -68,7 +73,8 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	/*
-	 * Description : This method registers the complaint Input Param : Complaint
+	 * Description : This method registers the complaint 
+	 * Input Param : Complaint
 	 * object Return Value : ComplaintDTO object Exception :
 	 * ComplaintNotFoundException
 	 */
@@ -78,42 +84,27 @@ public class CustomerServiceImp implements ICustomerService {
 		Complaint complaintEntity;
 
 		if (complaint == null)
+		{
 			complaintEntity = null;
+		}
 		else if (!validateComplaintId(complaint))
+		{
 			throw new ComplaintNotFoundException("Invalid complaintId");
+		}
 		else
 		{
-			complaint.setCustomer(null);
-			complaintEntity = complaintDao.save(complaint);
-
-		logger.info("registerComplaint() service has executed");
+			
+			complaintEntity = complaintdao.save(complaint);
+			logger.info("registerComplaint() service has executed");
 		}
 
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
-	
-	public CustomerDTO addCustomer(Customer customer) throws CustomerNotFoundException
-	{
-		logger.info("addCustomer() service is initiated");
-		Customer customerEntity;
 
-		if (customer == null)
-			customerEntity = null;
-		
-		else
-		{
-			customerEntity = customerDao.save(customer);
+	// validation customerid
 
-			logger.info("addCustomer() service has executed");
-		}
-
-		return CustomerUtil.convertToCustomerDTO(customerEntity);
-	}
-
-	// validation customerId
-
-	public boolean validateCustomerId(int customerId) throws CustomerNotFoundException {
-		boolean flag = customerDao.existsById(customerId);
+	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException {
+		boolean flag = customerdao.existsById(customerid);
 		if (flag == false)
 			throw new CustomerNotFoundException("customerid not found");
 		else {
@@ -200,5 +191,7 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 		
 	}
+
+	
 
 }

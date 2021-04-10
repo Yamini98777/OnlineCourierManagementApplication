@@ -3,7 +3,6 @@ package com.capg.ocma.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,14 +22,12 @@ import com.capg.ocma.service.ICustomerService;
 
 @RestController
 @RequestMapping("/api/ocma/customer")
-@CrossOrigin
 public class ComplaintController {
 	
 
 
 		@Autowired
 		private ICustomerService customerService;
-		
 		
 		
 		
@@ -42,7 +39,6 @@ public class ComplaintController {
 				ResponseEntity <String> response = new ResponseEntity <String> ( status, HttpStatus.OK);
 				return response;
 		}
-		
 		@PostMapping("/add-complaint")
 		public ResponseEntity<ComplaintDTO> registerComplaint(@RequestBody Complaint complaint) throws ComplaintNotFoundException {
 			
@@ -57,19 +53,13 @@ public class ComplaintController {
 			return complaintResponse;
 			
 		}
-		
 		@PostMapping("/add-customer")
-		public ResponseEntity<CustomerDTO> addCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
+		public ResponseEntity<CustomerDTO> addcustomer(@RequestBody Customer customer) throws CustomerNotFoundException{
+			CustomerDTO customerDTO=null;
+			ResponseEntity<CustomerDTO> customerResponse=null;
 			
-			CustomerDTO  customerDTO= null;
-			ResponseEntity<CustomerDTO> customerResponse = null;
-			
-		
-				
-			customerDTO = customerService.addCustomer(customer);
-			customerResponse = new ResponseEntity<CustomerDTO>(customerDTO, HttpStatus.ACCEPTED);
-			
+			customerDTO=customerService.addcustomer(customer);
+			customerResponse=new ResponseEntity<CustomerDTO>(customerDTO,HttpStatus.ACCEPTED);
 			return customerResponse;
-			
 		}
 }

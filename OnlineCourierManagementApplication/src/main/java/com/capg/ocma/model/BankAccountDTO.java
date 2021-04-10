@@ -9,6 +9,7 @@ public class BankAccountDTO {
 	private String accountHolderName;
 	private String accountType;
 
+	
 	public BankAccountDTO() {
 		super();
 		// TODO Auto-generated constructor stub

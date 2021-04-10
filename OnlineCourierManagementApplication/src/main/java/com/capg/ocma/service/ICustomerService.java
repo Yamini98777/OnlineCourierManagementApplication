@@ -11,15 +11,10 @@ import com.capg.ocma.model.CustomerDTO;
 public interface ICustomerService {
 
 
-	public void initiateProcess();
-	
-	public void makePayment();
-	
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException;
 	
 	public ComplaintDTO registerComplaint(Complaint complaint) throws ComplaintNotFoundException;
 	
-	public CustomerDTO addCustomer(Customer customer) throws CustomerNotFoundException;
-	
+	public CustomerDTO addcustomer(Customer customer);
 	
 }

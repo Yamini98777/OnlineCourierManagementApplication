@@ -26,11 +26,9 @@ public class Courier {
 	private String status;
 
 	@OneToOne
-	@JoinColumn(name = "sendercourierId")
 	private Customer sender;
 
 	@OneToOne
-	@JoinColumn(name = "receivercourierId")
 	private Customer receiver;
 
 	public Courier() {

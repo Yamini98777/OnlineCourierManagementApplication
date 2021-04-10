@@ -9,10 +9,11 @@ import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.repository.UserLoginDao;
 
+
 @Service
 public class UserLoginServiceImp implements IUserLoginService {
 
-	final Logger LOGGER = LoggerFactory.getLogger(UserLoginServiceImp.class);
+	final Logger logger = LoggerFactory.getLogger(UserLoginServiceImp.class);
 	
 	@Autowired
 	private UserLoginDao repo;
@@ -44,7 +45,7 @@ public class UserLoginServiceImp implements IUserLoginService {
 			decryptedPassword = decryptPassword(encryptedPassword);
 			
 			if(user.getPassword().equals(decryptedPassword)) 
-				LOGGER.info("Valid User");
+				logger.info("Valid User");
 			else 
 				throw new UserNotFoundException("Wrong password!");
 		}

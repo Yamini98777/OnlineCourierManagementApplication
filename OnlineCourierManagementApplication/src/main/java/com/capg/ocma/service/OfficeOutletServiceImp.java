@@ -1,6 +1,7 @@
 package com.capg.ocma.service;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,32 +68,45 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	}
 
 	@Override
-	public boolean isOfficeOpen(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
-		if (repo.existsById(officeoutlet.getOfficeId()) == false) {
-			throw new OutletClosedException("The Office is closed");
-		} else {
-			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeId()).orElse(null);
-			LocalTime open = LocalTime.from(officedto.getOpeningTime());
-			LocalTime close = LocalTime.from(officedto.getClosingTime());
-			if ((open.equals(LocalTime.now()) || open.isBefore(LocalTime.now())) && close.isAfter(LocalTime.now())) {
+	public boolean isOfficeOpen(int officeId)  {
+		
+			CourierOfficeOutlet officedto = repo.findById(officeId).orElse(null);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		
+			String openTime = officedto.getOpeningTime();
+			String closeTime = officedto.getClosingTime();
+			LocalTime time = LocalTime.now();
+			
+		    
+			LocalTime openingTime  = LocalTime.parse(openTime, formatter);
+			LocalTime closingTime = LocalTime.parse(closeTime, formatter);
+			
+			if ((openingTime.equals(time) || closingTime.isBefore(time)) && closingTime.isAfter(time))
+				{
 
 				return true;
-			} else {
+			} else 
+			{
 				return false;
 			}
 		}
-	}
+	
 
 	@Override
-	public boolean isOfficeClosed(CourierOfficeOutlet officeoutlet) throws OutletClosedException {
-		if (repo.findById(officeoutlet.getOfficeId()) == null) {
-			throw new OutletClosedException("The Office is unavailable");
-		} else {
-			CourierOfficeOutlet officedto = repo.findById(officeoutlet.getOfficeId()).orElse(officeoutlet);
-			LocalTime open = LocalTime.from(officedto.getOpeningTime());
-			LocalTime close = LocalTime.from(officedto.getClosingTime());
-
-			if ((close.equals(LocalTime.now()) || close.isBefore(LocalTime.now())) && open.isAfter(LocalTime.now())) {
+	public boolean isOfficeClosed(int officeId) throws OutletClosedException {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		CourierOfficeOutlet officeDto = repo.findById(officeId).orElse(null);
+		String openTime = officeDto.getOpeningTime();
+		String closeTime = officeDto.getClosingTime();
+		LocalTime time = LocalTime.now();
+		
+	    
+		LocalTime openingTime  = LocalTime.parse(openTime, formatter);
+		LocalTime closingTime = LocalTime.parse(closeTime, formatter);
+		
+		
+		
+			if ((closingTime.equals(time) || closingTime.isBefore(time)) && openingTime.isAfter(time)) {
 
 				return true;
 			} else {
@@ -100,8 +114,8 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 				return false;
 
 			}
+			
 		}
-	}
 	//Validations
 	//VALIDATIONS 
 		public static boolean validateOfficeStaffMember(OfficeStaffMember officeStaffMember) throws StaffMemberNotFoundException

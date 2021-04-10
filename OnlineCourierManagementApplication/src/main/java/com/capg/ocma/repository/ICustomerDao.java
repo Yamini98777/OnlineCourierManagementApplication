@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.Customer;
 
 @Repository
-public interface ICustomerDao extends JpaRepository<Customer, Integer>{
+public interface ICustomerDao extends JpaRepository<Customer, Integer> {
 
 
 }

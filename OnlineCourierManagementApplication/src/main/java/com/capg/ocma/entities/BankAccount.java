@@ -2,19 +2,17 @@ package com.capg.ocma.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="bank_account")
 public class BankAccount {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
 	@Column(name="account_no")
-	private int accountNo;
+	private long accountNo;
 	
 	@Column(name="account_Holder_Type")
 	private String accountHolderName;

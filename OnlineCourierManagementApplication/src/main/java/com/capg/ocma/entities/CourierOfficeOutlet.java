@@ -23,28 +23,28 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 public class CourierOfficeOutlet {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="office_id")
+	@GeneratedValue(strategy = GenerationType.AUTO )
+	@Column(name="office_staff_id")
+	private int officeStaffId;
+	
 	private int officeId;
 	
-	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate openingTime;
+	private String openingTime;
 	
-	@DateTimeFormat(iso = ISO.DATE)
-	private LocalDate closingTime;
+	private String closingTime;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name="staff_office_id")
-	private List<OfficeStaffMember> staffmembers;
+	private List<OfficeStaffMember> staffmembers; 
 
 	public CourierOfficeOutlet() {
 		super();
 	}
 
-	public CourierOfficeOutlet(int officeId, Address address, LocalDate openingTime, LocalDate closingTime, List<OfficeStaffMember> staffmembers) {
+	public CourierOfficeOutlet(int officeId, Address address, String openingTime, String closingTime, List<OfficeStaffMember> staffmembers) {
 		super();
 		this.officeId = officeId;
 		this.address = address;
@@ -69,19 +69,19 @@ public class CourierOfficeOutlet {
 		this.address = address;
 	}
 
-	public LocalDate getOpeningTime() {
+	public String getOpeningTime() {
 		return openingTime;
 	}
 
-	public void setOpeningTime(LocalDate openingTime) {
+	public void setOpeningTime(String openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public LocalDate getClosingTime() {
+	public String getClosingTime() {
 		return closingTime;
 	}
 
-	public void setClosingTime(LocalDate closingTime) {
+	public void setClosingTime(String closingTime) {
 		this.closingTime = closingTime;
 	}
 

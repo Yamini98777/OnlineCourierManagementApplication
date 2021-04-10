@@ -1,8 +1,9 @@
 package com.capg.ocma.exception;
 
-public class CustomerNotFoundException extends Exception {
+public class CustomerNotFoundException extends GlobalException {
+	
 	public CustomerNotFoundException(String message)
 	{
-		System.out.println(message);
+		super(message);
 	}
 }

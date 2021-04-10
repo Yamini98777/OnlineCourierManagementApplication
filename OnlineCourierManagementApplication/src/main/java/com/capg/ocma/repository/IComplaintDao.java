@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.Complaint;
 
 @Repository
-public interface IComplaintDao extends JpaRepository<Complaint, Long> {
+public interface IComplaintDao extends JpaRepository<Complaint, Integer> {
 
 
 	

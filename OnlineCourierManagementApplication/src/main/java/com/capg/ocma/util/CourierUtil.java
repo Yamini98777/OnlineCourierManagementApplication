@@ -23,9 +23,9 @@ public class CourierUtil {
 		CourierDTO courierDto = new CourierDTO();
 		
 		courierDto.setCourierid(courier.getCourierId());
-		courierDto.setStatus(courierDto.getStatus());
-		courierDto.setSender(courierDto.getSender());
-		courierDto.setReceiver(courierDto.getReceiver());
+		courierDto.setStatus(courier.getStatus());
+		courierDto.setSender(courier.getSender());
+		courierDto.setReceiver(courier.getReceiver());
 		courierDto.setConsignmentno(courier.getConsignmentNo());
 		courierDto.setInitiatedDate(courier.getInitiatedDate());
 		courierDto.setDeliveredDate(courier.getDeliveredDate());

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.OfficeStaffMember;
 
 @Repository
-public interface IStaffMemberDao extends JpaRepository<OfficeStaffMember, Integer>{
+public interface IStaffMemberDao extends JpaRepository<OfficeStaffMember, Integer> {
 	
 	
 }

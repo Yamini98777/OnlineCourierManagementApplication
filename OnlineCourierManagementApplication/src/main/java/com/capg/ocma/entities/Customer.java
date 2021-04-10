@@ -28,7 +28,6 @@ public class Customer {
 	private Address addr;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name="customer_id")
 	private BankAccount acct;
 	
 

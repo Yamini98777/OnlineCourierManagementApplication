@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.BankAccount;
 
 @Repository
-public interface IBankAccountDao extends JpaRepository<BankAccount, Integer>{
+public interface IBankAccountDao extends JpaRepository<BankAccount, Long> {
 
 }

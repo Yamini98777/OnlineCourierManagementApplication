@@ -14,6 +14,7 @@ public class BankAccountUtil {
 		return dtolist;
 	}
 	
+	
 	    public static BankAccountDTO convertToBankAccountDto(BankAccount bank) {
 		BankAccountDTO dto = new BankAccountDTO();
 		
@@ -24,14 +25,5 @@ public class BankAccountUtil {
 		return dto;
 	}
 	
-	/*
-	 * public static BankAccount convertToBankAccount(BankAccountDTO dto) {
-	 * BankAccount bank =new BankAccount();
-	 * 
-	 * bank.setAccountno(dto.getAccountno());
-	 * bank.setAccountHolderName(dto.getAccountHolderName());
-	 * bank.setAccountType(dto.getAccountType()); return bank;
-	 * 
-	 * }
-	 */
+	
 }

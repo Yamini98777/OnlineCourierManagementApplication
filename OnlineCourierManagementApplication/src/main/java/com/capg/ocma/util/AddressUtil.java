@@ -18,6 +18,7 @@ public class AddressUtil {
 		return dtolist;
 	}
 
+	
 	public static AddressDTO convertToAddressDTO(Address address){
 		
 		AddressDTO addressDto = new AddressDTO();
@@ -32,19 +33,5 @@ public class AddressUtil {
 		
 	}
 	
-	/*
-	 * public static Address convertToAddress(AddressDTO addressDto){
-	 * 
-	 * Address address = new Address();
-	 * 
-	 * address.setCity(addressDto.getCity());
-	 * address.setCountry(addressDto.getCountry());
-	 * address.setState(addressDto.getStreet());
-	 * address.setStreet(addressDto.getStreet());
-	 * address.setZip(addressDto.getZip());
-	 * 
-	 * return address;
-	 * 
-	 * }
-	 */
+	
 }

@@ -1,12 +1,9 @@
 package com.capg.ocma.exception;
 
-public class OutletClosedException extends Exception {
+public class OutletClosedException extends GlobalException {
 	
-
-	
-
 	public OutletClosedException(String message) {
-		System.out.println(message);
+		super(message);
 		
 	}
 

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import com.capg.ocma.entities.Address;
 import com.capg.ocma.entities.CourierOfficeOutlet;
 
+
 @Component
 public class OfficeStaffMemberDTO 
 {

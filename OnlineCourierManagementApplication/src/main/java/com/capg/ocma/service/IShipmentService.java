@@ -8,6 +8,7 @@ public interface IShipmentService {
 
 	public boolean initiateShipmentTransaction(Courier courier) throws CourierNotFoundException;
 	public String checkShipmentStatus(Courier courier) throws CourierNotFoundException;
+	
 	public boolean closeShipmentTransaction(Courier courier) throws CourierNotFoundException;
 	public boolean rejectShipmentTransaction(Courier courier) throws CourierNotFoundException;
 	public CourierDTO addCourier(Courier courier) throws CourierNotFoundException;

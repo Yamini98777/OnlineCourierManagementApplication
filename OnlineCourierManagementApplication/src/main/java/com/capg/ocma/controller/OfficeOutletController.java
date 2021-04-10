@@ -70,6 +70,7 @@ public class OfficeOutletController {
 		return officeresponse;
 
 	}
+	
 	@GetMapping("/getAllOffice")
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException {
 		
@@ -78,36 +79,28 @@ public class OfficeOutletController {
 		}
 		return officeService.getAllOfficesData();
 	}
-	@GetMapping("/checkOfficeOpen")
-	public ResponseEntity<String> isOfficeOpen(@RequestBody CourierOfficeOutlet officeOutlet)
+	
+	@GetMapping("/checkOfficeOpen/{officeId}")
+	public ResponseEntity<String> isOfficeOpen(@PathVariable("officeId") int officeId)
 			throws OutletClosedException {
 
-		boolean check = officeService.isOfficeOpen(officeOutlet);
-		if (check) {
-
-			return new ResponseEntity<>("The office with office id: " + officeOutlet.getOfficeId() + " is open: ",
-					HttpStatus.OK);
-
-		} else {
-
+		boolean check = officeService.isOfficeOpen(officeId);
+		if (check) 
 			throw new OutletClosedException("The office is closed");
-
-		}
+		
+		return new ResponseEntity<String>("The office  is open: ",HttpStatus.OK);
 	}
-	@GetMapping("/checkOfficeClosed")
-	public ResponseEntity<String> isOfficeClosed(@RequestBody CourierOfficeOutlet officeOutlet)
-			throws OutletClosedException {
+	
+	@GetMapping("/checkOfficeClosed/{officeId}")
+	public ResponseEntity<String> isOfficeClosed(@PathVariable("officeId")int officeId) throws OutletClosedException {
 
-		boolean check = officeService.isOfficeClosed(officeOutlet);
-		if (check) {
-
+		boolean check = officeService.isOfficeClosed(officeId);
+		if (check) 
 			throw new OutletClosedException("The Office is Closed");
 
-		} else {
+		return new ResponseEntity<String>("The Office is opened", HttpStatus.OK);
 
-			return new ResponseEntity<String>("The Office is opened", HttpStatus.OK);
-
-		}
+		
 	}
 
 }

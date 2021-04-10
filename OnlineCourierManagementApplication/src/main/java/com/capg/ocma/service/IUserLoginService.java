@@ -7,6 +7,7 @@ public interface IUserLoginService {
 
 	public void addUser(UserLogin user) throws UserNotFoundException;
 	public void userLogin(UserLogin user) throws UserNotFoundException;
+	
 	public void removeUser(long userid) throws UserNotFoundException;
 	public void updateUser(UserLogin user) throws UserNotFoundException;
 	

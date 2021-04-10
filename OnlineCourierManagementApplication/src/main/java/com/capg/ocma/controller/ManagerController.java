@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.capg.ocma.entities.Courier;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -23,7 +22,6 @@ import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.model.OfficeStaffMemberDTO;
 import com.capg.ocma.service.IManagerService;
-import com.capg.ocma.service.ManagerServiceImp;
 
 
 /*
@@ -41,106 +39,161 @@ public class ManagerController {
 	@Autowired
 	private IManagerService managerService;
 	
-	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
 	
 	@PostMapping("/add-staff")
 	public ResponseEntity<OfficeStaffMemberDTO> addStaffMember(@RequestBody OfficeStaffMember staffMember) throws StaffMemberNotFoundException {
 		
-		OfficeStaffMemberDTO  staffMemberDTO= null;
-		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
+		logger.info("add-staff URL is opened");
+		logger.info("addStaffMember() is initiated");
 		
-			if(ManagerServiceImp.validateOfficeStaffMember(staffMember))
-			{
-				staffMemberDTO = managerService.addStaffMember(staffMember);
-				staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
-				LOGGER.info("New staff member added");
-			}
-			else
-				throw new StaffMemberNotFoundException("Invalid data");
-		return staffMemberResponse;
+		OfficeStaffMemberDTO  staffMemberDTO= managerService.addStaffMember(staffMember);
+		
+		logger.info("addStaffMember() has executed");
+		
+		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
-		
+	
+	
 	
 	@DeleteMapping("/delete-staff/{empId}")
 	public ResponseEntity<OfficeStaffMemberDTO> removeStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
 		
-		OfficeStaffMemberDTO staffMemberDTO = null;
-		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
+		logger.info("delete-staff URL is opened");
+		logger.info("removeStaffMember() is initiated");
 		
-		if(ManagerServiceImp.validateEmpId(empId))
-		{
-			staffMemberDTO = managerService.removeStaffMember(empId);
-			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
-			LOGGER.info("Staff member deleted");
-		}
-		else
-			throw new StaffMemberNotFoundException("Invalid data");
+		OfficeStaffMemberDTO  staffMemberDTO= managerService.removeStaffMember(empId);
 		
-		return staffMemberResponse;
+		logger.info("removeStaffMember() has executed");
+		
+		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
+	
+//	@DeleteMapping("/delete-staff/{empId}")
+//	public ResponseEntity<OfficeStaffMemberDTO> removeStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
+//		
+//		OfficeStaffMemberDTO staffMemberDTO = null;
+//		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
+//		
+//		if(ManagerServiceImp.validateEmpId(empId))
+//		{
+//			staffMemberDTO = managerService.removeStaffMember(empId);
+//			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+//			logger.info("Staff member deleted");
+//		}
+//		else
+//			throw new StaffMemberNotFoundException("Invalid data");
+//		
+//		return staffMemberResponse;
+//	}
 	
 	
 	@GetMapping("/get-staff/{empId}")
 	public ResponseEntity<OfficeStaffMemberDTO> getStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
 		
-		OfficeStaffMemberDTO staffMemberDTO = null;
-		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
+		logger.info("get-staff URL is opened");
+		logger.info("getStaffMember() is initiated");
 		
-		if(ManagerServiceImp.validateEmpId(empId))
-		{
-			staffMemberDTO = managerService.getStaffMember(empId);
-			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
-		}
-		else
-			throw new StaffMemberNotFoundException("No Staff Member available with given ID");
-		return staffMemberResponse;
+		OfficeStaffMemberDTO staffMemberDTO = managerService.getStaffMember(empId);
+		
+		logger.info("getStaffMember() has executed");
+		
+		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
 
 	}
+	
+//	@GetMapping("/get-staff/{empId}")
+//	public ResponseEntity<OfficeStaffMemberDTO> getStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
+//		
+//		OfficeStaffMemberDTO staffMemberDTO = null;
+//		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
+//		
+//		if(ManagerServiceImp.validateEmpId(empId))
+//		{
+//			staffMemberDTO = managerService.getStaffMember(empId);
+//			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+//		}
+//		else
+//			throw new StaffMemberNotFoundException("No Staff Member available with given ID");
+//		return staffMemberResponse;
+//
+//	}
 	
 	
 	@GetMapping("/get-all-staff")
 	public List<OfficeStaffMemberDTO> getAllStaffMembers() {
 		
+		logger.info("get-all-staff URL is opened");
+		logger.info("getAllStaffMembers() is initiated");
+		
 		return managerService.getAllStaffMembers();
 	}
-	
 	
 	@GetMapping("/get-courier-status/{courierId}")
 	public String getCourierStatus(@PathVariable int courierId) throws CourierNotFoundException{
 		
-		String courierStatus;
+		logger.info("get-courier-status URL is opened");
+		logger.info("getCourierStatus() is initiated");
 		
-		if(courierId <=0)
-			throw new CourierNotFoundException("Invalid data");
-		else
-			courierStatus = managerService.getCourierStatus(courierId);
+		String courierStatus = managerService.getCourierStatus(courierId);;
+		
+		logger.info("getCourierStatus() has executed");
+		 
 		return courierStatus;
 
 	}
 	
+//	@GetMapping("/get-courier-status/{courierId}")
+//	public String getCourierStatus(@PathVariable int courierId) throws CourierNotFoundException{
+//		
+//		String courierStatus;
+//		
+//		if(courierId <=0)
+//			throw new CourierNotFoundException("Invalid data");
+//		else
+//			courierStatus = managerService.getCourierStatus(courierId);
+//		return courierStatus;
+//
+//	}
 	
 	@GetMapping("/get-complaint-byid/{complaintId}")
 	public ResponseEntity<ComplaintDTO> getRegistedComplaint(@PathVariable int complaintId) throws ComplaintNotFoundException{
 		
-		ComplaintDTO complaintDTO = null;
-		ResponseEntity<ComplaintDTO> complaintResponse = null;
+		logger.info("get-complaint-byid URL is opened");
+		logger.info("getRegistedComplaint() is initiated");
 		
-		if(complaintId<=0)
-		{
-			throw new ComplaintNotFoundException("No Complaint available with given ID");
-		}
-		else
-		{
-			complaintDTO = managerService.getRegistedComplaint(complaintId);
-			complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
-		}
+		ComplaintDTO complaintDTO = managerService.getRegistedComplaint(complaintId);
+		
+		logger.info("getRegistedComplaint() has executed");
 			
-		return complaintResponse;
+		return new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
 	}
+	
+//	@GetMapping("/get-complaint-byid/{complaintId}")
+//	public ResponseEntity<ComplaintDTO> getRegistedComplaint(@PathVariable int complaintId) throws ComplaintNotFoundException{
+//		
+//		ComplaintDTO complaintDTO = null;
+//		ResponseEntity<ComplaintDTO> complaintResponse = null;
+//		
+//		if(complaintId<=0)
+//		{
+//			throw new ComplaintNotFoundException("No Complaint available with given ID");
+//		}
+//		else
+//		{
+//			complaintDTO = managerService.getRegistedComplaint(complaintId);
+//			complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
+//		}
+//			
+//		return complaintResponse;
+//	}
 	
 	@GetMapping("/get-all-complaint")
 	public List<ComplaintDTO> getAllComplaints() {
+		
+		logger.info("get-all-complaint URL is opened");
+		logger.info("getAllComplaints() is initiated");
 		
 		return managerService.getAllComplaints();
 	}

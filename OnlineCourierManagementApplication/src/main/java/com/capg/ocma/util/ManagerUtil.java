@@ -19,6 +19,7 @@ public static List<ManagerDTO> convertToManagerDtoList(List<Manager> list) {
 		return dtolist;
 	}
 
+
 	public static ManagerDTO convertToManagerDTO(Manager manager) {
 		ManagerDTO dto = new ManagerDTO();
 		
@@ -28,15 +29,5 @@ public static List<ManagerDTO> convertToManagerDtoList(List<Manager> list) {
 		return dto;
 	}
 		
-	/*
-	 * public static Manager convertToBankAccount(ManagerDTO dto) { Manager manager
-	 * =new Manager();
-	 * 
-	 * manager.setManagerId(dto.getManagerId()); manager.setEmpid(dto.getEmpid());
-	 * manager.setName(dto.getName()); manager.setRole(dto.getRole());
-	 * 
-	 * return manager;
-	 * 
-	 * }
-	 */
+	
 }

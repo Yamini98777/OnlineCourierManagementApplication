@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.UserLogin;
 
 @Repository
-public interface UserLoginDao extends JpaRepository<UserLogin, Long> {
+public interface UserLoginDao extends JpaRepository<UserLogin, Long>  {
 	
 
 }

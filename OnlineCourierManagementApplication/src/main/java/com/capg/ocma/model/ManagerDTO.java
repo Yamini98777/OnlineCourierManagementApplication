@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.capg.ocma.entities.OfficeStaffMember;
 
+
 @Component
 public class ManagerDTO {
 

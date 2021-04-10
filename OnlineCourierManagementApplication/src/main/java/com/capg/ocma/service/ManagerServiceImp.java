@@ -1,6 +1,5 @@
 package com.capg.ocma.service;
 
-import java.time.LocalTime;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -11,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.capg.ocma.controller.ManagerController;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
-import com.capg.ocma.entities.CourierOfficeOutlet;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -26,9 +24,9 @@ import com.capg.ocma.util.OfficeStaffMemberUtil;
 
 
 /*
- * Author : YAMINI C
- * Version : 1.0
- * Date : 04-04-2021
+ * Author      : YAMINI C
+ * Version     : 1.0
+ * Date        : 04-04-2021
  * Description : This is Manager Service Layer
 */
 
@@ -36,10 +34,10 @@ import com.capg.ocma.util.OfficeStaffMemberUtil;
 @Service
 public class ManagerServiceImp implements IManagerService {
 
-	final Logger LOGGER = LoggerFactory.getLogger(ManagerController.class);
+	final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
 	@Autowired
-	private IStaffMemberDao repo;
+	private IStaffMemberDao staffRepo;
 	
 	@Autowired
 	private IComplaintDao complaintRepo;
@@ -50,97 +48,104 @@ public class ManagerServiceImp implements IManagerService {
 	static String staffMemberNotFound = "No Staff Member found with given ID";
 	
 	/*
-	 * Description : This method adds new Office Staff Member
-	 * Input Param : OfficeStaffMember Object 
-	 * Return Value : OfficeStaffMemberDTO Object 
+	 * Description     : This method adds new Office Staff Member
+	 * Input Parameter : OfficeStaffMember Object 
+	 * Return Value    : OfficeStaffMemberDTO Object 
+	 * Exception       : StaffMemberNotFoundException
 	 */
 	
 	@Override
-	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffMember) {
+	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffMember) throws StaffMemberNotFoundException  {
 		
-		LOGGER.info("addStaffMember() service is initiated");
+		logger.info("addStaffMember() service is initiated");
+
+		OfficeStaffMember staffMemberEntity;
+		if (staffMember == null)
+			staffMemberEntity = null;
+		else
+		{
+			validateOfficeStaffMember(staffMember);
+			staffMemberEntity = staffRepo.save(staffMember);
+		}
+		logger.info("addStaffMember() service has executed");
 		
-//		CourierOfficeOutlet office = new CourierOfficeOutlet();
-//		LocalTime open = LocalTime.parse(office.getOpeningTime());
-//		LocalTime close = LocalTime.parse(office.getClosingTime());
-//		office.setClosingTime(close);
-		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(repo.save(staffMember));
+		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffRepo.save(staffMemberEntity));
 	}
 
 	/*
-	 * Description : This method deletes existing Office Staff Member
-	 * Input Param : Integer 
-	 * Return Value : OfficeStaffMemberDTO Object 
-	 * Exception : StaffMemberNotFoundException
+	 * Description     : This method deletes existing Office Staff Member
+	 * Input Parameter : Integer 
+	 * Return Value    : OfficeStaffMemberDTO Object 
+	 * Exception       : StaffMemberNotFoundException
 	 */
 	
 	@Override
 	public OfficeStaffMemberDTO removeStaffMember(int empId) throws StaffMemberNotFoundException {
 		
-		LOGGER.info("removeStaffMember() service is initiated");
+		logger.info("removeStaffMember() service is initiated");
 		
-		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
+		OfficeStaffMember existStaffMember = staffRepo.findById(empId).orElse(null);
 				
 		if(existStaffMember == null)
 			throw new StaffMemberNotFoundException(staffMemberNotFound);
 		else
-			repo.delete(existStaffMember);
+			staffRepo.delete(existStaffMember);
 		
-		LOGGER.info("removeStaffMember() service has executed");
+		logger.info("removeStaffMember() service has executed");
 		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
 
 	/*
-	 * Description : This method shows existing Office Staff Member by their ID
-	 * Input Param : Integer
-	 * Return Value : OfficeStaffMemberDTO Object 
-	 * Exception : StaffMemberNotFoundException
+	 * Description     : This method shows existing Office Staff Member by their ID
+	 * Input Parameter : Integer
+	 * Return Value    : OfficeStaffMemberDTO Object 
+	 * Exception       : StaffMemberNotFoundException
 	 */
 	
 	@Override
 	public OfficeStaffMemberDTO getStaffMember(int empId) throws StaffMemberNotFoundException {
 		
-		LOGGER.info("getStaffMember() service is initiated");
+		logger.info("getStaffMember() service is initiated");
 		
-		OfficeStaffMember existStaffMember = repo.findById(empId).orElse(null);
+		OfficeStaffMember existStaffMember = staffRepo.findById(empId).orElse(null);
 		
 		if(existStaffMember == null)
 			throw new StaffMemberNotFoundException(staffMemberNotFound);
 		
-		LOGGER.info("getStaffMember() service has executed");
+		logger.info("getStaffMember() service has executed");
 		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(existStaffMember);
 	}
 
 	/*
-	 * Description : This method shows all existing Office Staff Member
+	 * Description  : This method shows all existing Office Staff Member
 	 * Return Value : List<OfficeStaffMemberDTO>
 	 */
 	
 	@Override
 	public List<OfficeStaffMemberDTO> getAllStaffMembers() {
 		
-		LOGGER.info("getAllStaffMembers() service is initiated");
+		logger.info("getAllStaffMembers() service is initiated");
 		
-		List<OfficeStaffMember> list = repo.findAll();
+		List<OfficeStaffMember> list = staffRepo.findAll();
 		
-		LOGGER.info("getAllStaffMembers() service has executed");
+		logger.info("getAllStaffMembers() service has executed");
 		
 		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDtoList(list);
 	}
 
 	/*
-	 * Description : This method shows existing Office Staff Member by their ID
-	 * Input Param : Courier Object
-	 * Return Value : String 
-	 * Exception : CourierNotFoundException
+	 * Description     : This method shows existing Office Staff Member by their ID
+	 * Input Parameter : Courier Object
+	 * Return Value    : String 
+	 * Exception       : CourierNotFoundException
 	 */
 	
 	@Override
 	public String getCourierStatus(int courierId) throws CourierNotFoundException {
 		
-		LOGGER.info("getCourierStatus() service is initiated");
+		logger.info("getCourierStatus() service is initiated");
 		
 		Courier courier= courierRepo.findById(courierId).orElse(null);
 		
@@ -150,52 +155,54 @@ public class ManagerServiceImp implements IManagerService {
 			throw new CourierNotFoundException("No Courier found with given ID");
 		else
 			status = courier.getStatus();
-		LOGGER.info("getCourierStatus() service has executed");
+		logger.info("getCourierStatus() service has executed");
 		
 		return  status;
 	}
 
 	/*
-	 * Description : This method shows registered Complaint by ID
-	 * Input Param : Integer
-	 * Return Value : ComplaintDTO Object 
-	 * Exception : ComplaintNotFoundException
+	 * Description     : This method shows registered Complaint by ID
+	 * Input Parameter : Integer
+	 * Return Value    : ComplaintDTO Object 
+	 * Exception       : ComplaintNotFoundException
 	 */
 	@Override
-	public ComplaintDTO getRegistedComplaint(long complaintId) throws ComplaintNotFoundException {
+	public ComplaintDTO getRegistedComplaint(int complaintId) throws ComplaintNotFoundException {
 		
-		LOGGER.info("getRegistedComplaint() service is initiated");
+		logger.info("getRegistedComplaint() service is initiated");
 		
 		Complaint complaint = complaintRepo.findById(complaintId).orElse(null);
 		
 		if(complaint == null)
 			throw new ComplaintNotFoundException("No Complaint found with given ID");
 		
-		LOGGER.info("getRegistedComplaint() service has executed");
+		logger.info("getRegistedComplaint() service has executed");
 		
 		return ComplaintUtil.convertToComplaintDTO(complaint);
 	}
 	
 
 	/*
-	 * Description : This method shows all registered Complaints
+	 * Description  : This method shows all registered Complaints
 	 * Return Value : List<ComplaintDTO>
 	 */
 	
 	@Override
 	public List<ComplaintDTO> getAllComplaints() {
 		
-		LOGGER.info("getAllComplaints() service is initiated");
+		logger.info("getAllComplaints() service is initiated");
 		
 		List<Complaint> list = complaintRepo.findAll();
 		
-		LOGGER.info("getAllComplaints() service has executed");
+		logger.info("getAllComplaints() service has executed");
 		
 		return ComplaintUtil.convertToComplaintDtoList(list);
 	}
 
+	/*
+	 * VALIDATIONS
+	 */
 	
-	//VALIDATIONS 
 	public static boolean validateOfficeStaffMember(OfficeStaffMember officeStaffMember) throws StaffMemberNotFoundException
 	{
 		boolean flag = false;
@@ -211,18 +218,10 @@ public class ManagerServiceImp implements IManagerService {
 		return flag;
 	}
 	
-	//validate empId
-	public static boolean validateEmpId(int empId) throws StaffMemberNotFoundException
-	{
-		boolean flag = false;
-		if(empId<=0)
-			throw new StaffMemberNotFoundException(staffMemberNotFound);
-		else
-			flag=true;
-		return flag;
-	}
+   /*
+	* NAME VALIDATION
+	*/
 	
-	//validate name
 	public static boolean validateName(String name) throws StaffMemberNotFoundException
 	{
 		boolean flag = false;
@@ -235,14 +234,17 @@ public class ManagerServiceImp implements IManagerService {
 		return flag;
 	}
 	
-	//validate role
+   /*
+	* ROLE VALIDATION
+	*/
+	
 	public static boolean validateRole(String role) throws StaffMemberNotFoundException
 	{
 		boolean flag = false;
 		if(role == null)
 			throw new StaffMemberNotFoundException("Role cannot be empty");
 		
-		else if(!role.matches("^[a-zA-Z]+$"))
+		else if(!role.matches("^[a-zA-Z ]+$"))
 			throw new StaffMemberNotFoundException("Role cannot contain Numbers or Special Characters");
 		
 		else if(role.equals("Analyst") || role.equals("Senior Analyst") || role.equals("Manager"))

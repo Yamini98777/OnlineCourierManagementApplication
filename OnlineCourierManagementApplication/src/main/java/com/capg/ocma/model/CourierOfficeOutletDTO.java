@@ -1,7 +1,6 @@
 package com.capg.ocma.model;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,10 +10,12 @@ import com.capg.ocma.entities.OfficeStaffMember;
 
 @Component
 public class CourierOfficeOutletDTO {
+
+	private int officeStaffId;
 	private int officeId;
 	private Address address;
-	private LocalDate openingTime;
-	private LocalDate closingTime;
+	private String openingTime;
+	private String closingTime;
 	private List<OfficeStaffMember> staffMembers;
 
 	public CourierOfficeOutletDTO() {
@@ -22,21 +23,30 @@ public class CourierOfficeOutletDTO {
 		// TODO Auto-generated constructor stub
 	}
 
-	public CourierOfficeOutletDTO(int officeid, Address address, LocalDate openingTime, LocalDate closingTime, List<OfficeStaffMember> staffmembers) {
+	public CourierOfficeOutletDTO(int officeId, Address address, String openingTime, String closingTime, List<OfficeStaffMember> staffMembers) {
 		super();
-		this.officeId = officeid;
+
+		this.officeId = officeId;
 		this.address = address;
 		this.openingTime = openingTime;
 		this.closingTime = closingTime;
-		this.staffMembers = staffmembers;
+		this.staffMembers = staffMembers;
 	}
 
-	public int getOfficeid() {
+	public int getOfficeStaffId() {
+		return officeStaffId;
+	}
+
+	public void setOfficeStaffId(int officeStaffId) {
+		this.officeStaffId = officeStaffId;
+	}
+
+	public int getOfficeId() {
 		return officeId;
 	}
 
-	public void setOfficeid(int officeid) {
-		this.officeId = officeid;
+	public void setOfficeId(int officeId) {
+		this.officeId = officeId;
 	}
 
 	public Address getAddress() {
@@ -47,34 +57,35 @@ public class CourierOfficeOutletDTO {
 		this.address = address;
 	}
 
-	public LocalDate getOpeningTime() {
+	public String getOpeningTime() {
 		return openingTime;
 	}
 
-	public void setOpeningTime(LocalDate openingTime) {
+	public void setOpeningTime(String openingTime) {
 		this.openingTime = openingTime;
 	}
 
-	public LocalDate getClosingTime() {
+	public String getClosingTime() {
 		return closingTime;
 	}
 
-	public void setClosingTime(LocalDate closingTime) {
+	public void setClosingTime(String closingTime) {
 		this.closingTime = closingTime;
 	}
 
-	public List<OfficeStaffMember> getStaffmembers() {
+	public List<OfficeStaffMember> getStaffMembers() {
 		return staffMembers;
 	}
 
-	public void setStaffmembers(List<OfficeStaffMember> staffmembers) {
-		this.staffMembers = staffmembers;
+	public void setStaffMembers(List<OfficeStaffMember> staffMembers) {
+		this.staffMembers = staffMembers;
 	}
 
 	@Override
 	public String toString() {
-		return "CourierOfficeOutletDTO [officeid=" + officeId + ", openingTime=" + openingTime + ", closingTime="
-				+ closingTime + ", staffmembers=" + staffMembers + "]";
+		return "CourierOfficeOutletDTO [officeStaffId=" + officeStaffId + ", officeId=" + officeId + ", address="
+				+ address + ", openingTime=" + openingTime + ", closingTime=" + closingTime + ", staffMembers="
+				+ staffMembers + "]";
 	}
 
 }

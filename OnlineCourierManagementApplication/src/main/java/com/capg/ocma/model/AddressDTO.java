@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AddressDTO {
+	
 	private String street;
 	private String city;
 	private String state;

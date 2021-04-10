@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.exception.CourierNotFoundException;
-import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.model.CourierDTO;
 import com.capg.ocma.repository.ICourierDao;
 import com.capg.ocma.util.CourierUtil;
@@ -23,13 +22,13 @@ public class ShipmentServiceImp implements IShipmentService{
 	@Autowired
 	ICourierDao courierDao;
 	
-	final static Logger LOGGER = LoggerFactory.getLogger(CustomerServiceImp.class);
+	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
 
 	
 	@Override
 	public CourierDTO addCourier(Courier courier) throws CourierNotFoundException
 	{
-		LOGGER.info("addCourier() service is initiated");
+		logger.info("addCourier() service is initiated");
 		Courier courierEntity;
 
 		if (courier == null)
@@ -38,7 +37,7 @@ public class ShipmentServiceImp implements IShipmentService{
 		{
 			courierEntity = courierDao.save(courier);
 
-			LOGGER.info("addCourier() service has executed");
+			logger.info("addCourier() service has executed");
 		}
 
 		return CourierUtil.convertToCourierDto(courierEntity);

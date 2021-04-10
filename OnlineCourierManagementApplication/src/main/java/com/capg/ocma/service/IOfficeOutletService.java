@@ -14,7 +14,7 @@ public interface IOfficeOutletService {
 	public CourierOfficeOutlet getOfficeInfo(int officeid) throws OutletNotFoundException;
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException;
 	
-	public boolean isOfficeOpen(CourierOfficeOutlet officeoutlet) throws OutletClosedException;
-	public boolean isOfficeClosed(CourierOfficeOutlet officeoutlet)throws OutletClosedException;
+	public boolean isOfficeOpen(int officeId);
+	public boolean isOfficeClosed(int officeId) throws OutletClosedException;
 	
 }

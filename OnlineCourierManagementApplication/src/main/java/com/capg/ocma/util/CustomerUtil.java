@@ -16,7 +16,6 @@ public class CustomerUtil {
 		return dtolist;
 	
 }
-	
 
 	public static CustomerDTO convertToCustomerDTO(Customer customer) {
 		CustomerDTO dto =new CustomerDTO();
@@ -30,5 +29,3 @@ public class CustomerUtil {
 		return dto;
 	}
 }
-
-
