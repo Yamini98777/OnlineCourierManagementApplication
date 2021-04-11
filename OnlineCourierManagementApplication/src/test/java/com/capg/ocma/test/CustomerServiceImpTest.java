@@ -123,22 +123,21 @@ class CustomerServiceImpTest {
 	@Test
 	void testcheckOnlineTrackingStatus() throws CourierNotFoundException {
 
-		int consignmentNo=156;
 		try {
-			customerservice.checkOnlineTrackingStatus(consignmentNo);
+			customerservice.checkOnlineTrackingStatus(156);
 		} catch (CourierNotFoundException exception) {
-			assertEquals("Consignment no should not be empty", exception.getMessage());
+			assertEquals(156, customerservice.checkOnlineTrackingStatus(156));
 		}
 
 	}
 	@Test
 	void testcheckOnlineTrackingStatus2() throws CourierNotFoundException {
 
-		int consignmentNo=156;
+		int consignmentNo=0;
 		try {
 			customerservice.checkOnlineTrackingStatus(consignmentNo);
 		} catch (CourierNotFoundException exception) {
-			assertEquals("Consignment no should not be empty", exception.getMessage());
+			assertNull(0, customerservice.checkOnlineTrackingStatus(0));
 		}
 
 	}

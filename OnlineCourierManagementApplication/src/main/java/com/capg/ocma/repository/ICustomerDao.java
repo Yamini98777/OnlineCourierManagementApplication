@@ -6,6 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import com.capg.ocma.entities.Customer;
 
+/*
+ * Author      : GOMATHI M
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is Customer Repository
+*/
+
 @Repository
 public interface ICustomerDao extends JpaRepository<Customer, Integer>{
 

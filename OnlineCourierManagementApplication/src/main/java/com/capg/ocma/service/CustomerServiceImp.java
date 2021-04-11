@@ -74,9 +74,9 @@ public class CustomerServiceImp implements ICustomerService {
 
 	/*
 	 * Description : This method registers the complaint 
-	 * Input Param : Complaint
-	 * object Return Value : ComplaintDTO object Exception :
-	 * ComplaintNotFoundException
+	 * Input Parameter : Complaint
+	 * object Return Value : ComplaintDTO object
+	 *  Exception :ComplaintNotFoundException
 	 */
 	public ComplaintDTO registerComplaint(Complaint complaint) throws ComplaintNotFoundException {
 
@@ -105,7 +105,12 @@ public class CustomerServiceImp implements ICustomerService {
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
 
-	// validation customerid
+	/*
+	 * Description : This method validates customer id 
+	 * Input Parameter : customerId
+	 * object Return Value : boolean
+	 *  Exception :CustomerNotFoundException
+	 */
 
 	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException {
 		boolean flag = customerdao.existsById(customerid);
@@ -119,7 +124,12 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 	}
 
-//validate mobno
+	/*
+	 * Description : This method validates mobile no 
+	 * Input Parameter : mobile no
+	 * object Return Value : boolean 
+	 *  Exception :CustomerNotFoundException
+	 */
 	public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException {
 		
 		logger.info("validateNumber() is initiated");
@@ -138,7 +148,12 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 	}
 
-	// validate aadharno
+	/*
+	 * Description : This method validates aadhaar no 
+	 * Input Parameter : mobile no
+	 * object Return Value : boolean 
+	 *  Exception :CustomerNotFoundException
+	 */
 	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException {
 		logger.info("validatesetAadharno() is initiated");
 		boolean flag = false;
@@ -147,17 +162,21 @@ public class CustomerServiceImp implements ICustomerService {
 		if (size == 0)
 			throw new CustomerNotFoundException("AAdhaarno cannot be empty");
 
-		else if (size < 5)
+		else if (size < 7)
 			throw new CustomerNotFoundException("Enter valid aadhar number");
 
-		else if (size > 5)
+		else if (size > 7)
 			flag = true;
 		logger.info("validatesetAadharno() has executed");
 
 		return flag;
 	}
-
-	// validation complaintid
+	/*
+	 * Description : This method validates complaint id 
+	 * Input Parameter : complaintId
+	 * object Return Value : boolean 
+	 *  Exception :ComplaintNotFoundException
+	 */
 	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException {
 
 		logger.info("validateComplaintId() is initiated");
@@ -176,7 +195,12 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 	}
 
-//validate consignmentno
+	/*
+	 * Description : This method validates consignmentNo 
+	 * Input Parameter : consignmentNo
+	 * object Return Value : boolean 
+	 *  Exception :ComplaintNotFoundException
+	 */
 	public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
 		
 		logger.info("validateConsignmentNo() is initiated");
