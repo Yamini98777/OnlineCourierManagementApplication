@@ -22,7 +22,6 @@ import com.capg.ocma.repository.IStaffMemberDao;
 import com.capg.ocma.util.ComplaintUtil;
 import com.capg.ocma.util.OfficeStaffMemberUtil;
 
-
 /*
  * Author      : YAMINI C
  * Version     : 1.0
@@ -59,7 +58,7 @@ public class ManagerServiceImp implements IManagerService {
 		
 		logger.info("addStaffMember() service is initiated");
 
-		OfficeStaffMember staffMemberEntity;
+		OfficeStaffMember staffMemberEntity = null;
 		if (staffMember == null)
 			staffMemberEntity = null;
 		else
@@ -69,7 +68,7 @@ public class ManagerServiceImp implements IManagerService {
 		}
 		logger.info("addStaffMember() service has executed");
 		
-		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffRepo.save(staffMemberEntity));
+		return OfficeStaffMemberUtil.convertToOfficeStaffMemberDTO(staffMemberEntity);
 	}
 
 	/*

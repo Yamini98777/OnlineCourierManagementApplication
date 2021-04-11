@@ -12,7 +12,6 @@ public class BankAccountDTO {
 	
 	public BankAccountDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public BankAccountDTO(int accountno, String accountHolderName, String accountType) {

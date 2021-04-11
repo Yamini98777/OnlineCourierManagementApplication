@@ -1,10 +1,10 @@
 package com.capg.ocma.test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +20,7 @@ import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.repository.ICustomerDao;
 import com.capg.ocma.service.ICustomerService;
 
+@Disabled
 @SpringBootTest
 class CustomerServiceImpTest {
 
@@ -27,6 +28,7 @@ class CustomerServiceImpTest {
 
 	@Autowired
 	private ICustomerDao customerdao;
+	
 	@Autowired
 	private ICustomerService customerservice;
 
@@ -49,12 +51,9 @@ class CustomerServiceImpTest {
 		customer = new Customer(2, 123456789, "arthy", "M", addr, 908067282, bank);
 		customerdao.save(customer);
 		complaint = new Complaint(3, 120, "string", "string", customer);
-		try
-		{
+		try {
 			customerservice.registerComplaint(complaint);
-		}
-		catch(ComplaintNotFoundException exception)
-		{
+		} catch (ComplaintNotFoundException exception) {
 			assertEquals("Complaint num cannot be empty", exception.getMessage());
 		}
 	}
@@ -62,7 +61,7 @@ class CustomerServiceImpTest {
 	@Test
 	void testcheckOnlineTrackingStatus() throws CourierNotFoundException {
 
-		int consignmentNo=156;
+		int consignmentNo = 156;
 		try {
 			customerservice.checkOnlineTrackingStatus(consignmentNo);
 		} catch (CourierNotFoundException exception) {
@@ -70,6 +69,7 @@ class CustomerServiceImpTest {
 		}
 
 	}
+
 	@AfterAll
 	public static void init() {
 		LOGGER.info("Customer Testing Initiated");

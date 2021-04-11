@@ -28,6 +28,18 @@ public class ComplaintController {
 
 		@Autowired
 		private ICustomerService customerService;
+		/********************************************
+		 * Method              : checkCourierStatusAction 
+		 * Description         : It is used to check the status of the courier
+		 * @param courier      : Courier consignmentNo
+		 * @returns            : It returns status of the  Response Entity of the courier  
+		 * @GetMapping         : It is used to handle the HTTP POST requests matched with given URI expression.
+		 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+		 * @exception          : CourierNotFoundException
+		 * Created By          : GOMATHI M 
+	     * Created Date        : 05-04-2021 
+		 * 
+		 *******************************************/
 		
 		
 		
@@ -39,6 +51,21 @@ public class ComplaintController {
 				ResponseEntity <String> response = new ResponseEntity <String> ( status, HttpStatus.OK);
 				return response;
 		}
+		
+		/********************************************
+		 * Method              : registerComplaint 
+		 * Description         : It is used to registerComplaint into complaint table
+		 * @param staffMember  : Complaint Object
+		 * @returns            : It returns ComplaintDTO Object with details
+		 * @PostMapping        : It is used to handle the HTTP POST requests matched with given URI expression.
+		 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+		 * @exception          : ComplaintNotFoundException
+		 * Created By          : GOMATHI M
+	     * Created Date        : 05-04-2021 
+		 * 
+		 *******************************************/
+		
+		
 		@PostMapping("/add-complaint")
 		public ResponseEntity<ComplaintDTO> registerComplaint(@RequestBody Complaint complaint) throws ComplaintNotFoundException {
 			
@@ -53,12 +80,27 @@ public class ComplaintController {
 			return complaintResponse;
 			
 		}
+		
+		/********************************************
+		 * Method              : addcustomer 
+		 * Description         : It is used to add Customer into Customer table
+		 * @param staffMember  : Customer Object
+		 * @returns            : It returns CustomerDTO Object with details
+		 * @PostMapping        : It is used to handle the HTTP POST requests matched with given URI expression.
+		 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+		 * @exception          : CustomerNotFoundException
+		 * Created By          : GOMATHI M
+	     * Created Date        : 05-04-2021 
+		 * 
+		 *******************************************/
+		
+		
 		@PostMapping("/add-customer")
 		public ResponseEntity<CustomerDTO> addcustomer(@RequestBody Customer customer) throws CustomerNotFoundException{
 			CustomerDTO customerDTO=null;
 			ResponseEntity<CustomerDTO> customerResponse=null;
 			
-			customerDTO=customerService.addcustomer(customer);
+			customerDTO=customerService.addCustomer(customer);
 			customerResponse=new ResponseEntity<CustomerDTO>(customerDTO,HttpStatus.ACCEPTED);
 			return customerResponse;
 		}

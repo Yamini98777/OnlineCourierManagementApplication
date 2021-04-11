@@ -5,6 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import com.capg.ocma.entities.Complaint;
 
+/*
+ * Author      : GOMATHI M
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is Complaint Repository
+*/
+
+
 @Repository
 public interface IComplaintDao extends JpaRepository<Complaint, Integer> {
 

@@ -7,3 +7,4 @@ public class StaffMemberNotFoundException extends GlobalException
 		super(message);
 	}
 }
+ 

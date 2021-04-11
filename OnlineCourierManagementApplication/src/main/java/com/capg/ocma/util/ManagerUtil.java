@@ -9,9 +9,15 @@ import com.capg.ocma.model.ManagerDTO;
 
 public class ManagerUtil {
 	
-public static List<ManagerDTO> convertToManagerDtoList(List<Manager> list) {
+	
+	private ManagerUtil() {
+		super();
+	}
+
+
+	public static List<ManagerDTO> convertToManagerDtoList(List<Manager> list) {
 		
-		List<ManagerDTO> dtolist = new ArrayList<ManagerDTO>();
+		List<ManagerDTO> dtolist = new ArrayList<>();
 		
 		for (Manager manager : list)
 			dtolist.add(convertToManagerDTO(manager));

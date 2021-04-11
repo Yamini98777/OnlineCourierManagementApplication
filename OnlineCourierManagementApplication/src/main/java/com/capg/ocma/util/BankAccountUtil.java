@@ -7,8 +7,16 @@ import com.capg.ocma.entities.BankAccount;
 import com.capg.ocma.model.BankAccountDTO;
 
 public class BankAccountUtil {
+	
+	
+	
+	private BankAccountUtil() {
+		super();
+	}
+
+
 	public static List<BankAccountDTO> convertToBankAccountDtoList(List<BankAccount> list){
-		List<BankAccountDTO> dtolist = new ArrayList<BankAccountDTO>();
+		List<BankAccountDTO> dtolist = new ArrayList<>();
 		for(BankAccount BankAccount : list) 
 			dtolist.add(convertToBankAccountDto(BankAccount));
 		return dtolist;

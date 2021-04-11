@@ -9,27 +9,29 @@ import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.model.ComplaintDTO;
 
 
-
 public class ComplaintUtil {
 	
-			public static List<ComplaintDTO> convertToComplaintDtoList(List<Complaint> list){
-				List<ComplaintDTO> dtolist = new ArrayList<ComplaintDTO>();
-				for(Complaint complaint : list) 
-					dtolist.add(convertToComplaintDTO(complaint));
-				return dtolist;
+	private ComplaintUtil() {
+		super();
+	}
+
+	public static List<ComplaintDTO> convertToComplaintDtoList(List<Complaint> list){
+		List<ComplaintDTO> dtolist = new ArrayList<>();
+		for(Complaint complaint : list) 
+			dtolist.add(convertToComplaintDTO(complaint));
+		return dtolist;
 			
 		}
 			
-			public static ComplaintDTO convertToComplaintDTO(Complaint complaint) {
-				ComplaintDTO complaintdto =new ComplaintDTO();
+		public static ComplaintDTO convertToComplaintDTO(Complaint complaint) {
+			ComplaintDTO complaintdto =new ComplaintDTO();
 				
-				complaintdto.setComplaintid(complaint.getComplaintId());
-				complaintdto.setConsignmentno(complaint.getConsignmentNo());
-				complaintdto.setShortdescription(complaint.getDetailDescription());
-				complaintdto.setDetaildescription(complaint.getDetailDescription());
-				
-				
-				return complaintdto;
+			complaintdto.setComplaintid(complaint.getComplaintId());
+			complaintdto.setConsignmentno(complaint.getConsignmentNo());
+			complaintdto.setShortdescription(complaint.getDetailDescription());
+			complaintdto.setDetaildescription(complaint.getDetailDescription());
+			
+			return complaintdto;
 			}
 			
 

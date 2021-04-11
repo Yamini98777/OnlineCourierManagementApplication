@@ -3,6 +3,7 @@ package com.capg.ocma.service;
 import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 
+
 public interface IUserLoginService {
 
 	public void addUser(UserLogin user) throws UserNotFoundException;

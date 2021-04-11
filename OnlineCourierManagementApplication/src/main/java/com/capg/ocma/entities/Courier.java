@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -25,10 +24,10 @@ public class Courier {
 
 	private String status;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	private Customer sender;
 
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne
 	private Customer receiver;
 
 	public Courier() {

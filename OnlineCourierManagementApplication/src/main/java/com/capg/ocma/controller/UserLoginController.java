@@ -22,8 +22,9 @@ import com.capg.ocma.service.UserLoginServiceImp;
 @RequestMapping("api/ocma/login")
 public class UserLoginController {
 
+	static String userNotFoundException = "Username cannot contain Numbers or Special Characters!!";
 	
-	final Logger LOGGER = LoggerFactory.getLogger(UserLoginController.class);
+	final Logger logger = LoggerFactory.getLogger(UserLoginController.class);
 	
 	@Autowired
 	IUserLoginService service;
@@ -31,24 +32,24 @@ public class UserLoginController {
 	@PostMapping("/add-user")
 	public void addUser(@RequestBody UserLogin user) throws UserNotFoundException {
 		
-		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
-			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
+			throw new UserNotFoundException(userNotFoundException);
 		else
 			service.addUser(user);
 		
-		LOGGER.info("User logged-in successfully.");
+		logger.info("User logged-in successfully.");
 	}
 
 	
 	@PostMapping("/user-login")
 	public void userLogin(@RequestBody UserLogin user) throws UserNotFoundException {
 		
-		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
-			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
+			throw new UserNotFoundException(userNotFoundException);
 		else
 			service.userLogin(user);
 		
-		LOGGER.info("User logged-in successfully.");
+		logger.info("User logged-in successfully.");
 	}
 	
 	
@@ -57,19 +58,19 @@ public class UserLoginController {
 	{
 		service.removeUser(userId);
 		
-		LOGGER.info("User deleted in successfully.");
+		logger.info("User deleted in successfully.");
 	}
 
 
 	@PutMapping("/update-user")
 	public void updateUser(@RequestBody UserLogin user) throws UserNotFoundException {
 		
-		if(UserLoginServiceImp.validateUsername(user.getUsername())== false)
-			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters!!");
+		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
+			throw new UserNotFoundException(userNotFoundException);
 		else
 			service.updateUser(user);
 		
-		LOGGER.info("User updated successfully.");
+		logger.info("User updated successfully.");
 	}
 
 }

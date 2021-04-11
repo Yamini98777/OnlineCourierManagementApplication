@@ -64,7 +64,7 @@ public class ManagerController {
 		
 		logger.info("addStaffMember() has executed");
 		
-		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
 	
 	/********************************************************************************************************************************
@@ -90,7 +90,7 @@ public class ManagerController {
 		
 		logger.info("removeStaffMember() has executed");
 		
-		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
 	
 	/********************************************************************************************************************************
@@ -116,7 +116,7 @@ public class ManagerController {
 		
 		logger.info("getStaffMember() has executed");
 		
-		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(staffMemberDTO, HttpStatus.ACCEPTED);
 
 	}
 	
@@ -159,7 +159,7 @@ public class ManagerController {
 		logger.info("get-courier-status URL is opened");
 		logger.info("getCourierStatus() is initiated");
 		
-		String courierStatus = managerService.getCourierStatus(courierId);;
+		String courierStatus = managerService.getCourierStatus(courierId);
 		
 		logger.info("getCourierStatus() has executed");
 		 
@@ -190,7 +190,7 @@ public class ManagerController {
 		
 		logger.info("getRegistedComplaint() has executed");
 			
-		return new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(complaintDTO, HttpStatus.ACCEPTED);
 	}
 	
 	/********************************************************************************************************************************

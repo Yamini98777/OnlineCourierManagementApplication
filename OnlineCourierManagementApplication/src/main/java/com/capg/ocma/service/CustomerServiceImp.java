@@ -31,39 +31,43 @@ import com.capg.ocma.util.CustomerUtil;
 @Service
 public class CustomerServiceImp implements ICustomerService {
 
-	final static Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
+	static final Logger logger = LoggerFactory.getLogger(CustomerServiceImp.class);
+
+	static String validationSuccessful = "Validation Successful";
+	
+	@Autowired
+	private ICustomerDao customerRepo;
 
 	@Autowired
-	private ICustomerDao customerdao;
+	private IComplaintDao complaintRepo;
 
 	@Autowired
-	private IComplaintDao complaintdao;
-
-	@Autowired
-	private ICourierDao courierdao;
+	private ICourierDao courierRepo;
 
 	/*
-	 * Description : This method add the customer 
-	 * Input Param : Customer
-	 * object Return Value : CustomerDto object
-	 *  Exception : CustomerNotFound
+	 * Description 			: This method add the customer 
+	 * Input Parameter	 	: Customer
+	 * object Return Value  : CustomerDto object
+	 *  Exception 			: CustomerNotFound
 	 */
 	@Override
-	public CustomerDTO addcustomer(Customer customer) {
+	public CustomerDTO addCustomer(Customer customer) {
 		
 	
-		 Customer cust= customerdao.save(customer);
+		 Customer cust= customerRepo.save(customer);
 		 return CustomerUtil.convertToCustomerDTO(cust);
 	}
 
 	/*
-	 * Description : This method Checking the status of the Courier Input Param :
-	 * int Return Value : Courier status Exception : CourierNotFoundException
+	 * Description			 : This method Checking the status of the Courier 
+	 * Input Parameter		 : ConsignmentNo 
+	 * Return Value			 : Courier status
+	 *  Exception 			 : CourierNotFoundException
 	 */
 	public String checkOnlineTrackingStatus(int consignmentno) throws CourierNotFoundException {
-		Courier courier = courierdao.findByConsignmentNo(consignmentno);
+		Courier courier = courierRepo.findByConsignmentNo(consignmentno);
 		String status = null;
-		System.out.println(courier);
+		
 		if (courier == null)
 			throw new CourierNotFoundException("No complaint with this consignment number exists...enter valid consignment number");
 		else
@@ -73,10 +77,10 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 	/*
-	 * Description : This method registers the complaint 
-	 * Input Param : Complaint
-	 * object Return Value : ComplaintDTO object Exception :
-	 * ComplaintNotFoundException
+	 * Description 			: This method registers the complaint 
+	 * Input Parameter		: Complaint
+	 * object Return Value  : ComplaintDTO object 
+	 * Exception 			: ComplaintNotFoundException
 	 */
 	public ComplaintDTO registerComplaint(Complaint complaint) throws ComplaintNotFoundException {
 
@@ -94,28 +98,39 @@ public class CustomerServiceImp implements ICustomerService {
 		else
 		{
 			
-			complaintEntity = complaintdao.save(complaint);
+			complaintEntity = complaintRepo.save(complaint);
 			logger.info("registerComplaint() service has executed");
 		}
 
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
 
-	// validation customerid
-
+	/*
+	 * Description 			: This method validated the customerId 
+	 * Input Parameter		: CustomerId
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: CustomerNotFoundException
+	 */
+	
 	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException {
-		boolean flag = customerdao.existsById(customerid);
+		boolean flag = customerRepo.existsById(customerid);
 		if (flag == false)
 			throw new CustomerNotFoundException("customerid not found");
 		else {
-			logger.info("Validation Successful");
+			logger.info(validationSuccessful);
 
 			flag = true;
 		}
 		return flag;
 	}
 
-//validate mobno
+	/*
+	 * Description 			: This method validated the Mobile no 
+	 * Input Parameter		: Mobile no
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: CustomerNotFoundException
+	 */
+	
 	public static boolean validateNumber(long mobileNo) throws CustomerNotFoundException {
 		
 		logger.info("validateNumber() is initiated");
@@ -129,12 +144,18 @@ public class CustomerServiceImp implements ICustomerService {
 			throw new CustomerNotFoundException("Mobileno not valid");
 		else
 			flag = true;
-		logger.info("Validation Successful");
+		logger.info(validationSuccessful);
 
 		return flag;
 	}
 
-	// validate aadharno
+	/*
+	 * Description 			: This method validated the Aadhar no 
+	 * Input Parameter		: Aadhar no  
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: CustomerNotFoundException
+	 */
+	
 	public static boolean validatesetAadharno(long aadharNo) throws CustomerNotFoundException {
 		logger.info("validatesetAadharno() is initiated");
 		boolean flag = false;
@@ -153,7 +174,13 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 	}
 
-	// validation complaintid
+	/*
+	 * Description 			: This method validated the Complaint Id 
+	 * Input Parameter		: Complaint 
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: ComplaintNotFoundException
+	 */
+	
 	public static boolean validateComplaintId(Complaint complaint) throws ComplaintNotFoundException {
 
 		logger.info("validateComplaintId() is initiated");
@@ -165,15 +192,22 @@ public class CustomerServiceImp implements ICustomerService {
 			logger.error("Invalid Address");
 			throw new ComplaintNotFoundException("Invalid consignment");
 		} else {
-			logger.info("Validation Successful");
+			logger.info(validationSuccessful);
 			flag = true;
 		}
 		logger.info("validateComplaintId() has executed");
 		return flag;
 	}
 
-//validate consignmentno
-	public static boolean validateConsignmentNo(long consignmentNo) throws ComplaintNotFoundException {
+
+	/*
+	 * Description 			: This method validated the consignmentNo
+	 * Input Parameter		: ConsignmentNo 
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: ComplaintNotFoundException
+	 */
+	
+	public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
 		
 		logger.info("validateConsignmentNo() is initiated");
 		

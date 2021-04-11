@@ -8,9 +8,13 @@ import com.capg.ocma.model.AddressDTO;
 
 public class AddressUtil {
 	
+	private AddressUtil() {
+		super();
+	}
+
 	public static List<AddressDTO> convertToAddressDtoList(List<Address> list) 
 	{
-		List<AddressDTO> dtolist = new ArrayList<AddressDTO>();
+		List<AddressDTO> dtolist = new ArrayList<>();
 		
 		for (Address address : list)
 			dtolist.add(convertToAddressDTO(address));

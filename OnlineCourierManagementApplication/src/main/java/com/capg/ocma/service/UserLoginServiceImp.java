@@ -35,7 +35,8 @@ public class UserLoginServiceImp implements IUserLoginService {
 		
 		UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
 		
-		String encryptedPassword, decryptedPassword;
+		String encryptedPassword;
+		String decryptedPassword;
 		
 		if(existUser == null) {
 			throw new UserNotFoundException("User with the entered user ID does not exist");

@@ -9,7 +9,6 @@ import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.model.ComplaintDTO;
 import com.capg.ocma.model.OfficeStaffMemberDTO;
 
-
 public interface IManagerService {
 
 	public OfficeStaffMemberDTO addStaffMember(OfficeStaffMember staffmember) throws StaffMemberNotFoundException ;

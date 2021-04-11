@@ -8,6 +8,12 @@ import com.capg.ocma.model.CourierDTO;
 
 
 public class CourierUtil {
+	
+	
+	private CourierUtil() {
+		super();
+	}
+
 	public static List<CourierDTO> convertToCourierDtoList(List<Courier> list){
 		
 		List<CourierDTO> dtolist = new ArrayList<CourierDTO>();
@@ -35,4 +41,3 @@ public class CourierUtil {
 	
 	
 }
-	

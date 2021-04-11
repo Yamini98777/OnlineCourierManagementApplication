@@ -13,7 +13,6 @@ public class AddressDTO {
 
 	public AddressDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public AddressDTO(String street, String city, String state, String country, int zip) {

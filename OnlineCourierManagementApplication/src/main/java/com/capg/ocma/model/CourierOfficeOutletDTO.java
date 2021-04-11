@@ -16,7 +16,6 @@ public class CourierOfficeOutletDTO {
 
 	public CourierOfficeOutletDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CourierOfficeOutletDTO(int officeId, Address address, String openingTime, String closingTime) {

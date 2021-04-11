@@ -9,8 +9,13 @@ import com.capg.ocma.model.CustomerDTO;
 
 
 public class CustomerUtil {
+	
+	private CustomerUtil() {
+		super();
+	}
+
 	public static List<CustomerDTO> convertToCustomerDtoList(List<Customer> list){
-		List<CustomerDTO> dtolist = new ArrayList<CustomerDTO>();
+		List<CustomerDTO> dtolist = new ArrayList<>();
 		for(Customer customer : list) 
 			dtolist.add( convertToCustomerDTO(customer));
 		return dtolist;

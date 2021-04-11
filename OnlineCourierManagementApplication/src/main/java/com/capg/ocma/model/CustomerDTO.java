@@ -18,7 +18,6 @@ public class CustomerDTO {
 
 	public CustomerDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CustomerDTO(int customerid, long aadharno, String firstname, String lastname, Address addr, long mobileno, BankAccount acct) {

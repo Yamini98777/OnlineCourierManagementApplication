@@ -15,6 +15,6 @@ public class GlobalController {
 	public ResponseEntity<String> exceptionHandler(Exception exception)
 	{
 		String errorMessage = exception.getMessage();
-		return new ResponseEntity<String>(errorMessage, HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
 	}
 }

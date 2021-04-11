@@ -13,7 +13,8 @@ public class ManagerDTO {
 	private int managerId;
 	private List<OfficeStaffMember> reportingstaffmembers;
 
-	public ManagerDTO() {
+	public ManagerDTO() 
+	{
 		super();
 	}
 

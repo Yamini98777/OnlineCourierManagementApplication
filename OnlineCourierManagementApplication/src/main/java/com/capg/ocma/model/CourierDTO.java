@@ -18,7 +18,6 @@ public class CourierDTO {
 	
 	public CourierDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public CourierDTO(int courierid, String status, Customer sender, Customer receiver, int consignmentno, LocalDate initiatedDate, LocalDate deliveredDate) {

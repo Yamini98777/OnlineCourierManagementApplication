@@ -7,4 +7,4 @@ public class OutletClosedException extends GlobalException {
 		
 	}
 
-}
+} 

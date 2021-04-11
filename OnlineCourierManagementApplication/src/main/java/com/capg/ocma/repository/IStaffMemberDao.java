@@ -5,6 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import com.capg.ocma.entities.OfficeStaffMember;
 
+/*
+ * Author      : YAMINI C
+ * Version     : 1.0
+ * Date        : 03-04-2021
+ * Description : This is Staff Member Repository
+*/
+
+
 @Repository
 public interface IStaffMemberDao extends JpaRepository<OfficeStaffMember, Integer> {
 	

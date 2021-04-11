@@ -9,9 +9,14 @@ import com.capg.ocma.model.OfficeStaffMemberDTO;
 
 public class OfficeStaffMemberUtil {
 
-public static List<OfficeStaffMemberDTO> convertToOfficeStaffMemberDtoList(List<OfficeStaffMember> list) {
+	
+	private OfficeStaffMemberUtil() {
+		super();
+	}
+
+	public static List<OfficeStaffMemberDTO> convertToOfficeStaffMemberDtoList(List<OfficeStaffMember> list) {
 		
-		List<OfficeStaffMemberDTO> dtolist = new ArrayList<OfficeStaffMemberDTO>();
+		List<OfficeStaffMemberDTO> dtolist = new ArrayList<>();
 		
 		for (OfficeStaffMember officeStaffMember : list)
 			dtolist.add(convertToOfficeStaffMemberDTO(officeStaffMember));

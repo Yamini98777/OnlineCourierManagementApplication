@@ -12,7 +12,6 @@ public class ComplaintDTO {
 
 	public ComplaintDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ComplaintDTO(int complaintid, int consignmentno, String shortdescription, String detaildescription, Customer customer) {

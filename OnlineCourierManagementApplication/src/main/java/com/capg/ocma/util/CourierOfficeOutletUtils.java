@@ -7,8 +7,15 @@ import com.capg.ocma.entities.CourierOfficeOutlet;
 import com.capg.ocma.model.CourierOfficeOutletDTO;
 
 public class CourierOfficeOutletUtils {
+	
+	
+	
+	private CourierOfficeOutletUtils() {
+		super();
+	}
+
 	public static List<CourierOfficeOutletDTO> converttoCourierOfficeOutletDtoList(List<CourierOfficeOutlet> list) {
-		List<CourierOfficeOutletDTO> dtolist = new ArrayList<CourierOfficeOutletDTO>();
+		List<CourierOfficeOutletDTO> dtolist = new ArrayList<>();
 		for (CourierOfficeOutlet CourierOfficeOutlet : list)
 			dtolist.add((CourierOfficeOutletDTO) converttoCourierOfficeOutletDTO(CourierOfficeOutlet));
 		return dtolist;

@@ -9,6 +9,7 @@ import com.capg.ocma.entities.CourierOfficeOutlet;
 @Component
 public class OfficeStaffMemberDTO 
 {
+	
 	protected int empid;
 	protected String name;
 	protected Address address;
