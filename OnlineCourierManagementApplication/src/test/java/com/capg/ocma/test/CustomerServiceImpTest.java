@@ -58,15 +58,97 @@ class CustomerServiceImpTest {
 			assertEquals("Complaint num cannot be empty", exception.getMessage());
 		}
 	}
+	
+	@Test
+	void testregisterComplaint1() throws ComplaintNotFoundException {
 
+		LOGGER.info("Testing registerComplaint()");
+		addr = new Address("east street", "Chennai", "Tamil Nadu", "India", 666666);
+		bank = new BankAccount(122, "art", "save");
+		customer = new Customer(2, 123456789, "arthy", "M", addr, 908067282, bank);
+		customerdao.save(customer);
+		complaint = new Complaint(5, 5, "string", "string", customer);
+		try
+		{
+			customerservice.registerComplaint(complaint);
+		}
+		catch(ComplaintNotFoundException exception)
+		{
+			assertEquals("Consignment num cannot be empty", exception.getMessage());
+		}
+	}
+
+	
+	@Test
+	void testregisterComplaint2() throws ComplaintNotFoundException {
+
+		LOGGER.info("Testing registerComplaint()");
+		addr = new Address("east street", "Chennai", "Tamil Nadu", "India", 666666);
+		bank = new BankAccount(122, "art", "save");
+		customer = new Customer(2, 123456789, "arthy", "M", addr, 908067282, bank);
+		customerdao.save(customer);
+		complaint = new Complaint(3, 120, "string", "string", customer);
+		try
+		{
+			customerservice.registerComplaint(complaint);
+		}
+		catch(ComplaintNotFoundException exception)
+		{
+			assertEquals("Complaint num cannot be empty", exception.getMessage());
+		}
+	}
+	
+	@Test
+	void testregisterComplaint3() throws ComplaintNotFoundException {
+
+		LOGGER.info("Testing registerComplaint()");
+		addr = new Address("east street", "Chennai", "Tamil Nadu", "India", 666666);
+		bank = new BankAccount(122, "art", "save");
+		customer = new Customer(2, 123456789, "arthy", "M", addr, 908067282, bank);
+		customerdao.save(customer);
+		complaint = new Complaint(3, 120, "string", "string", customer);
+		try
+		{
+			
+			assertEquals( 3,customerservice.registerComplaint(complaint).getComplaintid());
+			
+		}
+		catch(ComplaintNotFoundException exception)
+		{
+			assertEquals("Complaint num cannot be empty", exception.getMessage());
+		}
+	}
+	
+	
 	@Test
 	void testcheckOnlineTrackingStatus() throws CourierNotFoundException {
 
-		int consignmentNo=156;
+		try {
+			customerservice.checkOnlineTrackingStatus(156);
+		} catch (CourierNotFoundException exception) {
+			assertEquals(156, customerservice.checkOnlineTrackingStatus(156));
+		}
+
+	}
+	@Test
+	void testcheckOnlineTrackingStatus2() throws CourierNotFoundException {
+
+		int consignmentNo=0;
 		try {
 			customerservice.checkOnlineTrackingStatus(consignmentNo);
 		} catch (CourierNotFoundException exception) {
-			assertEquals("Consignment no should not be empty", exception.getMessage());
+			assertNull(0, customerservice.checkOnlineTrackingStatus(0));
+		}
+
+	}
+	@Test
+	void testcheckOnlineTrackingStatus3() throws CourierNotFoundException {
+
+		int consignmentNo=0;
+		try {
+			customerservice.checkOnlineTrackingStatus(consignmentNo);
+		} catch (CourierNotFoundException exception) {
+			assertNotEquals("Consignment no should not be empty", exception.getMessage());
 		}
 
 	}
@@ -75,4 +157,5 @@ class CustomerServiceImpTest {
 		LOGGER.info("Customer Testing Initiated");
 	}
 
+	
 }
