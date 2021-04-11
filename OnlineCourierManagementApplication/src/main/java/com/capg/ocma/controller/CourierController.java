@@ -35,6 +35,20 @@ public class CourierController
 	
 	static String courierNotFound = "courier not Found";
 	
+	/********************************************************************************************************************************
+	 * Method              : addCourier
+	 * Description         : It is used to add new courier details into courier table
+	 * @param courier      : Courier Object
+	 * @returns            : It returns CourierDTO Object with details
+	 * @PostMapping        : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception          : CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException
+	 * Created By          : SRINIVAS MADIVAL
+     * Created Date        : 05-04-2021 
+	 * 
+	 *********************************************************************************************************************************/
+	
+	
 	
 	@PostMapping("/addCourier")
 	 public ResponseEntity<CourierDTO> addCourier(@RequestBody Courier courier) throws CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException{
@@ -44,6 +58,19 @@ public class CourierController
 		return new ResponseEntity<>(courierResponse,HttpStatus.ACCEPTED);
 		
 		}
+	
+	/********************************************************************************************************************************
+	 * Method           : initiateShipmentTransaction
+	 * Description      : This operation enables to initiate the shipment transaction by setting the shipment status as INITIATED
+	 * @param courierId : int courierId
+	 * @returns         : It returns String Object with details
+	 * @GetMapping      : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CourierNotFoundException
+	 * Created By       : SRINIVAS MADIVAL
+     * Created Date     : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	
 	@GetMapping("/initiateShipment/{courierId}")
@@ -63,6 +90,21 @@ public class CourierController
 		
 	}
 	
+
+	/********************************************************************************************************************************
+	 * Method           : checkShipmentStatus
+	 * Description      : This operation provides facility to check the shipment status 
+	 * @param courierId : int courierId
+	 * @returns         : It returns String Object with details
+	 * @GetMapping      : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CourierNotFoundException
+	 * Created By       : SRINIVAS MADIVAL
+     * Created Date     : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
+	
+	
 	@GetMapping("/checkStatus/{courierId}")
 	public ResponseEntity <String> checkShipmentStatus(@PathVariable int courierId) throws CourierNotFoundException {
 		
@@ -70,6 +112,19 @@ public class CourierController
 			return new ResponseEntity <> ("The status of the courier with courier id "+courierId +" is: " + status, HttpStatus.OK);
 		
 	}
+	
+	/********************************************************************************************************************************
+	 * Method           : closeShipmentTransaction
+	 * Description      : This operation enables to Close the shipment transaction by setting the shipment status as DELIVERED
+	 * @param courierId : int courierId
+	 * @returns         : It returns String Object with details
+	 * @GetMapping      : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CourierNotFoundException
+	 * Created By       : SRINIVAS MADIVAL
+     * Created Date     : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/closeShipment/{courierId}")
 	public ResponseEntity <String> closeShipmentTransaction(@PathVariable int courierId) throws CourierNotFoundException
@@ -86,6 +141,20 @@ public class CourierController
 			}
 	}
 
+
+	/********************************************************************************************************************************
+	 * Method           : rejectShipmentTransaction
+	 * Description      : This operation enables to Close the shipment transaction by setting the shipment status as REJECTED
+	 * @param courierId : int courierId
+	 * @returns         : It returns String Object with details
+	 * @GetMapping      : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CourierNotFoundException
+	 * Created By       : SRINIVAS MADIVAL
+     * Created Date     : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
+	
 	@GetMapping("/rejectShipment/{courierId}")
 	public ResponseEntity <String> rejectShipmentTransaction(@PathVariable int courierId) throws CourierNotFoundException {
 		

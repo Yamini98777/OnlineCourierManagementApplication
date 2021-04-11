@@ -37,6 +37,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	 * Description  : This method adds new Office Outlet
 	 * Input Param  : CourierOfficeOutlet
 	 * Return Value : CourierOfficeOutletDTO Object 
+	 * Exception    : OutletClosedException,InvalidAddressException
 	 */
 	@Override
 	public CourierOfficeOutletDTO addNewOffice(CourierOfficeOutlet officeOutlet) throws OfficeDetailsNullException,InvalidAddressException  {
@@ -82,7 +83,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	}
 	
 	/*
-	 * Description  : This method will fetch the details of existing office by using office ID has reference.
+	 * Description  : This operation will fetch the details of existing office by using office ID has reference.
 	 * Input Param  : Integer
 	 * Return Value : CourierOfficeOutletDTO object
 	 * Exception    : OutletNotFoundException
@@ -104,8 +105,8 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		
 	}
 	/*
-	 * Description  : This method shows all existing Office outlets in the database
-	 * Return Value : List<OfficeStaffMemberDTO>
+	 * Description  : This operation shows all existing Office outlets in the database
+	 * Return Value : List<CourierOfficeOutletDTO>
 	 * Exception    : OutletNotFoundException
 	 */
 	@Override
@@ -122,10 +123,10 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDtoList(list);
 	}
 	/*
-	 * Description  : This method checks whether the office is opened now by taking the current system time as reference.
+	 * Description  : This operation checks whether the office is opened or Closed now by taking the current system time as reference.
 	 * Input Param  : Integer
 	 * Return Value : boolean
-	 * Exception    : 
+	 * Exception    : OutletClosedException
 	 */
 	
 
@@ -152,9 +153,10 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 			
 		}
 	
-	//Validations
+	
 	//VALIDATIONS 
-		
+	
+	//Office Details Validation 
 		public static boolean validateOfficeDetails(CourierOfficeOutlet officeOutlet) throws OfficeDetailsNullException
 		{
 		            boolean flag = false;
@@ -164,6 +166,8 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		            	flag = true;
 		            return flag;
 		}
+		
+	//Address Validation	
 		public static boolean validateAddressZip( CourierOfficeOutlet officeOutlet) throws InvalidAddressException {
 			
 			boolean flag = false;
@@ -173,7 +177,7 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 				throw new InvalidAddressException("Address Zip should not be empty");
 			
 			else if(size > 0 && size <7) 
-				throw new InvalidAddressException("Please Enter a valid Address Zip(within 7 digits)");
+				throw new InvalidAddressException("Please Enter a valid Address Zip(with 7 digits)");
 			else
 				flag = true;
 			return flag;

@@ -97,11 +97,11 @@ public class CustomerServiceImp implements ICustomerService {
 		}
 		else
 		{
+		    complaintEntity = complaintRepo.save(complaint);
 			
-			complaintEntity = complaintRepo.save(complaint);
-			logger.info("registerComplaint() service has executed");
 		}
-
+		logger.info("registerComplaint() service has executed");  
+		
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
 

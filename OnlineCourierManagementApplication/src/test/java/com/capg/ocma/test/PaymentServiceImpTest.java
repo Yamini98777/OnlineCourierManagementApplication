@@ -61,7 +61,7 @@ class PaymentServiceImpTest {
 	    BankAccount acct = new BankAccount(654753, "Pradhieep", "Savings" );
 	    Customer sender = new Customer(16, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
   	    Customer reciever = new Customer(17, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-	    Courier courier = new Courier(0, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
+	    Courier courier = new Courier(45, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
 	    shipmentService.addCourier(courier);
 	  
 	    try

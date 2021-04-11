@@ -1,6 +1,7 @@
 package com.capg.ocma.service;
 
 import org.slf4j.Logger;
+
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,12 @@ import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.repository.UserLoginDao;
 
+/*
+ * Author      : YAMINI C & JEGANNATH P S
+ * Version     : 1.0
+ * Date        : 04-04-2021
+ * Description : This is User Login service Layer
+*/
 
 @Service
 public class UserLoginServiceImp implements IUserLoginService {
@@ -20,6 +27,13 @@ public class UserLoginServiceImp implements IUserLoginService {
 	
 	static String userNotFound = "User Not Found With Entered ID";
 	
+	/*
+	 * Description  :  This operation lets the user to add a new user account
+	 * Input Param  :  Object User Details
+	 * Return Value :  Void
+	*/
+	 
+	
 	@Override
 	public void addUser(UserLogin user) {
 			
@@ -29,6 +43,14 @@ public class UserLoginServiceImp implements IUserLoginService {
 		repo.save(user);
 		
 	}
+	
+	/*
+	 * Description  :  This operation enables the customer to login with an UserID and Password
+	 * Input Param  :  object User
+	 * Return Value :  void
+	 * Exception    :  UserNotFoundException
+	 */
+
 
 	
 	public void userLogin(UserLogin user) throws UserNotFoundException {
@@ -53,7 +75,13 @@ public class UserLoginServiceImp implements IUserLoginService {
 		
 	}
 	
-	
+	/*
+	 * Description  :  This operation lets the management to remove User
+	 * Input Param  :  Long UserId
+	 * Return Value :  void
+	 * Exception    :  CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException
+	 */
+    
 	@Override
 	public void removeUser(long userId) throws UserNotFoundException {
 		
@@ -65,6 +93,14 @@ public class UserLoginServiceImp implements IUserLoginService {
 			repo.delete(user);
 		
 	}
+	
+	/*
+	 * Description  :  This operation lets the user to Update thier details
+	 * Input Param  :  Object User details
+	 * Return Value :  CourierDTO
+	 * Exception    :  CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException
+	 */
+
 
 	
 	public void updateUser(UserLogin user) throws UserNotFoundException {
@@ -84,7 +120,9 @@ public class UserLoginServiceImp implements IUserLoginService {
 	
 	
 	
+	//VALIDATIONS
 	
+	//User Name Validation
 	public static boolean validateUsername(String username) throws UserNotFoundException
 	{
 		boolean flag = false;
@@ -99,6 +137,7 @@ public class UserLoginServiceImp implements IUserLoginService {
 	
 	public static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 	
+	//Validation for User's Password Encryption
 	public String encryptPassword(String password)
 	{
 		int shiftKey=3;
@@ -114,6 +153,7 @@ public class UserLoginServiceImp implements IUserLoginService {
         return encryptedPassword;
 	}
 	
+	//Validations for User's Password Decryption
 	public String decryptPassword(String encryptedPassword)
 	{
 		int shiftKey=3;
