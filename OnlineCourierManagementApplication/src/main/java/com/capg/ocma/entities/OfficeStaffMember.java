@@ -10,28 +10,34 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name="office_staff_member")
-public class OfficeStaffMember 
-{
-	
+@Table(name = "office_staff_member")
+public class OfficeStaffMember {
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO )
-	@Column(name="emp_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "emp_id")
 	private int empid;
 	private String name;
 	private String role;
-	
+
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
-	
-	@ManyToOne
+
+	@ManyToOne(cascade = CascadeType.ALL)
 	private CourierOfficeOutlet officeOutlet;
-	
-	public OfficeStaffMember() 
-	{
+
+	public OfficeStaffMember() {
 		super();
+	}
+
+	public OfficeStaffMember(int empid, String name, String role, Address address, CourierOfficeOutlet officeOutlet) {
+		super();
+		this.empid = empid;
+		this.name = name;
+		this.role = role;
+		this.address = address;
+		this.officeOutlet = officeOutlet;
 	}
 
 	public int getEmpid() {
@@ -79,7 +85,5 @@ public class OfficeStaffMember
 		return "OfficeStaffMember [empid=" + empid + ", name=" + name + ", role=" + role + ", address=" + address
 				+ ", officeOutlet=" + officeOutlet + "]";
 	}
-	
-	
-	
+
 }

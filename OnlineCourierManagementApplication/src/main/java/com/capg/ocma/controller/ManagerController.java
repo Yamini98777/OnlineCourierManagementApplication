@@ -41,6 +41,18 @@ public class ManagerController {
 	
 	final Logger logger = LoggerFactory.getLogger(ManagerController.class);
 	
+	/********************************************************************************************************************************
+	 * Method              : addStaffMember 
+	 * Description         : It is used to add Office Staff Members into office_staff_member table
+	 * @param staffMember  : OfficeStaffMember Object
+	 * @returns            : It returns OfficeStaffMemberDTO Object with details
+	 * @PostMapping        : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception          : StaffMemberNotFoundException
+	 * Created By          : YAMINI C
+     * Created Date        : 05-04-2021 
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@PostMapping("/add-staff")
 	public ResponseEntity<OfficeStaffMemberDTO> addStaffMember(@RequestBody OfficeStaffMember staffMember) throws StaffMemberNotFoundException {
@@ -55,7 +67,18 @@ public class ManagerController {
 		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
 	
-	
+	/********************************************************************************************************************************
+	 * Method        : removeStaffMember
+	 * Description   : It is used to remove Staff Member from office_staff_member table
+	 * @param empId  : int empId
+	 * @returns      : It returns OfficeStaffMemberDTO Object with details
+	 * @DeleteMapping: It is used to handle the HTTP DELETE requests matched with given URI expression.
+	 * @RequestBody  : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception    : StaffMemberNotFoundException
+	 * Created By    : YAMINI C
+     * Created Date  : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@DeleteMapping("/delete-staff/{empId}")
 	public ResponseEntity<OfficeStaffMemberDTO> removeStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
@@ -70,24 +93,18 @@ public class ManagerController {
 		return new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
 	}
 	
-//	@DeleteMapping("/delete-staff/{empId}")
-//	public ResponseEntity<OfficeStaffMemberDTO> removeStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
-//		
-//		OfficeStaffMemberDTO staffMemberDTO = null;
-//		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
-//		
-//		if(ManagerServiceImp.validateEmpId(empId))
-//		{
-//			staffMemberDTO = managerService.removeStaffMember(empId);
-//			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
-//			logger.info("Staff member deleted");
-//		}
-//		else
-//			throw new StaffMemberNotFoundException("Invalid data");
-//		
-//		return staffMemberResponse;
-//	}
-	
+	/********************************************************************************************************************************
+	 * Method        : getStaffMember
+	 * Description   : It is used to view Staff Member from office_staff_member table
+	 * @param empId  : int empId
+	 * @returns      : It returns OfficeStaffMemberDTO Object with details
+	 * @GetMapping   : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody  : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception    : StaffMemberNotFoundException
+	 * Created By    : YAMINI C
+     * Created Date  : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/get-staff/{empId}")
 	public ResponseEntity<OfficeStaffMemberDTO> getStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
@@ -103,23 +120,16 @@ public class ManagerController {
 
 	}
 	
-//	@GetMapping("/get-staff/{empId}")
-//	public ResponseEntity<OfficeStaffMemberDTO> getStaffMember(@PathVariable int empId) throws StaffMemberNotFoundException  {
-//		
-//		OfficeStaffMemberDTO staffMemberDTO = null;
-//		ResponseEntity<OfficeStaffMemberDTO> staffMemberResponse = null;
-//		
-//		if(ManagerServiceImp.validateEmpId(empId))
-//		{
-//			staffMemberDTO = managerService.getStaffMember(empId);
-//			staffMemberResponse = new ResponseEntity<OfficeStaffMemberDTO>(staffMemberDTO, HttpStatus.ACCEPTED);
-//		}
-//		else
-//			throw new StaffMemberNotFoundException("No Staff Member available with given ID");
-//		return staffMemberResponse;
-//
-//	}
-	
+	/********************************************************************************************************************************
+	 * Method        : getAllStaffMembers
+	 * Description   : It is used to view all Staff Member from office_staff_member table
+	 * @returns      : It returns all List<OfficeStaffMemberDTO> Object with details
+	 * @GetMapping   : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody  : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By    : YAMINI C
+     * Created Date  : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/get-all-staff")
 	public List<OfficeStaffMemberDTO> getAllStaffMembers() {
@@ -129,6 +139,19 @@ public class ManagerController {
 		
 		return managerService.getAllStaffMembers();
 	}
+	
+	/********************************************************************************************************************************
+	 * Method           : getCourierStatus
+	 * Description      : It is used to view Courier Status from courier table
+	 * @param courierId : int courierId
+	 * @returns         : It returns String with courier status
+	 * @GetMapping      : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody     : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception       : CourierNotFoundException
+	 * Created By       : YAMINI C
+     * Created Date     : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/get-courier-status/{courierId}")
 	public String getCourierStatus(@PathVariable int courierId) throws CourierNotFoundException{
@@ -143,19 +166,19 @@ public class ManagerController {
 		return courierStatus;
 
 	}
-	
-//	@GetMapping("/get-courier-status/{courierId}")
-//	public String getCourierStatus(@PathVariable int courierId) throws CourierNotFoundException{
-//		
-//		String courierStatus;
-//		
-//		if(courierId <=0)
-//			throw new CourierNotFoundException("Invalid data");
-//		else
-//			courierStatus = managerService.getCourierStatus(courierId);
-//		return courierStatus;
-//
-//	}
+
+	/********************************************************************************************************************************
+	 * Method             : getRegistedComplaint
+	 * Description        : It is used to view Complaint from complaint table
+	 * @param complaintId : int complaintId
+	 * @returns           : It returns ComplaintDTO Object with details
+	 * @GetMapping        : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody       : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception         : ComplaintNotFoundException
+	 * Created By         : YAMINI C
+     * Created Date       : 05-04-2021
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/get-complaint-byid/{complaintId}")
 	public ResponseEntity<ComplaintDTO> getRegistedComplaint(@PathVariable int complaintId) throws ComplaintNotFoundException{
@@ -170,24 +193,16 @@ public class ManagerController {
 		return new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
 	}
 	
-//	@GetMapping("/get-complaint-byid/{complaintId}")
-//	public ResponseEntity<ComplaintDTO> getRegistedComplaint(@PathVariable int complaintId) throws ComplaintNotFoundException{
-//		
-//		ComplaintDTO complaintDTO = null;
-//		ResponseEntity<ComplaintDTO> complaintResponse = null;
-//		
-//		if(complaintId<=0)
-//		{
-//			throw new ComplaintNotFoundException("No Complaint available with given ID");
-//		}
-//		else
-//		{
-//			complaintDTO = managerService.getRegistedComplaint(complaintId);
-//			complaintResponse = new ResponseEntity<ComplaintDTO>(complaintDTO, HttpStatus.ACCEPTED);
-//		}
-//			
-//		return complaintResponse;
-//	}
+	/********************************************************************************************************************************
+	 * Method       : getAllComplaints
+	 * Description  : It is used to view all Complaint details present in complaint table
+	 * @returns     : It returns all List<ComplaintDTO> Object with details
+	 * @GetMapping  : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * Created By   : YAMINI C
+     * Created Date : 05-04-2021 
+	 * 
+	 *********************************************************************************************************************************/
 	
 	@GetMapping("/get-all-complaint")
 	public List<ComplaintDTO> getAllComplaints() {

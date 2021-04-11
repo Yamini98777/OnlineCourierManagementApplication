@@ -3,11 +3,8 @@ package com.capg.ocma.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
-
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -17,17 +14,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import com.capg.ocma.controller.ManagerController;
 import com.capg.ocma.entities.Address;
-import com.capg.ocma.entities.BankAccount;
-import com.capg.ocma.entities.Complaint;
-import com.capg.ocma.entities.Courier;
 import com.capg.ocma.entities.CourierOfficeOutlet;
-import com.capg.ocma.entities.Customer;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.exception.StaffMemberNotFoundException;
 import com.capg.ocma.service.IManagerService;
 
+@Disabled
 @SpringBootTest
 class ManagerServiceImpTest {
 
@@ -36,25 +30,162 @@ class ManagerServiceImpTest {
 
 	static CourierOfficeOutlet courierOfficeOutlet = null;
 	static OfficeStaffMember officeStaffMember = null;
-	static LocalTime openingTime = LocalTime.of(10, 43, 12);
-	static LocalTime closingTime = LocalTime.of(15, 29, 10);
+	
 
-	final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	final static Logger logger = LoggerFactory.getLogger(ManagerController.class);
 
-//	@Disabled
+	
+	
+	@BeforeAll
+	public static void init() {
+		
+		logger.info("Manager Testing Initiated");
+	}
+	
+	
+	@Disabled
 	@Test
 	void testAddStaffMember() throws StaffMemberNotFoundException {
 
-		logger.info("Testing testAddStaffMember");
+		logger.info("Testing testAddStaffMember()");
 
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 540002);
 		
-		officeStaffMember = new OfficeStaffMember(101, "Yamini", address, "Analyst");
-
+		courierOfficeOutlet = new CourierOfficeOutlet(89, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Yamini","Analyst", address, courierOfficeOutlet);
+		
 		assertEquals("Yamini", service.addStaffMember(officeStaffMember).getName());
 
 	}
 
+	@Disabled
+	@Test
+	void testAddStaffMember1() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember1()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129056);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(80, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Yamini","Analyst", address, courierOfficeOutlet);
+		
+		assertNotNull(service.addStaffMember(officeStaffMember));
+	}
+	
+	
+	@Disabled
+	@Test
+	void testAddStaffMember2() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember2()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Yamini","CEO", address, courierOfficeOutlet);
+		
+		try
+		{
+			service.addStaffMember(officeStaffMember);
+		}
+		catch(StaffMemberNotFoundException exception)
+		{
+			assertEquals("Invalid role", exception.getMessage());
+		}
+	}
+	
+	@Disabled
+	@Test
+	void testAddStaffMember3() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember3()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, null,"CEO", address, courierOfficeOutlet);
+		
+		try
+		{
+			service.addStaffMember(officeStaffMember);
+		}
+		catch(StaffMemberNotFoundException exception)
+		{
+			assertEquals("Name cannot be empty", exception.getMessage());
+		}
+	}
+	
+	
+	@Disabled
+	@Test
+	void testAddStaffMember4() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember4()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi22","CEO", address, courierOfficeOutlet);
+		
+		try
+		{
+			service.addStaffMember(officeStaffMember);
+		}
+		catch(StaffMemberNotFoundException exception)
+		{
+			assertEquals("Name cannot contain Numbers or Special Characters", exception.getMessage());
+		}
+	}
+	
+	@Disabled
+	@Test
+	void testAddStaffMember5() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember5()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi","Analyst#1", address, courierOfficeOutlet);
+		
+		try
+		{
+			service.addStaffMember(officeStaffMember);
+		}
+		catch(StaffMemberNotFoundException exception)
+		{
+			assertEquals("Role cannot contain Numbers or Special Characters", exception.getMessage());
+		}
+	}
+	
+	@Disabled
+	@Test
+	void testAddStaffMember6() throws StaffMemberNotFoundException {
+		
+		logger.info("Testing testAddStaffMember6()");
+		
+		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
+		
+		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
+		
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi", null, address, courierOfficeOutlet);
+		
+		try
+		{
+			service.addStaffMember(officeStaffMember);
+		}
+		catch(StaffMemberNotFoundException exception)
+		{
+			assertEquals("Role cannot be empty", exception.getMessage());
+		}
+	}
+	
 	
 	@Disabled
 	@Test
@@ -63,8 +194,10 @@ class ManagerServiceImpTest {
 		logger.info("Testing testRemoveStaffMember");
 
 		try {
-			service.removeStaffMember(3);
-		} catch (StaffMemberNotFoundException exception) {
+			service.removeStaffMember(17);
+		} 
+		catch (StaffMemberNotFoundException exception) 
+		{
 			assertEquals("No Staff Member found with given ID", exception.getMessage());
 		}
 	}
@@ -75,31 +208,53 @@ class ManagerServiceImpTest {
 	void testRemoveStaffMember1() throws StaffMemberNotFoundException {
 
 		logger.info("Testing testRemoveStaffMember1");
-
-		Address address = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600062);
 		  
-		officeStaffMember = new OfficeStaffMember(101, "Yamini", address, "Analyst");
-		  
-	    assertNotNull(service.removeStaffMember(101));
+	    assertNotNull(service.removeStaffMember(16));
 		 
 	}
 
 	
 	@Disabled
 	@Test
-	void testGetStaffMember() throws StaffMemberNotFoundException {
+	void testGetStaffMember1() throws StaffMemberNotFoundException {
 
-		logger.info("Testing testGetStaffMember");
+		logger.info("Testing testGetStaffMember1()");
 
-		assertEquals("Yamini", service.getStaffMember(3).getName());
+		assertEquals("Jasmine", service.getStaffMember(14).getName());
+	}
+	
+	@Disabled
+	@Test
+	void testGetStaffMember2() throws StaffMemberNotFoundException {
+
+		logger.info("Testing testGetStaffMember2()");
+
+		try
+		{
+			service.getStaffMember(0);
+		}
+		catch (StaffMemberNotFoundException exception) 
+		{
+			assertEquals("No Staff Member found with given ID", exception.getMessage());
+		}
+	}
+
+	@Disabled
+	@Test
+	void testGetStaffMember3() throws StaffMemberNotFoundException {
+
+		logger.info("Testing testGetStaffMember3()");
+		
+		assertNotNull(service.getStaffMember(14));
+		
 	}
 
 	
 	@Disabled
 	@Test
-	void testGetAllStaffMembers() {
+	void testGetAllStaffMembers1() {
 
-		logger.info("Testing testGetAllStaffMembers");
+		logger.info("Testing testGetAllStaffMembers1()");
 
 		assertNotNull(service.getAllStaffMembers());
 	}
@@ -107,42 +262,54 @@ class ManagerServiceImpTest {
 	
 	@Disabled
 	@Test
-	void testGetCourierStatus() throws CourierNotFoundException {
+	void testGetCourierStatus1() throws CourierNotFoundException {
 
-		logger.info("Testing testGetCourierStatus");
+		logger.info("Testing testGetCourierStatus1()");
 
-		LocalDate initiatedDate = LocalDate.of(2018, 1, 13);
-		LocalDate deliveredDate = LocalDate.of(2019, 1, 13);
-
-		Address address = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600062);
-
-		BankAccount acct = new BankAccount(22334455, "Yamini", "Savings");
-
-		Customer sender = new Customer(101, 12312, "Yamini", "C", address, 987321440, acct);
-
-		Customer receiver = new Customer(102, 123012, "Jyothi", "S", address, 987654329, acct);
-
-		Courier courier = new Courier(101, 1234, initiatedDate, deliveredDate, "Delivered", sender, receiver);
-
-//		assertEquals("Delivered", service.getCourierStatus(courier));
+		assertEquals("Delivered", service.getCourierStatus(9));
 	}
+	
+	@Disabled
+	@Test
+	void testGetCourierStatus2() throws CourierNotFoundException {
+
+		logger.info("Testing testGetCourierStatus2()");
+
+		try
+		{
+			service.getCourierStatus(0);
+		}
+		catch(CourierNotFoundException exception) 
+		{
+			assertEquals("No Courier found with given ID", exception.getMessage());
+		}
+	}
+
 
 	
 	@Disabled
 	@Test
-	void testGetRegistedComplaint() throws ComplaintNotFoundException {
+	void testGetRegistedComplaint1() throws ComplaintNotFoundException {
 
-		logger.info("Testing testGetRegistedComplaint");
+		logger.info("Testing testGetRegistedComplaint1()");
 
-		Address address = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600062);
+		assertNotNull(service.getRegistedComplaint(2));
+	}
+	
+	@Disabled
+	@Test
+	void testGetRegistedComplaint2() throws ComplaintNotFoundException {
 
-		BankAccount acct = new BankAccount(22334455, "Yamini", "Savings");
+		logger.info("Testing testGetRegistedComplaint2()");
 
-		Customer customer = new Customer(101, 12312, "Yamini", "C", address, 987321440, acct);
-
-		Complaint complaint = new Complaint(1234, 5678, "Late delivery", "Delivered after 1 week", customer);
-
-		assertNotNull(service.getRegistedComplaint(1234));
+		try
+		{
+			service.getRegistedComplaint(0);
+		}
+		catch(ComplaintNotFoundException exception) 
+		{
+			assertEquals("No Complaint found with given ID", exception.getMessage());
+		}
 	}
 
 	
@@ -152,15 +319,14 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testGetAllComplaints");
 
-		Address address = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600062);
-
-		BankAccount acct = new BankAccount(22334455, "Yamini", "Savings");
-
-		Customer customer = new Customer(101, 12312, "Yamini", "C", address, 987321440, acct);
-
-		Complaint complaint = new Complaint(1234, 5678, "Late delivery", "Delivered after 1 week", customer);
-
 		assertNotNull(service.getAllComplaints());
 	}
+	
+	@AfterAll
+	public static void end() {
+		
+		logger.info("Manager Testing Terminated");
+	}
+	
 
 }

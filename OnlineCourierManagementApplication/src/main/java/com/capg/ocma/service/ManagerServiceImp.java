@@ -227,7 +227,7 @@ public class ManagerServiceImp implements IManagerService {
 		boolean flag = false;
 		if(name == null)
 			throw new StaffMemberNotFoundException("Name cannot be empty");
-		else if(!name.matches("^[a-zA-Z]+$"))
+		else if(!name.matches("^[a-zA-Z ]+$"))
 			throw new StaffMemberNotFoundException("Name cannot contain Numbers or Special Characters");
 		else
 			flag = true;
@@ -249,7 +249,8 @@ public class ManagerServiceImp implements IManagerService {
 		
 		else if(role.equals("Analyst") || role.equals("Senior Analyst") || role.equals("Manager"))
 			flag = true;
-		
+		else
+			throw new StaffMemberNotFoundException("Invalid role");
 		return flag;
 	}
 

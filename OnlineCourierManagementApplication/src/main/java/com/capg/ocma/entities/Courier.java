@@ -25,10 +25,10 @@ public class Courier {
 
 	private String status;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Customer sender;
 
-	@OneToOne
+	@OneToOne(cascade=CascadeType.ALL)
 	private Customer receiver;
 
 	public Courier() {
