@@ -22,15 +22,15 @@ public class Courier {
 	private LocalDate initiatedDate;
 	private LocalDate deliveredDate;
 
-//	@Enumerated(EnumType.STRING)
+
 	private String status;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sendercourierId")
+	@JoinColumn(name = "senderCustomerId")
 	private Customer sender;
 
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "receivercourierId")
+	@JoinColumn(name = "receiverCustomerId")
 	private Customer receiver;
 
 	public Courier() {

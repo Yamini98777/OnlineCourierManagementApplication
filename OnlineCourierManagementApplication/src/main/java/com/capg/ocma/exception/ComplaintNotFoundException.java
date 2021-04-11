@@ -1,8 +1,8 @@
 package com.capg.ocma.exception;
 
-public class ComplaintNotFoundException extends Exception {
+public class ComplaintNotFoundException extends GlobalException {
 	public ComplaintNotFoundException(String message)
 	{
-		System.out.println(message);
+		super(message);
 	}
 }

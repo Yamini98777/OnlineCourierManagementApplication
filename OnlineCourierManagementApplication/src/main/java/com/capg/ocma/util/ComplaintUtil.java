@@ -31,18 +31,7 @@ public class ComplaintUtil {
 				
 				return complaintdto;
 			}
-			/*public static Complaint convertToComplaint(ComplaintDTO dto) {
-				Complaint complaint =new Complaint();
-				
-				complaint.setComplaintid(dto.getComplaintid());
-				complaint.setConsignmentno(dto.getConsignmentno());
-				complaint.setShortdescription(dto.getShortdescription());
-				complaint.setDetaildescription(dto.getDetaildescription());
-				
-
-				return complaint;
-				
-			}*/
+			
 
 }
 

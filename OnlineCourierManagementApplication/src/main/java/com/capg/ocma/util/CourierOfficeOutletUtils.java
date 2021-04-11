@@ -25,17 +25,5 @@ public class CourierOfficeOutletUtils {
 		return officedto;
 	}
 	
-	/*
-	 * public static CourierOfficeOutlet
-	 * converttoCourierOfficeOutlet(CourierOfficeOutletDTO officedto) {
-	 * CourierOfficeOutlet office = new CourierOfficeOutlet();
-	 * office.setOfficeid(office.getOfficeid());
-	 * office.setAddress(office.getAddress());
-	 * office.setOpeningTime(office.getOpeningTime());
-	 * office.setClosingTime(office.getClosingTime());
-	 * office.setStaffmembers(office.getStaffmembers()); return office;
-	 * 
-	 * }
-	 */
-
+	
 }

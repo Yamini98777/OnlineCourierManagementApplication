@@ -91,6 +91,10 @@ public class CustomerServiceImp implements ICustomerService {
 		{
 			throw new ComplaintNotFoundException("Invalid complaintId");
 		}
+		else if (!validateConsignmentNo(complaint.getConsignmentNo()))
+		{
+			throw new ComplaintNotFoundException("Invalid consignment no");
+		}
 		else
 		{
 			
@@ -173,12 +177,12 @@ public class CustomerServiceImp implements ICustomerService {
 	}
 
 //validate consignmentno
-	public static boolean validateConsignmentNo(long consignmentNo) throws ComplaintNotFoundException {
+	public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
 		
 		logger.info("validateConsignmentNo() is initiated");
 		
 		boolean flag = false;
-		String str = Long.toString(consignmentNo);
+		String str = Integer.toString(consignmentNo);
 		int size = str.length();
 		if (size == 0)
 			throw new ComplaintNotFoundException("Consignment no cant be empty");
