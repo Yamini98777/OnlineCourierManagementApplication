@@ -34,18 +34,18 @@ public class PaymentController {
 	/************************************************************************************
 	 * Method         : processPaymentByCash 
 	 * Description    : It is used to select the payment method by cash 
-	 * @param         : Courier Object
+	 * @param         : int courierId
 	 * @returns       : It returns CourierDTO Object with details
 	 * @GetMapping    : It is used for mapping HTTP GET requests onto specific handler methods.
 	 * @ResponseEntity: It represents the whole HTTP response: status code, headers, and body.
 	 * @exception     : CourierNotFoundException
 	 * Created By     - PRADHIEEP K
-     * Created Date   -  04-04-2021 
+     * Created Date   - 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	
 	@GetMapping("/byCash/{courierid}")
-	public ResponseEntity<?> processPaymentByCash(@PathVariable int courierId)  throws CourierNotFoundException {
+	public ResponseEntity<CourierDTO> processPaymentByCash(@PathVariable int courierId)  throws CourierNotFoundException {
 		
 		logger.info("byCash URL is opened");
 		logger.info("processPaymentByCash() is initiated");
@@ -59,13 +59,13 @@ public class PaymentController {
 	/************************************************************************************
 	 * Method         : processPaymentByCard 
 	 * Description    : It is used to select the payment method by card
-	 * @param         :  Object
+	 * @param         : long accountNo
 	 * @returns       : It returns ResponseEntity Payment process
 	 * @GetMapping    : It is used for mapping HTTP GET requests onto specific handler methods.
 	 * @ResponseEntity: It represents the whole HTTP response: status code, headers, and body.
-	 * @exception     : CourierNotFoundException
+	 * @exception     : AccountNotFoundException
 	 * Created By     - PRADHIEEP K
-     * Created Date   -  04-04-2021 
+     * Created Date   - 04-04-2021 
 	 * 
 	 ************************************************************************************/
 	

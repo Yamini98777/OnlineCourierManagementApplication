@@ -33,11 +33,13 @@ public class PaymentServiceImp implements IPaymentService{
 	@Autowired
 	private ICourierDao courierRepo;
 	
-	
 	/*
-	 * Description  : This method uses payment by cash 
-	 * Return Value : True
+	 * Description  : This method uses payment by Cash
+	 * Input Param  : int courierId
+	 * Return Value : CourierDTO Object
+	 * Exception    : CourierNotFoundException
 	 */
+	
 	@Override
 	public CourierDTO processPaymentByCash(int courierId) throws CourierNotFoundException {
 		
@@ -45,7 +47,7 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		Courier courier = courierRepo.findById(courierId).orElse(null);
 		
-		if(courier == null)
+		if(courierId <= 0)
 			
 			throw new CourierNotFoundException("No courier found with given courier ID");
 		
@@ -53,10 +55,10 @@ public class PaymentServiceImp implements IPaymentService{
 	}
 	
 	/*
-	 * Description  : This method uses payment by cash
-	 * Input Param  : Customer Object
-	 * Return Value : true
-	 * Exception    : CustomerNotFoundException
+	 * Description  : This method uses payment by Card
+	 * Input Param  : long accountNo
+	 * Return Value : Boolean
+	 * Exception    : AccountNotFoundException
 	 */
 	@Override
 	public boolean processPaymentByCard(long accountNo) throws AccountNotFoundException{
@@ -67,7 +69,7 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		boolean flag = false;
 		
-		if(bankAccount == null)
+		if(!validateBankAccount(bankAccount))
 			
 			throw new AccountNotFoundException("No Account found with given account number");
 		
@@ -79,13 +81,16 @@ public class PaymentServiceImp implements IPaymentService{
 		return flag;
 	}
 	
-/*	public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
+// VALIDATIONS
+	
+	public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
 	{
 		boolean flag = false;
 		if(bankAccount == null)
 			throw new AccountNotFoundException("Bank account details cannot be blank");
 		
-		else if(!(validateAccountNo(bankAccount.getAccountNo()) && validateAccountHolderName(bankAccount.getAccountHolderName())
+		else if(!(validateAccountNo(bankAccount.getAccountNo()) 
+				&& validateAccountHolderName(bankAccount.getAccountHolderName())
 				&& validateAccountType(bankAccount.getAccountType())))
 			throw new AccountNotFoundException("Invalid Data");
 		
@@ -93,13 +98,16 @@ public class PaymentServiceImp implements IPaymentService{
 			flag = true;
 		
 		return flag; 
-	} */
+	} 
 	
 	public static boolean validateAccountNo(long accountNo) throws AccountNotFoundException
 	{
 		boolean flag = false;
-		if(accountNo <= 0) 
-			throw new AccountNotFoundException("Invalild account No");
+		if(accountNo <= 0)  
+			throw new AccountNotFoundException("Account Number cannot be 0 or Negative");
+		
+		else if(!(accountNo >= 100 || accountNo <= 10000000))
+			throw new AccountNotFoundException("Account Number Range cannot be below 100 or above 10000000");
 		
 		else 
 				flag = true;
