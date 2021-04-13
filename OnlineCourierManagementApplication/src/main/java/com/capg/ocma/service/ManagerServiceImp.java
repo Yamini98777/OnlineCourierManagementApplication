@@ -26,7 +26,7 @@ import com.capg.ocma.util.OfficeStaffMemberUtil;
  * Author      : YAMINI C
  * Version     : 1.0
  * Date        : 04-04-2021
- * Description : This is Manager Service Layer
+ * Description : This is Manager Service Layer that provides operations such as add, delete and view staff members, view complaints and courier status.
 */
 
 

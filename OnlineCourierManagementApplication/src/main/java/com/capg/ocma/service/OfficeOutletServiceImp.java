@@ -22,7 +22,7 @@ import com.capg.ocma.util.CourierOfficeOutletUtils;
  * Author : JEGANNATH P S
  * Version : 1.0
  * Date : 04-04-2021
- * Description : This is Office outlet service Implementation layer which has implementaions from 
+ * Description : This is Office outlet service Implementation layer which has implementations from 
  * interface IOfficeOutletService.
 */
 
@@ -30,8 +30,9 @@ import com.capg.ocma.util.CourierOfficeOutletUtils;
 public class OfficeOutletServiceImp implements IOfficeOutletService {
 	
 	static final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	
 	@Autowired
-	IOfficeOutletDao repo;
+	private IOfficeOutletDao repo;
 	
 	/*
 	 * Description  : This method adds new Office Outlet

@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import com.capg.ocma.entities.CourierOfficeOutlet;
 
 /*
- * Author      : GOMATHI M
+ * Author      : JEGANNATH P S
  * Version     : 1.0
  * Date        : 03-04-2021
- * Description : This is Complaint Repository
+ * Description : This is Office outlet Repository
 */
 
 

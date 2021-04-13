@@ -25,14 +25,37 @@ import com.capg.ocma.exception.OutletNotFoundException;
 import com.capg.ocma.model.CourierOfficeOutletDTO;
 import com.capg.ocma.service.IOfficeOutletService;
 
+/*
+ * Author : JEGANNATH P S
+ * Version : 1.0
+ * Date : 05-04-2021
+ * Description : This is Office outlet Controller
+*/
 
 @RestController
 @RequestMapping("/api/ocma/Office")
 public class OfficeOutletController {
 
 	@Autowired
-	IOfficeOutletService officeService;
+	private IOfficeOutletService officeService;
+	
 	final Logger logger = LoggerFactory.getLogger(ManagerController.class);
+	
+	
+	
+	/********************************************
+	 * Method              : addNewOffice
+	 * Description         : It is used to add a new Office Outlet Details into courier_office_outlet table
+	 * @param officeOutlet : CourierOfficeOutlet Object
+	 * @returns            : It returns CourierOfficeOutletDTO Object with details
+	 * @PostMapping        : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception          : InvalidAddressException, OfficeDetailsNullException
+	 * Created By          : JEGANNATH P S
+     * Created Date        : 05-04-2021 
+	 * 
+	 *******************************************/
+	
 
 	@PostMapping("/addOffice")
 	public ResponseEntity<CourierOfficeOutletDTO> addNewOffice(@RequestBody CourierOfficeOutlet officeOutlet)
@@ -48,6 +71,21 @@ public class OfficeOutletController {
 
 		return officeResponse;
 	}
+	
+	/********************************************
+	 * Method              : removeNewOffice
+	 * Description         : It is used to Remove an Existing Office Outlet from the courier_office_outlet table
+	 * @param officeId     : CourierOfficeOutlet Object
+	 * @returns            : It returns CourierOfficeOutletDTO Object with details
+	 * @DeleteMapping      : It is used to handle the HTTP POST requests matched with given URI expression.
+	 * @RequestBody        : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception          : InvalidAddressException, OfficeDetailsNullException
+	 * Created By          : JEGANNATH P S
+     * Created Date        : 05-04-2021 
+	 * 
+	 *******************************************/
+	
+
 
 	@DeleteMapping("/deleteOffice/{officeId}")
 	public ResponseEntity<CourierOfficeOutletDTO> removeNewOffice(@PathVariable("officeId") int officeId)
@@ -62,6 +100,19 @@ public class OfficeOutletController {
 		return officeResponse;
 
 	}
+	
+	/********************************************
+	 * Method          : getOfficeInfo
+	 * Description     : It is used to Get Office outlet informations from courier_office_outlet table
+	 * @param officeId : int officeId
+	 * @returns        : It returns CourierOfficeOutletDTO  Object with details
+	 * @GetMapping     : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception      : OutletNotFoundException
+	 * Created By      : JEGANNATH P S
+     * Created Date    : 05-04-2021
+	 * 
+	 *******************************************/
 
 	@GetMapping("/getOffice/{officeId}")
 	public ResponseEntity<CourierOfficeOutletDTO> getOfficeInfo(@PathVariable("officeId") int officeId) throws OutletNotFoundException {
@@ -73,13 +124,42 @@ public class OfficeOutletController {
 		return officeresponse;
 
 	}
+	
+	/********************************************
+	 * Method          : getAllOfficesData
+	 * Description     : It is used to Get all of the Office outlet informations from courier_office_outlet table
+	 * @returns        : It returns all List<CourierOfficeOutletDTO> Object with details
+	 * @GetMapping     : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception      : OutletNotFoundException
+	 * Created By      : JEGANNATH P S
+     * Created Date    : 05-04-2021
+	 * 
+	 *******************************************/
 
-	@GetMapping("/getAllOffice")
+
+	@GetMapping("/getAllOfficeData")
 	public List<CourierOfficeOutletDTO> getAllOfficesData() throws OutletNotFoundException {
 
 	
 		return officeService.getAllOfficesData();
 	}
+	
+	
+
+	/********************************************
+	 * Method          : isOfficeOpenorClosed
+	 * Description     : It is used to get information about the office availability by checking with the current system time
+	 * @returns        : It returns String containing the office availability details
+	 * @param officeId : int officeId
+	 * @GetMapping     : It is used to handle the HTTP GET requests matched with given URI expression.
+	 * @RequestBody    : It used to bind the HTTP request/response body with a domain object in method parameter or return type.
+	 * @exception      : OutletClosedException
+	 * Created By      : JEGANNATH P S
+     * Created Date    : 05-04-2021
+	 * 
+	 *******************************************/
+
 
 	@GetMapping("/CheckOfficeAvailability/{officeId}")
 	public ResponseEntity<String> isOfficeOpenorClosed(@PathVariable("officeId") int officeId) throws OutletClosedException {

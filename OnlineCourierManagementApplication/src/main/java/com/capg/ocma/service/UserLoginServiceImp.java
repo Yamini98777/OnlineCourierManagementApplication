@@ -9,6 +9,12 @@ import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.repository.UserLoginDao;
 
+/*
+ * Author      : YAMINI C and JEGANNATH P S
+ * Version     : 1.0
+ * Date        : 07-04-2021
+ * Description : This is User Login Service Layer that provides operations such as add, login, update and delete user.
+*/
 
 @Service
 public class UserLoginServiceImp implements IUserLoginService {
