@@ -24,6 +24,7 @@ import com.capg.ocma.service.ICustomerService;
 import com.capg.ocma.service.IPaymentService;
 import com.capg.ocma.service.IShipmentService;
 
+
 @SpringBootTest
 class PaymentServiceImpTest {
 	
@@ -59,8 +60,8 @@ class PaymentServiceImpTest {
 		Address address1 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		Address address2 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 	    BankAccount acct = new BankAccount(654753, "Pradhieep", "Savings" );
-	    Customer sender = new Customer(16, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-  	    Customer reciever = new Customer(17, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+	    Customer sender = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+  	    Customer reciever = new Customer(3, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 	    Courier courier = new Courier(0, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
 	    shipmentService.addCourier(courier);
 	  
@@ -70,7 +71,7 @@ class PaymentServiceImpTest {
 	    }
 		catch(CourierNotFoundException exception)
 		{
-			assertEquals("Invalid Courier ID",exception.getMessage());
+			assertEquals("No courier found with given courier IDS",exception.getMessage());
 		}
 	}
 	
@@ -84,8 +85,8 @@ class PaymentServiceImpTest {
 		Address address1 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		Address address2 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 	    BankAccount acct = new BankAccount(654753, "Pradhieep", "Savings" );
-	    Customer sender = new Customer(16, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-  	    Customer reciever = new Customer(17, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+	    Customer sender = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+  	    Customer reciever = new Customer(3, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 	    Courier courier = new Courier(-1, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
 	    shipmentService.addCourier(courier);
 	  
@@ -95,7 +96,7 @@ class PaymentServiceImpTest {
 	    }
 		catch(CourierNotFoundException exception)
 		{
-			assertEquals("Invalid Courier ID",exception.getMessage());
+			assertEquals("No courier found with given courier ID",exception.getMessage());
 		}
 	}
 	
@@ -106,7 +107,7 @@ class PaymentServiceImpTest {
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(654753, "Pradhieep", "Savings");
-		customer = new Customer(140, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 		customerService.addCustomer(customer);
 		try
 		{
@@ -125,7 +126,7 @@ class PaymentServiceImpTest {
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(0, "Pradhieep", "Savings");
-		customer = new Customer(140, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 		customerService.addCustomer(customer);
 		try
 		{
@@ -144,7 +145,7 @@ class PaymentServiceImpTest {
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(-1, "Pradhieep", "Savings");
-		customer = new Customer(140, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 		customerService.addCustomer(customer);
 		try
 		{
@@ -163,7 +164,7 @@ class PaymentServiceImpTest {
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(99, "Pradhieep", "Savings");
-		customer = new Customer(140, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 		customerService.addCustomer(customer);
 		try
 		{
@@ -182,7 +183,7 @@ class PaymentServiceImpTest {
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(10000001, "Pradhieep", "Savings");
-		customer = new Customer(140, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 		customerService.addCustomer(customer);
 		try
 		{
