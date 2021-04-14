@@ -31,6 +31,13 @@ public class ShipmentServiceImp implements IShipmentService {
 	
 	@Autowired
 	ICourierDao courierDao;
+	
+	/*
+	 * Description  :  This operation lets the customer to add a new courier
+	 * Input Param  :  object courier Details
+	 * Return Value :  CourierDTO
+	 * Exception    :  CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException
+	 */
 
 	@Override
 	public CourierDTO addCourier(Courier courier) throws CourierNotFoundException, DateNotFoundException, ComplaintNotFoundException {
@@ -53,6 +60,13 @@ public class ShipmentServiceImp implements IShipmentService {
 		
 		return CourierUtil.convertToCourierDto(courierEntity);
 	}
+	
+	/*
+	 * Description  :  This operation enables to initiate the shipment transaction by setting the shipment status as INITIATED
+	 * Input Param  :  INTEGER CourierId
+	 * Return Value :  boolean
+	 * Exception    :  CourierNotFoundException
+	 */
 
 	@Override
 	public boolean initiateShipmentTransaction(int courierId) throws CourierNotFoundException {
@@ -69,6 +83,13 @@ public class ShipmentServiceImp implements IShipmentService {
 		return true;
 
 	}
+	
+	/*
+	 * Description  :  This operation provides facility to check the shipment status 
+	 * Input Param  :  INTEGER CourierId
+	 * Return Value :  boolean
+	 * Exception    :  CourierNotFoundException
+	 */
 
 	@Override
 	public String checkShipmentStatus(int courierId) throws CourierNotFoundException {
@@ -81,6 +102,13 @@ public class ShipmentServiceImp implements IShipmentService {
 			return courierDao.findById(courierId).orElse(null).getStatus();
 		}
 	}
+	
+	/*
+	 * Description  :  This operation enables to Close the shipment transaction by setting the shipment status as DELIVERED
+	 * Input Param  :  INTEGER CourierId
+	 * Return Value :  boolean
+	 * Exception    :  CourierNotFoundException
+	 */
 
 	@Override
 	public boolean closeShipmentTransaction(int courierId) throws CourierNotFoundException {
@@ -96,6 +124,13 @@ public class ShipmentServiceImp implements IShipmentService {
 		return true;
 
 	}
+	
+	/*
+	 * Description  :  This operation enables to reject the shipment transaction by setting the shipment status as REJECTED
+	 * Input Param  :  INTEGER CourierId
+	 * Return Value :  boolean
+	 * Exception    :  CourierNotFoundException
+	 */
 
 	@Override
 	public boolean rejectShipmentTransaction(int courierId) throws CourierNotFoundException {
@@ -114,9 +149,11 @@ public class ShipmentServiceImp implements IShipmentService {
 
 	}
 
-	// Validation
-
-public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
+	// Validations
+	
+	
+//Consignment number Validation
+        public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintNotFoundException {
 		
 		Logger.info("validateConsignmentNo() is initiated");
 		
@@ -136,7 +173,7 @@ public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintN
 	}
 
 	
-
+//Courier Status Validation
 	public static boolean validateCourierStatus(String status) throws CourierNotFoundException {
 		boolean flag = false;
 		if (status == null)
@@ -151,7 +188,7 @@ public static boolean validateConsignmentNo(int consignmentNo) throws ComplaintN
 
 		return flag;
 	}
-
+//Date Validation
 	public static boolean validateDate(LocalDate initiatedDate, LocalDate deliveredDate) throws DateNotFoundException {
 		if (initiatedDate == null || deliveredDate == null) {
 			throw new DateNotFoundException("Date should not be empty");
