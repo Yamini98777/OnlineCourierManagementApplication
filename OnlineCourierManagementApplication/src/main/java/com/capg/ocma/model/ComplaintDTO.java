@@ -2,6 +2,7 @@ package com.capg.ocma.model;
 
 import com.capg.ocma.entities.Customer;
 
+
 public class ComplaintDTO {
 
 	private int complaintid;

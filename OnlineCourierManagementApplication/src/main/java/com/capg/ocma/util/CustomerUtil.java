@@ -7,7 +7,6 @@ import java.util.List;
 import com.capg.ocma.entities.Customer;
 import com.capg.ocma.model.CustomerDTO;
 
-
 public class CustomerUtil {
 	
 	private CustomerUtil() {

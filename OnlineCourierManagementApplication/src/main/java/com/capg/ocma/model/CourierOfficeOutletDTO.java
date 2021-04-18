@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 
 import com.capg.ocma.entities.Address;
 
+
 @Component
 public class CourierOfficeOutletDTO {
 

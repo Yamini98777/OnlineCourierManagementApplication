@@ -1,5 +1,6 @@
 package com.capg.ocma.model;
 
+
 import org.springframework.stereotype.Component;
 
 @Component

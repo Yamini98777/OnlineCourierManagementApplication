@@ -51,6 +51,8 @@ public class PaymentServiceImp implements IPaymentService{
 			
 			throw new CourierNotFoundException("No courier found with given courier ID");
 		
+		logger.info(" Process Payment by cash has been executed");
+		
 		return CourierUtil.convertToCourierDto(courier);		
 	}
 	
@@ -69,9 +71,13 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		boolean flag = false;
 		
-		if(!validateBankAccount(bankAccount))
-			
-			throw new AccountNotFoundException("No Account found with given account number");
+		String str = Long.toString(accountNo);
+		long size = str.length();
+		if(accountNo <= 0 )  
+			throw new AccountNotFoundException("Account Number cannot be 0 or Negative");
+		
+		else if(size < 2 || size > 9 )
+			throw new AccountNotFoundException("Account Number size cannot be below 2 or above 9");
 		
 		else
 			flag = true;
@@ -80,66 +86,5 @@ public class PaymentServiceImp implements IPaymentService{
 		
 		return flag;
 	}
-	
-// VALIDATIONS
-	
-	public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
-	{
-		boolean flag = false;
-		if(bankAccount == null)
-			throw new AccountNotFoundException("Bank account details cannot be blank");
-		
-		else if(!(validateAccountNo(bankAccount.getAccountNo()) 
-				&& validateAccountHolderName(bankAccount.getAccountHolderName())
-				&& validateAccountType(bankAccount.getAccountType())))
-			throw new AccountNotFoundException("Invalid Data");
-		
-		else
-			flag = true;
-		
-		return flag; 
-	} 
-	
-	public static boolean validateAccountNo(long accountNo) throws AccountNotFoundException
-	{
-		boolean flag = false;
-		if(accountNo <= 0)  
-			throw new AccountNotFoundException("Account Number cannot be 0 or Negative");
-		
-		else if(!(accountNo >= 100 || accountNo <= 10000000))
-			throw new AccountNotFoundException("Account Number Range cannot be below 100 or above 10000000");
-		
-		else 
-				flag = true;
-		
-		return flag;
-	}
-	
-	public static boolean validateAccountHolderName(String accountHolderName) throws AccountNotFoundException{
-		boolean flag = false;
-		
-		if(accountHolderName == null)
-			throw new AccountNotFoundException("Account Holder Name cannot be empty ");
-		else if (!accountHolderName.matches("^[a-zA-Z ]+$"))
-			throw new AccountNotFoundException("Account Holder Name cannot contain Numbers or Special Characters");
-		else 
-			flag = true;
-		
-		return flag;
-		
-	}
-	
-	public static boolean validateAccountType(String accountType) throws AccountNotFoundException{
-		boolean flag = false;
-		
-		if(accountType == null)
-			throw new AccountNotFoundException("Account Type cannot be empty");
-		else if(!accountType.matches("^[a-zA-Z ]+$")) 
-			throw new AccountNotFoundException("Account Type cannot contain Numbers or Special Characters");
-		else if(accountType.equals("Current") || accountType.equals("Savings") || accountType.equals("Salary"))
-			flag = true;
-			
-		return flag;
-		
-	}
+
 }

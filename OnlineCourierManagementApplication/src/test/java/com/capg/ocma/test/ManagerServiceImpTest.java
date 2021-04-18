@@ -15,6 +15,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capg.ocma.controller.ManagerController;
 import com.capg.ocma.entities.Address;
 import com.capg.ocma.entities.CourierOfficeOutlet;
+import com.capg.ocma.entities.Manager;
 import com.capg.ocma.entities.OfficeStaffMember;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
@@ -39,17 +40,19 @@ class ManagerServiceImpTest {
 		logger.info("Manager Testing Initiated");
 	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	void testAddStaffMember() throws StaffMemberNotFoundException {
 
 		logger.info("Testing testAddStaffMember()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 540002);
 
-		courierOfficeOutlet = new CourierOfficeOutlet(89, address, "16:25:21", "08:30:33");
+		courierOfficeOutlet = new CourierOfficeOutlet(1001, address, "09:30:12.345", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Yamini", "Analyst", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Yamini", "Analyst", address, courierOfficeOutlet, managerId);
 
 		assertEquals("Yamini", service.addStaffMember(officeStaffMember).getName());
 
@@ -61,11 +64,13 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testAddStaffMember1()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129056);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(80, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Yamini", "Analyst", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Yamini", "Analyst", address, courierOfficeOutlet, managerId);
 
 		assertNotNull(service.addStaffMember(officeStaffMember));
 	}
@@ -76,11 +81,13 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testAddStaffMember2()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Yamini", "CEO", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Yamini", "CEO", address, courierOfficeOutlet, managerId);
 
 		try {
 			service.addStaffMember(officeStaffMember);
@@ -95,11 +102,13 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testAddStaffMember3()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, null, "CEO", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, null, "CEO", address, courierOfficeOutlet, managerId);
 
 		try {
 			service.addStaffMember(officeStaffMember);
@@ -108,17 +117,19 @@ class ManagerServiceImpTest {
 		}
 	}
 
-	@Disabled
+//	@Disabled
 	@Test
 	void testAddStaffMember4() throws StaffMemberNotFoundException {
 
 		logger.info("Testing testAddStaffMember4()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Jyothi22", "CEO", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi22", "CEO", address, courierOfficeOutlet, managerId);
 
 		try {
 			service.addStaffMember(officeStaffMember);
@@ -133,11 +144,13 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testAddStaffMember5()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Jyothi", "Analyst#1", address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi", "Analyst#1", address, courierOfficeOutlet, managerId);
 
 		try {
 			service.addStaffMember(officeStaffMember);
@@ -152,11 +165,13 @@ class ManagerServiceImpTest {
 
 		logger.info("Testing testAddStaffMember6()");
 
+		Manager managerId = new Manager(1);
+		
 		Address address = new Address("Ring Road", "Ongole", "Andhra Pradesh", "India", 129156);
 
 		courierOfficeOutlet = new CourierOfficeOutlet(70, address, "16:25:21", "08:30:33");
 
-		officeStaffMember = new OfficeStaffMember(101, "Jyothi", null, address, courierOfficeOutlet);
+		officeStaffMember = new OfficeStaffMember(101, "Jyothi", null, address, courierOfficeOutlet, managerId);
 
 		try {
 			service.addStaffMember(officeStaffMember);

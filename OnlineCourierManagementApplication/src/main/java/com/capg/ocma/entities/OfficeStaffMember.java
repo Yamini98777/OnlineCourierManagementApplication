@@ -24,20 +24,26 @@ public class OfficeStaffMember {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Address address;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private CourierOfficeOutlet officeOutlet;
+	
+	@ManyToOne
+	private Manager managerId;
+	
 
 	public OfficeStaffMember() {
 		super();
 	}
 
-	public OfficeStaffMember(int empid, String name, String role, Address address, CourierOfficeOutlet officeOutlet) {
+	public OfficeStaffMember(int empid, String name, String role, Address address, CourierOfficeOutlet officeOutlet,
+			Manager managerId) {
 		super();
 		this.empid = empid;
 		this.name = name;
 		this.role = role;
 		this.address = address;
 		this.officeOutlet = officeOutlet;
+		this.managerId = managerId;
 	}
 
 	public int getEmpid() {
@@ -80,10 +86,18 @@ public class OfficeStaffMember {
 		this.officeOutlet = officeOutlet;
 	}
 
+	public Manager getManagerId() {
+		return managerId;
+	}
+
+	public void setManagerId(Manager managerId) {
+		this.managerId = managerId;
+	}
+
 	@Override
 	public String toString() {
 		return "OfficeStaffMember [empid=" + empid + ", name=" + name + ", role=" + role + ", address=" + address
-				+ ", officeOutlet=" + officeOutlet + "]";
+				+ ", officeOutlet=" + officeOutlet + ", managerId=" + managerId + "]";
 	}
 
 }

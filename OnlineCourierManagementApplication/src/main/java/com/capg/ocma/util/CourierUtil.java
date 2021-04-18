@@ -6,7 +6,6 @@ import java.util.List;
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.model.CourierDTO;
 
-
 public class CourierUtil {
 	
 	

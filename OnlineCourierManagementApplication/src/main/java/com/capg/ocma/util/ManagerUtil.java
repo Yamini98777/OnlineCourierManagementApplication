@@ -30,7 +30,6 @@ public class ManagerUtil {
 		ManagerDTO dto = new ManagerDTO();
 		
 		dto.setManagerId(manager.getManagerId());
-		dto.setReportingstaffmembers(manager.getReportingStaffMembers());
 		
 		return dto;
 	}

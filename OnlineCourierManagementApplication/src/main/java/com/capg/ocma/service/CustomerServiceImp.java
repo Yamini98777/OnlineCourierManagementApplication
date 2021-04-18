@@ -2,11 +2,14 @@ package com.capg.ocma.service;
 
 
 
+import com.capg.ocma.exception.AccountNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capg.ocma.entities.BankAccount;
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Courier;
 import com.capg.ocma.entities.Customer;
@@ -51,11 +54,19 @@ public class CustomerServiceImp implements ICustomerService {
 	 *  Exception 			: CustomerNotFound
 	 */
 	@Override
-	public CustomerDTO addCustomer(Customer customer) {
+	public CustomerDTO addCustomer(Customer customer) throws CustomerNotFoundException,AccountNotFoundException{
 		
+		if(validateCustomer(customer)) {
+			if(validateBankAccount(customer.getAcct())) {
 	
 		 Customer cust= customerRepo.save(customer);
 		 return CustomerUtil.convertToCustomerDTO(cust);
+			}
+			else
+				throw new AccountNotFoundException("Invalid Data");
+	}
+		else
+			throw new CustomerNotFoundException("Invalid Customer details");
 	}
 
 	/*
@@ -105,24 +116,7 @@ public class CustomerServiceImp implements ICustomerService {
 		return ComplaintUtil.convertToComplaintDTO(complaintEntity);
 	}
 
-	/*
-	 * Description 			: This method validated the customerId 
-	 * Input Parameter		: CustomerId
-	 * object Return Value  : Boolean flag 
-	 * Exception 			: CustomerNotFoundException
-	 */
 	
-	public boolean validateCustomerId(int customerid) throws CustomerNotFoundException {
-		boolean flag = customerRepo.existsById(customerid);
-		if (flag == false)
-			throw new CustomerNotFoundException("customerid not found");
-		else {
-			logger.info(validationSuccessful);
-
-			flag = true;
-		}
-		return flag;
-	}
 
 	/*
 	 * Description 			: This method validated the Mobile no 
@@ -151,7 +145,7 @@ public class CustomerServiceImp implements ICustomerService {
 
 	/*
 	 * Description 			: This method validated the Aadhar no 
-	 * Input Parameter		: Aadhar no  
+	 * Input Parameter		: Aadhaar no  
 	 * object Return Value  : Boolean flag 
 	 * Exception 			: CustomerNotFoundException
 	 */
@@ -173,6 +167,49 @@ public class CustomerServiceImp implements ICustomerService {
 
 		return flag;
 	}
+	/*
+	 * Description 			: This method validated the FirstName and Last Name 
+	 * Input Parameter		: Customer
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: CustomerNotFoundException
+	 */
+	
+	
+	public static boolean validatesetName(Customer customer) throws CustomerNotFoundException {
+		logger.info("validatesetName() is initiated");
+		boolean flag = false;
+		String firstName = customer.getFirstName();
+		String lastName = customer.getLastName();
+		if (firstName==null || firstName.length()<2)
+			throw new CustomerNotFoundException("FirstName invalid");
+
+		else if (lastName==null)
+			throw new CustomerNotFoundException("Enter valid lastName");
+
+		else if (firstName.length()>2 && lastName.length()>=1)
+			flag = true;
+		logger.info("validatesetAadharno() has executed");
+
+		return flag;
+	}
+
+	public static boolean validateCustomer(Customer customer) throws CustomerNotFoundException
+	{
+		boolean flag = false;
+		if(customer == null)
+			throw new CustomerNotFoundException("Invalid Customer");
+		
+		else if(!(validatesetName(customer)) 
+				&& validatesetAadharno(customer.getAadharNo())
+				&& validateNumber(customer.getMobileNo()))
+			throw new CustomerNotFoundException("Invalid Data");
+		
+		else
+			flag = true;
+		
+		return flag; 
+	} 
+	
 
 	/*
 	 * Description 			: This method validated the Complaint Id 
@@ -225,7 +262,101 @@ public class CustomerServiceImp implements ICustomerService {
 		return flag;
 		
 	}
-
 	
-
-}
+// BANK ACCOUNT VALIDATIONS
+	
+	/*
+	 * Description 			: This is validation of Bank Account
+	 * Input Parameter		: bankAccount 
+	 * object Return Value  : Boolean flag 
+	 * Exception 			: AccountNotFoundException
+	 */
+	
+		public static boolean validateBankAccount(BankAccount bankAccount) throws AccountNotFoundException
+		{
+			boolean flag = false;
+			if(bankAccount == null)
+				throw new AccountNotFoundException("Bank account details cannot be blank");
+			
+			else if(!(validateAccountNo(bankAccount.getAccountNo()) 
+					&& validateAccountHolderName(bankAccount.getAccountHolderName())
+					&& validateAccountType(bankAccount.getAccountType())))
+				throw new AccountNotFoundException("Invalid Data");
+			
+			else
+				flag = true;
+			
+			return flag; 
+		} 
+		
+		/*
+		 * Description 			: This is validation of Bank Account Number
+		 * Input Parameter		: accountNo 
+		 * object Return Value  : Boolean flag 
+		 * Exception 			: AccountNotFoundException
+		 */
+	
+		
+		public static boolean validateAccountNo(long accountNo) throws AccountNotFoundException
+		{
+			boolean flag = false;
+			String str = Long.toString(accountNo);
+			long size = str.length();
+			if(accountNo <= 0 )  
+				throw new AccountNotFoundException("Account Number cannot be 0 or Negative");
+			
+			else if(size < 2 || size > 9 )
+				throw new AccountNotFoundException("Account Number size cannot be below 2 or above 9");
+			
+			else 
+					flag = true;
+			
+			return flag;
+		}
+		
+		/*
+		 * Description 			: This is validation of Bank Account Holder Name
+		 * Input Parameter		: accountHolderName
+		 * object Return Value  : Boolean flag 
+		 * Exception 			: AccountNotFoundException
+		 */
+		
+		public static boolean validateAccountHolderName(String accountHolderName) throws AccountNotFoundException{
+			boolean flag = false;
+			
+			if(accountHolderName == null)
+				throw new AccountNotFoundException("Account Holder Name cannot be empty ");
+		
+			else if (!accountHolderName.matches("^[a-zA-Z ]+$"))
+				throw new AccountNotFoundException("Account Holder Name cannot contain Numbers or Special Characters");
+			
+			else 
+				flag = true;
+			
+			return flag;
+			
+		}
+		
+		/*
+		 * Description 			: This is validation of Bank Account Type
+		 * Input Parameter		: accountType
+		 * object Return Value  : Boolean flag 
+		 * Exception 			: AccountNotFoundException
+		 */
+		
+		public static boolean validateAccountType(String accountType) throws AccountNotFoundException{
+			boolean flag = false;
+			
+			if(accountType == null)
+				throw new AccountNotFoundException("Account Type cannot be empty");
+			
+			else if(!accountType.matches("^[a-zA-Z ]+$")) 
+				throw new AccountNotFoundException("Account Type cannot contain Numbers or Special Characters");
+			
+			else if(accountType.equals("Current") || accountType.equals("Savings") || accountType.equals("Salary"))
+				flag = true;
+				
+			return flag;
+			
+		}
+	}

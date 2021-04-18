@@ -9,7 +9,6 @@ import com.capg.ocma.model.CourierOfficeOutletDTO;
 public class CourierOfficeOutletUtils {
 	
 	
-	
 	private CourierOfficeOutletUtils() {
 		super();
 	}

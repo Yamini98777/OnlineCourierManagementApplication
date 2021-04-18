@@ -35,11 +35,12 @@ class ShipmentServiceImpTest {
 		Address address1 = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600052);
 		Address address2 = new Address("Avadi High Rd", "Chennai", "Tamil Nadu", "India", 600063);
 		BankAccount acct = new BankAccount(70808060, "Sai Kiran", "Savings");
-		Customer sender = new Customer(2, 494949949, "sai", "kiran", address1, 64278235, acct);
+		Customer sender = new Customer(3, 494949949, "sai", "kiran", address1, 64278235, acct);
 		Customer reciever = new Customer(4, 585858585, "Krishna", "Kumar", address2, 64358545, acct);
-		Courier courier = new Courier(6, 202, initiatedDate, deliveryDate, "INITIATED", sender, reciever);
+		Courier courier = new Courier(6, 9000, initiatedDate, deliveryDate, "INITIATED", sender, reciever);
 		CourierDTO dto = service.addCourier(courier);
-		assertEquals("08/04/2021", dto.getInitiatedDate());
+		
+		assertEquals(9000, dto.getConsignmentno());
 	}
 
 	@Test
@@ -67,9 +68,9 @@ class ShipmentServiceImpTest {
 		BankAccount acct = new BankAccount(70808060, "Sai Kiran", "Savings");
 		Customer sender = new Customer(4, 494949949, "sai", "kiran", address1, 64278235, acct);
 		Customer reciever = new Customer(2, 585858585, "Krishna", "Kumar", address2, 64358545, acct);
-		Courier courier = new Courier(6, 202, initiatedDate, deliveryDate, "INITIATED", sender, reciever);
+		Courier courier = new Courier(6, 202, initiatedDate, deliveryDate, "DELIVERED", sender, reciever);
 		String check = service.checkShipmentStatus(courier.getCourierId());
-		assertEquals("INITIATED", check);
+		assertEquals("DELIVERED", check);
 	}
 
 	@Test

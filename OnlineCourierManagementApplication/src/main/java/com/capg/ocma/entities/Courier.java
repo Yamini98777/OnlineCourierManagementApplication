@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name = "courier")
 public class Courier {

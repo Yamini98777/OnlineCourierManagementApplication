@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+
+
 @Entity
 @Table(name="complaint")
 public class Complaint {

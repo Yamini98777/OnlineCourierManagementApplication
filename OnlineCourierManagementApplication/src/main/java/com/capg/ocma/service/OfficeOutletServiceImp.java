@@ -17,6 +17,7 @@ import com.capg.ocma.exception.OutletClosedException;
 import com.capg.ocma.exception.OutletNotFoundException;
 import com.capg.ocma.model.CourierOfficeOutletDTO;
 import com.capg.ocma.repository.IOfficeOutletDao;
+import com.capg.ocma.repository.IStaffMemberDao;
 import com.capg.ocma.util.CourierOfficeOutletUtils;
 /*
  * Author : JEGANNATH P S
@@ -33,6 +34,9 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 	
 	@Autowired
 	private IOfficeOutletDao repo;
+	
+	@Autowired
+	private IStaffMemberDao staffMemberRepo;
 	
 	/*
 	 * Description  : This method adds new Office Outlet
@@ -74,8 +78,11 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 		if(existOffice == null)
 		        throw new OutletNotFoundException("Office outlet not found");
 		else
+		{
+			staffMemberRepo.deleteByofficeId(officeId);
+			
 			repo.delete(existOffice);
-		
+		}
 		logger.info(" removeNewOffice() service has executed");
 		
 		return CourierOfficeOutletUtils.converttoCourierOfficeOutletDTO(existOffice);
@@ -173,8 +180,8 @@ public class OfficeOutletServiceImp implements IOfficeOutletService {
 			if (size == 0) 
 				throw new InvalidAddressException("Address Zip should not be empty");
 			
-			else if(size > 0 && size <7) 
-				throw new InvalidAddressException("Please Enter a valid Address Zip(within 7 digits)");
+			else if(size!=6) 
+				throw new InvalidAddressException("Please Enter a valid Address Zip(6 digits)");
 			else
 				flag = true;
 			return flag;

@@ -1,9 +1,12 @@
 package com.capg.ocma.test;
 
+import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -19,6 +22,7 @@ import com.capg.ocma.entities.Customer;
 import com.capg.ocma.exception.AccountNotFoundException;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
+import com.capg.ocma.exception.CustomerNotFoundException;
 import com.capg.ocma.exception.DateNotFoundException;
 import com.capg.ocma.service.ICustomerService;
 import com.capg.ocma.service.IPaymentService;
@@ -60,13 +64,12 @@ class PaymentServiceImpTest {
 		Address address1 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		Address address2 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 	    BankAccount acct = new BankAccount(654753, "Pradhieep", "Savings" );
-	    Customer sender = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-  	    Customer reciever = new Customer(3, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+	    Customer sender = new Customer(1, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+  	    Customer reciever = new Customer(1, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 	    Courier courier = new Courier(0, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
-	    shipmentService.addCourier(courier);
-	  
 	    try
 	    {
+	    	shipmentService.addCourier(courier);
 	    	paymentService.processPaymentByCash(courier.getCourierId());
 	    }
 		catch(CourierNotFoundException exception)
@@ -85,13 +88,12 @@ class PaymentServiceImpTest {
 		Address address1 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		Address address2 = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 	    BankAccount acct = new BankAccount(654753, "Pradhieep", "Savings" );
-	    Customer sender = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-  	    Customer reciever = new Customer(3, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+	    Customer sender = new Customer(1, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
+  	    Customer reciever = new Customer(1, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
 	    Courier courier = new Courier(-1, 202, initiateddate, deliverydate , "INITIATED", sender, reciever);
-	    shipmentService.addCourier(courier);
-	  
 	    try
 	    {
+	    	shipmentService.addCourier(courier);
 	    	paymentService.processPaymentByCash(courier.getCourierId());
 	    }
 		catch(CourierNotFoundException exception)
@@ -100,100 +102,126 @@ class PaymentServiceImpTest {
 		}
 	}
 	
+	
 	@Test
-	void testProcessPaymentByCard01() throws AccountNotFoundException {
+	void testProcessPaymentByCard01() throws AccountNotFoundException,CustomerNotFoundException{
 		
 		logger.info("Testing testProcessPaymentByCard01()");
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(654753, "Pradhieep", "Savings");
 		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-		customerService.addCustomer(customer);
 		try
 		{
-		    paymentService.processPaymentByCard(bank.getAccountNo());
+			customerService.addCustomer(customer);
+			paymentService.processPaymentByCard(customer.getAcct().getAccountNo());
 		}
 		catch(AccountNotFoundException exception)
 		{
 			assertEquals( "No Account found with given account number", exception.getMessage());
 		}	
+		catch(CustomerNotFoundException exception)
+		{
+			assertEquals("Invalid Customer details", exception.getMessage());
+		}
 	}
 	
 	@Test
-	void testProcessPaymentByCard02() throws AccountNotFoundException {
+	void testProcessPaymentByCard02() throws AccountNotFoundException,CustomerNotFoundException{
 		
 		logger.info("Testing testProcessPaymentByCard02()");
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(0, "Pradhieep", "Savings");
 		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-		customerService.addCustomer(customer);
 		try
 		{
-			paymentService.processPaymentByCard(bank.getAccountNo());
+			customerService.addCustomer(customer);
+			paymentService.processPaymentByCard(customer.getAcct().getAccountNo());
 		}
 		catch(AccountNotFoundException exception)
 		{
 			assertEquals( "Account Number cannot be 0 or Negative", exception.getMessage());
 		}	
-	}
-	
+		catch(CustomerNotFoundException exception)
+		{
+			assertEquals("Invalid Customer details", exception.getMessage());
+		}
+	}    
+			
 	@Test
-	void testProcessPaymentByCard03() throws AccountNotFoundException {
+	void testProcessPaymentByCard03() throws AccountNotFoundException,CustomerNotFoundException{
 		
 		logger.info("Testing testProcessPaymentByCard03()");
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
 		bank = new BankAccount(-1, "Pradhieep", "Savings");
 		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-		customerService.addCustomer(customer);
 		try
 		{
-			paymentService.processPaymentByCard(bank.getAccountNo());
+			customerService.addCustomer(customer);
+			paymentService.processPaymentByCard(customer.getAcct().getAccountNo());
 		}
 		catch(AccountNotFoundException exception)
 		{
 			assertEquals( "Account Number cannot be 0 or Negative", exception.getMessage());
 		}	
-	}
+		catch(CustomerNotFoundException exception)
+		{
+			assertEquals("Invalid Customer details", exception.getMessage());
+		}
+	}    
 	
 	@Test
-	void testProcessPaymentByCard04() throws AccountNotFoundException {
+	void testProcessPaymentByCard04() throws AccountNotFoundException,CustomerNotFoundException{
 		
 		logger.info("Testing testProcessPaymentByCard04()");
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
-		bank = new BankAccount(99, "Pradhieep", "Savings");
+		bank = new BankAccount(9, "Pradhieep", "Savings");
 		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-		customerService.addCustomer(customer);
 		try
 		{
-			paymentService.processPaymentByCard(654753);
+			customerService.addCustomer(customer);
+			paymentService.processPaymentByCard(customer.getAcct().getAccountNo());
 		}
 		catch(AccountNotFoundException exception)
 		{
-			assertEquals( "Account Number Range cannot be below 100 or above 10000000", exception.getMessage());
+			assertEquals( "Account Number size cannot be below 2 or above 9", exception.getMessage());
 		}	
-	} 
+		catch(CustomerNotFoundException exception)
+		{
+			assertEquals("Invalid Customer details", exception.getMessage());
+		}
+	}
 	
 	@Test
-	void testProcessPaymentByCard05() throws AccountNotFoundException {
+	void testProcessPaymentByCard05() throws AccountNotFoundException,CustomerNotFoundException{
 		
 		logger.info("Testing testProcessPaymentByCard05()");
 		
 		addr = new Address("East street", "Chennai", "Tamil Nadu", "India", 600021);
-		bank = new BankAccount(10000001, "Pradhieep", "Savings");
+		bank = new BankAccount(1111111111, "Pradhieep", "Savings");
 		customer = new Customer(2, 175956895, "Pradhieep", "K", addr, 1807774755, bank);
-		customerService.addCustomer(customer);
 		try
 		{
-			paymentService.processPaymentByCard(bank.getAccountNo());
+			customerService.addCustomer(customer);
+			paymentService.processPaymentByCard(customer.getAcct().getAccountNo());
 		}
 		catch(AccountNotFoundException exception)
 		{
-			assertEquals( "Account Number Range cannot be below 100 or above 10000000", exception.getMessage());
+			assertEquals( "Account Number size cannot be below 2 or above 9", exception.getMessage());
 		}	
-	}
+		catch(CustomerNotFoundException exception)
+		{
+			assertEquals("Invalid Customer details", exception.getMessage());
+		}
+	}    
 	
-			
+	@AfterAll
+	public static void end() {
+
+		logger.info("Payment Testing Terminated");
+	}
+
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.ocma.entities.Complaint;
 import com.capg.ocma.entities.Customer;
+import com.capg.ocma.exception.AccountNotFoundException;
 import com.capg.ocma.exception.ComplaintNotFoundException;
 import com.capg.ocma.exception.CourierNotFoundException;
 import com.capg.ocma.exception.CustomerNotFoundException;
@@ -28,7 +29,7 @@ public class ComplaintController {
 
 		@Autowired
 		private ICustomerService customerService;
-		/********************************************
+		/****************
 		 * Method              : checkCourierStatusAction 
 		 * Description         : It is used to check the status of the courier
 		 * @param courier      : Courier consignmentNo
@@ -39,7 +40,7 @@ public class ComplaintController {
 		 * Created By          : GOMATHI M 
 	     * Created Date        : 05-04-2021 
 		 * 
-		 *******************************************/
+		 ***************/
 		
 		
 		
@@ -52,7 +53,7 @@ public class ComplaintController {
 				return response;
 		}
 		
-		/********************************************
+		/****************
 		 * Method              : registerComplaint 
 		 * Description         : It is used to registerComplaint into complaint table
 		 * @param staffMember  : Complaint Object
@@ -63,7 +64,7 @@ public class ComplaintController {
 		 * Created By          : GOMATHI M
 	     * Created Date        : 05-04-2021 
 		 * 
-		 *******************************************/
+		 ***************/
 		
 		
 		@PostMapping("/add-complaint")
@@ -81,7 +82,7 @@ public class ComplaintController {
 			
 		}
 		
-		/********************************************
+		/****************
 		 * Method              : addcustomer 
 		 * Description         : It is used to add Customer into Customer table
 		 * @param staffMember  : Customer Object
@@ -92,11 +93,11 @@ public class ComplaintController {
 		 * Created By          : GOMATHI M
 	     * Created Date        : 05-04-2021 
 		 * 
-		 *******************************************/
+		 ***************/
 		
 		
 		@PostMapping("/add-customer")
-		public ResponseEntity<CustomerDTO> addcustomer(@RequestBody Customer customer) throws CustomerNotFoundException{
+		public ResponseEntity<CustomerDTO> addcustomer(@RequestBody Customer customer) throws CustomerNotFoundException, AccountNotFoundException{
 			CustomerDTO customerDTO=null;
 			ResponseEntity<CustomerDTO> customerResponse=null;
 			

@@ -33,6 +33,7 @@ public class OfficeStaffMemberUtil {
 		dto.setRole(officeStaffMember.getRole());
 		dto.setAddress(officeStaffMember.getAddress());
 		dto.setOffice(officeStaffMember.getOfficeOutlet());
+		dto.setManagerId(officeStaffMember.getManagerId());
 
 		return dto;
 		

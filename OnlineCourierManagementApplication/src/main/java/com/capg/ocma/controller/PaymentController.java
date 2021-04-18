@@ -31,7 +31,7 @@ public class PaymentController {
 	@Autowired
 	private IPaymentService paymentService;
 	
-	/****************************
+	/**********
 	 * Method         : processPaymentByCash 
 	 * Description    : It is used to select the payment method by cash 
 	 * @param         : int courierId
@@ -42,9 +42,9 @@ public class PaymentController {
 	 * Created By     - PRADHIEEP K
      * Created Date   - 04-04-2021 
 	 * 
-	 ****************************/
+	 **********/
 	
-	@GetMapping("/byCash/{courierid}")
+	@GetMapping("/byCash/{courierId}")
 	public ResponseEntity<CourierDTO> processPaymentByCash(@PathVariable int courierId)  throws CourierNotFoundException {
 		
 		logger.info("byCash URL is opened");
@@ -56,7 +56,7 @@ public class PaymentController {
 		
 	}
 	
-	/****************************
+	/**********
 	 * Method         : processPaymentByCard 
 	 * Description    : It is used to select the payment method by card
 	 * @param         : long accountNo
@@ -67,7 +67,7 @@ public class PaymentController {
 	 * Created By     - PRADHIEEP K
      * Created Date   - 04-04-2021 
 	 * 
-	 ****************************/
+	 **********/
 	
 	@GetMapping("/byCard/{accountNo}")
 	public ResponseEntity<String> processPaymentByCard(@PathVariable long accountNo) throws AccountNotFoundException{
