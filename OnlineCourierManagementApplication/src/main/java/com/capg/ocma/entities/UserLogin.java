@@ -11,19 +11,16 @@ import javax.persistence.Id;
 public class UserLogin {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long userId;
-	private String username;
 	private String password;
 
 	public UserLogin() {
 		super();
 	}
 
-	public UserLogin(long userId, String username, String password) {
+	public UserLogin(long userId, String password) {
 		super();
 		this.userId = userId;
-		this.username = username;
 		this.password = password;
 	}
 
@@ -33,14 +30,6 @@ public class UserLogin {
 
 	public void setUserId(long userId) {
 		this.userId = userId;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getPassword() {
@@ -53,7 +42,7 @@ public class UserLogin {
 
 	@Override
 	public String toString() {
-		return "UserLogin [userId=" + userId + ", username=" + username + ", password=" + password + "]";
+		return "UserLogin [userId=" + userId + ", password=" + password + "]";
 	}
 
 }

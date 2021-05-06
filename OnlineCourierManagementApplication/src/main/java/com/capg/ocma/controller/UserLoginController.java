@@ -4,7 +4,11 @@ package com.capg.ocma.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.ocma.entities.UserLogin;
 import com.capg.ocma.exception.UserNotFoundException;
 import com.capg.ocma.service.IUserLoginService;
-import com.capg.ocma.service.UserLoginServiceImp;
+
 
 
 /*
@@ -24,7 +28,7 @@ import com.capg.ocma.service.UserLoginServiceImp;
  * Date : 07-04-2021
  * Description : This is User Login Controller
 */
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("api/ocma/login")
 public class UserLoginController {
@@ -50,15 +54,14 @@ public class UserLoginController {
 	 *********************************************************************************************************************************/
 	
 	@PostMapping("/add-user")
-	public void addUser(@RequestBody UserLogin user) throws UserNotFoundException {
+	public ResponseEntity<String> addUser(@RequestBody UserLogin user) throws UserNotFoundException {
+	
+           	service.addUser(user);
+           	logger.info("User Added successfully.");
+		return new ResponseEntity<>("User Added Successfuly",HttpStatus.ACCEPTED);
 		
-		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
-			throw new UserNotFoundException(userNotFoundException);
-		else
-			service.addUser(user);
-		
-		logger.info("User logged-in successfully.");
 	}
+	
 
 	/********************************************************************************************************************************
 	 * Method              : userLogin 
@@ -73,15 +76,20 @@ public class UserLoginController {
 	 *********************************************************************************************************************************/
 	
 	@PostMapping("/user-login")
-	public void userLogin(@RequestBody UserLogin user) throws UserNotFoundException {
-		
-		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
-			throw new UserNotFoundException(userNotFoundException);
-		else
-			service.userLogin(user);
-		
-		logger.info("User logged-in successfully.");
+	public ResponseEntity<String> userLogin(@RequestBody UserLogin user) throws UserNotFoundException
+	{
+	  if(user.getPassword().equals("")||user.getUserId() == 0) {
+		  return new ResponseEntity<>("Please Enter Valid User ID and password",HttpStatus.ACCEPTED);
+	  }
+	  else {
+		  service.userLogin(user);
+			logger.info("User Logged in Successfully.");
+			return new ResponseEntity<>("User Logged In Successfuly",HttpStatus.ACCEPTED);
+	  }
+       	
 	}
+
+
 	
 	/********************************************************************************************************************************
 	 * Method              : removeUser 
@@ -94,11 +102,12 @@ public class UserLoginController {
 	 *********************************************************************************************************************************/
 	
 	@DeleteMapping("/delete-user/{userId}")
-	public void removeUser(@PathVariable long userId) throws UserNotFoundException 
+	public ResponseEntity<String>  removeUser(@PathVariable long userId) throws UserNotFoundException 
 	{
 		service.removeUser(userId);
 		
 		logger.info("User deleted in successfully.");
+		return new ResponseEntity<>("User deleted Successfuly",HttpStatus.ACCEPTED);
 	}
 
 	/********************************************************************************************************************************
@@ -113,14 +122,13 @@ public class UserLoginController {
 	 *********************************************************************************************************************************/
 
 	@PutMapping("/update-user")
-	public void updateUser(@RequestBody UserLogin user) throws UserNotFoundException {
+	public ResponseEntity<String>  updateUser(@RequestBody UserLogin user) throws UserNotFoundException {
 		
-		if(!UserLoginServiceImp.validateUsername(user.getUsername()))
-			throw new UserNotFoundException(userNotFoundException);
-		else
+		
 			service.updateUser(user);
 		
 		logger.info("User updated successfully.");
+		return new ResponseEntity<>("User Updated Successfuly",HttpStatus.ACCEPTED);
 	}
 
 }

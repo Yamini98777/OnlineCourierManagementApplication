@@ -27,7 +27,18 @@ public class UserLoginServiceImp implements IUserLoginService {
 	static String userNotFound = "User Not Found With Entered ID";
 	
 	@Override
-	public void addUser(UserLogin user) {
+	public void addUser(UserLogin user) throws UserNotFoundException {
+		
+		String password = user.getPassword();
+		
+		UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
+		if(existUser != null) {
+			throw new UserNotFoundException("UserId is already taken");
+		}
+		else if(password.equals("")){
+			throw new UserNotFoundException("Password should not be Empty");
+		}
+		else {
 			
 		String encryptedPassword;
 		encryptedPassword = encryptPassword(user.getPassword());
@@ -35,26 +46,31 @@ public class UserLoginServiceImp implements IUserLoginService {
 		repo.save(user);
 		
 	}
+	}
 
 	
 	public void userLogin(UserLogin user) throws UserNotFoundException {
 		
-		UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
 		
 		String encryptedPassword;
 		String decryptedPassword;
 		
-		if(existUser == null) {
+		if(!repo.existsById(user.getUserId())) {
 			throw new UserNotFoundException("User with the entered user ID does not exist");
 		}
+		else if(user.getPassword().equals("")) {
+			throw new UserNotFoundException("Please Enter a Valid Password");
+		}
 		else {
+
+			UserLogin existUser = repo.findById(user.getUserId()).orElse(null);
 			encryptedPassword = existUser.getPassword();			
 			decryptedPassword = decryptPassword(encryptedPassword);
 			
 			if(user.getPassword().equals(decryptedPassword)) 
 				logger.info("Valid User");
 			else 
-				throw new UserNotFoundException("Wrong password!");
+				throw new UserNotFoundException("Password doesn't match!");
 		}
 		
 	}
@@ -88,20 +104,6 @@ public class UserLoginServiceImp implements IUserLoginService {
 		}
 	}
 	
-	
-	
-	
-	public static boolean validateUsername(String username) throws UserNotFoundException
-	{
-		boolean flag = false;
-		if(username == null)
-			throw new UserNotFoundException("Username cannot be empty");
-		else if(!username.matches("^[a-zA-Z]+$"))
-			throw new UserNotFoundException("Username cannot contain Numbers or Special Characters");
-		else
-			flag = true;
-		return flag;
-	}
 	
 //	Caesar Cipher Encryption technique
 	
